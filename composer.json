@@ -41,15 +41,17 @@
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
         ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
-        ],
         "copy-env": [
-            "copy .env.example .env /Y",
-            "copy .env.example .env.dusk.local /Y"
+            "@php -r \"copy('.env.example', '.env');\""
+        ],
+        "copy-env-dusk": [
+            "@php -r \"copy('.env.example', '.env.dusk.local');\""
+        ],
+        "post-install-cmd": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php -r \"file_exists('.env.dusk.local') || copy('.env.example', '.env.dusk.local');\"",
+            "@php artisan key:generate --ansi",
+            "@php artisan key:generate --env=dusk.local --ansi"
         ]
     },
     "extra": {
