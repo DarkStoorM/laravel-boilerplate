@@ -1,69 +1,74 @@
 {
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
+  "name": "laravel/laravel",
+  "type": "project",
+  "description": "The Laravel Framework.",
+  "keywords": [
+    "framework",
+    "laravel"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^7.3|^8.0",
+    "fideloper/proxy": "^4.4",
+    "filp/whoops": "^2.13",
+    "fruitcake/laravel-cors": "^2.0",
+    "guzzlehttp/guzzle": "^7.0.1",
+    "laravel/framework": "^8.40",
+    "laravel/tinker": "^2.5",
+    "spatie/laravel-sluggable": "^2.6"
+  },
+  "require-dev": {
+    "fakerphp/faker": "^1.9.1",
+    "laravel/dusk": "^6.15",
+    "laravel/sail": "^1.0.1",
+    "mockery/mockery": "^1.4.2",
+    "nunomaduro/collision": "^5.0",
+    "phpunit/php-code-coverage": "^9.2",
+    "phpunit/phpunit": "^9.3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
     ],
-    "license": "MIT",
-    "require": {
-        "php": "^7.3|^8.0",
-        "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.40",
-        "laravel/tinker": "^2.5"
-    },
-    "require-dev": {
-        "facade/ignition": "^2.5",
-        "fakerphp/faker": "^1.9.1",
-        "laravel/dusk": "^6.15",
-        "laravel/sail": "^1.0.1",
-        "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
-        ],
-        "copy-env": [
-            "@php -r \"copy('.env.example', '.env');\""
-        ],
-        "copy-env-dusk": [
-            "@php -r \"copy('.env.example', '.env.dusk.local');\""
-        ],
-        "post-install-cmd": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "@php -r \"file_exists('.env.dusk.local') || copy('.env.example', '.env.dusk.local');\"",
-            "@php artisan key:generate --ansi",
-            "@php artisan key:generate --env=dusk.local --ansi"
-        ]
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "copy-env": [
+      "@php -r \"copy('.env.example', '.env');\""
+    ],
+    "copy-env-dusk": [
+      "@php -r \"copy('.env.example', '.env.dusk.local');\""
+    ],
+    "post-install-cmd": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "@php -r \"file_exists('.env.dusk.local') || copy('.env.example', '.env.dusk.local');\"",
+      "@php artisan key:generate --ansi",
+      "@php artisan key:generate --env=dusk.local --ansi"
+    ],
+    "test": [
+      "vendor/bin/phpunit --verbose --coverage-html tests/reports"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
