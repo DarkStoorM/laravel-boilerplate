@@ -1,0 +1,20 @@
+/*
+ |--------------------------------------------------------------------------
+ | Main SASS Import File
+ |--------------------------------------------------------------------------
+ |
+ | This file should only import the SASS files and contain no CSS rules at all.
+ |
+ */
+
+// Import Variables
+@import 'variables/colors';
+@import 'variables/fonts';
+@import 'variables/globals';
+
+// Import functions and mixin
+@import 'utils/functions';
+@import 'utils/mixins';
+
+// Import Layout files
+@import 'bem/layout/main';

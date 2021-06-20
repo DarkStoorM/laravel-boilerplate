@@ -1,0 +1,17 @@
+/*
+ |--------------------------------------------------------------------------
+ | Font Variables
+ |--------------------------------------------------------------------------
+ |
+ | Use this file to declare / import fonts
+ |
+ */
+
+// Font Imports
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+$main-font-fallbacks: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+  sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+
+// Laravel suggests Nunito as the default font. It looks really nice, but everyone has his own preferences
+$main-font: 'Nunito', sans-serif;

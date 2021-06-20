@@ -1,0 +1,17 @@
+html {
+  line-height: $base-line-height;
+  -webkit-text-size-adjust: $base-line-height;
+  font-family: $main-font, $main-font-fallbacks;
+}
+
+body {
+  margin: 0;
+  background-color: $main-background-color-dark;
+  color: $main-font-color;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}

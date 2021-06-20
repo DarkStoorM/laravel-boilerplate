@@ -1,0 +1,24 @@
+/*
+ |--------------------------------------------------------------------------
+ | Global Variables
+ |--------------------------------------------------------------------------
+ |
+ | This file should declare global variables apart from Colors, which are
+ | used mainly for container sizes and font settings.
+ |
+ */
+
+/*
+ |--------------------------------------------------------------------------
+ | Typography
+ |--------------------------------------------------------------------------
+ |
+ | According to the CSS guidelines, the most optimal setting for most of the
+ | screens is font size of 16pt and 140% line-height. Anything Between
+ | 140%-200% is fine, but for most fonts 140% should yield the best results.
+ |
+ */
+$font-size-base: 16pt;
+
+// 140% is considered "sweet spot"
+$base-line-height: 140%;
