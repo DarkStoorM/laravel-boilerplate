@@ -50,6 +50,8 @@
       "@php -r \"copy('.env.example', '.env.dusk.local');\""
     ],
     "post-install-cmd": [
+      "npm i",
+      "npm audit fix",
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
       "@php -r \"file_exists('.env.dusk.local') || copy('.env.example', '.env.dusk.local');\"",
       "@php artisan key:generate --ansi",
@@ -57,6 +59,12 @@
     ],
     "test": [
       "vendor/bin/phpunit --verbose --coverage-html tests/reports"
+    ],
+    "coverage-ff": [
+      "start firefox \"%cd%\\tests\\reports\\index.html\""
+    ],
+    "coverage-chrome": [
+      "start chrome \"%cd%\\tests\\reports\\index.html\""
     ]
   },
   "extra": {
