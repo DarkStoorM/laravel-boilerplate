@@ -79,7 +79,7 @@ Before running the tests:
 To "install" Xdebug, follow these steps:
 
 - Run ```php -i```
-- Visit https://xdebug.org/wizard and paste the contents of the below command
+- Visit [Xdebug Installation Wizard](https://xdebug.org/wizard) and paste the contents of the below command
 - The Wizard will suggest the proper binaries, and the required modifications to ```php.ini```
 
 The paths may vary, make sure to specify the proper path to Xdebug extension in your ```php.ini```
