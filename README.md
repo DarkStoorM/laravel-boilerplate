@@ -105,6 +105,7 @@ By default, Code Coverage will generate reports for the following paths:
 - ./app/Models
 - ./app/Helpers
 - ./app/Libs
+- ./routes/web
 
 Add custom paths while developing.
 
