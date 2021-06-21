@@ -56,7 +56,7 @@ class ExecutionTimeMeasurement
     /**
      * Modified immediately in the constructor. If a callback has been passed, this will ignore calling finish();
      */
-    private bool $inCallbackMode = false;
+    private bool $isTestingCallback = false;
 
     /**
      * Indicates that the timer has been started in some way (manually, by parameter or a Callback).
@@ -67,7 +67,7 @@ class ExecutionTimeMeasurement
 
     /**
      * @param   string|null     $message            Optional message to prepend to the execution time result. Both Empty of Null are valid when no message is provided
-     * @param   bool            $startImmediately   If true, the initial timestamp will be added without needing to start manually.
+     * @param   bool            $startImmediately   If true, the initial timestamp will be added without needing to start manually. NOTICE: this parameter is ignored if Callback is tested
      * @param   callable        $callback           Callback used for execution time calculation. Tested Callback will immediately build the result
      */
     public function __construct(string $message = null, bool $startImmediately = false, ?Closure $callback = null)
@@ -90,17 +90,18 @@ class ExecutionTimeMeasurement
             // the Start manually
             $this->start();
 
+            // Execute the passed callback to measure it's execution time and immediately call for results
             $callback();
             $this->getResult();
 
             // Setting this after calling getResult() allows skipping immediately to finish(), __then__
-            // disallowing further calls
-            $this->inCallbackMode = true;
+            // disallowing further calls. 
+            $this->isTestingCallback = true;
         }
     }
 
     /**
-     * Returns the current timestamp
+     * Returns the current timestamp in microseconds
      */
     private function getCurrentTime(): float
     {
@@ -134,7 +135,7 @@ class ExecutionTimeMeasurement
      * 
      * This function will immediately skip to getResult() if a Callback was provided during the initialization.
      * 
-     * Calling this function before start() should not be allowed
+     * Calling this function before start() is not allowed
      */
     public function start(): void
     {
@@ -154,6 +155,7 @@ class ExecutionTimeMeasurement
         if ($this->hasStarted === false) {
             // Append the timer message to the thrown exception, if any
             $message = ExecutionTimeExceptions::$FINISHED_BEFORE_STARTING . ($this->message != null ? " ({$this->message})" : "");
+
             throw new Exception($message);
         }
 
@@ -171,20 +173,18 @@ class ExecutionTimeMeasurement
      * Returns the formatted execution time result with prepended optional message built by finish() method.
      *
      * If we had a Callback function passed to the constructor, we can't call finish() method since
-     * it already had execution time calculated from the very beginning. This will also prepend a (Callback) label
-     * to the results to indicate that we are testing a callable.
+     * it already had execution time calculated from the very beginning.
+     * 
+     * @throws \Exception
      */
     public function getResult(): string
     {
-        if ($this->inCallbackMode === false) {
+        if ($this->isTestingCallback === false) {
             try {
                 $this->finish();
-            } catch (\Throwable $th) {
-                throw $th;
+            } catch (\Exception $exception) {
+                throw $exception;
             }
-        } else {
-            // We have to append a label if we are testing a callback
-            $this->result = "(Callback) " . $this->result;
         }
 
         return $this->result;
@@ -213,6 +213,6 @@ class ExecutionTimeMeasurement
      */
     public function isTestingCallback(): bool
     {
-        return $this->inCallbackMode;
+        return $this->isTestingCallback;
     }
 }

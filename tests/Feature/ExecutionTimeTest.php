@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Libs\Utils\ExecutionTimeMeasurement;
 use Tests\TestCase;
-use Illuminate\Support\Str;
 
 class ExecutionTimeTest extends TestCase
 {
@@ -44,24 +43,59 @@ class ExecutionTimeTest extends TestCase
 
     /**
      * Tests if this class can detect a callback being passed in.
-     * 
-     * Also checks if the message of this timer has a (Callback) label appended to it.
      */
     public function test_canMeasureCallbackExecutionTime(): void
     {
-        // Create a new anonymous function for this test
+        // Create a new anonymous function for this test, no functionality is needed
         $testClosure = function () {
-            return;
         };
 
         $timer = new ExecutionTimeMeasurement("Closure Test", true, $testClosure);
-        $this->assertTrue($timer->isTestingCallback());
 
-        // Callbacks have results immediately available, so we have to check if there is a label prepended
-        $this->assertTrue(Str::contains($timer->getResult(), "(Callback)"));
+        // We only need to test if the flag was set up upon initialization
+        // If the callback was passed, then the timer __should__ set it up
+        $this->assertTrue($timer->isTestingCallback());
     }
 
+    /**
+     * Tests if we are not actually able to ask for the results when the timer has not started yet.
+     */
     public function test_canNotGetResultsBeforeStarting(): void
     {
+        // This requires the timer to be initialized without starting
+        $timer = new ExecutionTimeMeasurement(null, false);
+        $exceptionCaught = false;
+
+        try {
+            // Note, we don't care about the returned value
+            $timer->getResult();
+        } catch (\Exception $exception) {
+            // We only care if there was an exception thrown
+            $exceptionCaught = true;
+        }
+
+        $this->assertTrue($exceptionCaught);
+    }
+
+    /**
+     * Tests if the results are formatted correctly depending on the calculated time values
+     */
+    public function test_formatsTheResultsCorrectly(): void
+    {
+        $delays = [0, 1000, 1000000];
+        $tests = ['μs', 'ms', 's'];
+
+        foreach ($delays as $index => $delay) {
+            $closure = function () use ($delay) {
+                // Force specific sleep time to get the correct results during the simulation
+                usleep($delay);
+            };
+
+            $timer = new ExecutionTimeMeasurement(null, false, $closure);
+
+            // Each test has to be delayed by a certain amount to force the "expected" result
+            $condition = preg_match("/\d+" . $tests[$index] . "/", $timer->getResult());
+            $this->assertTrue($condition == 1, "Looking for '{$tests[$index]}' in {$timer->getMessage()}");
+        }
     }
 }
