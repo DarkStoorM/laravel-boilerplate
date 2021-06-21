@@ -1,29 +1,41 @@
 # Laravel - Boilerplate
 
-Simple boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes. This was supposed to be a blog, but there was too much setup
+Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes. This was supposed to be a blog, but there was too much setup and I'm too lazy to prepare each new Laravel project.
 
 ---
 
 - [Laravel - Boilerplate](#laravel---boilerplate)
+  - [Requirements](#requirements)
   - [Installation](#installation)
     - [Database](#database)
-    - [ChromeDriver for Dusk](#chromedriver-for-dusk)
   - [Testing](#testing)
     - [Browser Tests](#browser-tests)
-    - [Laravel Tests](#laravel-tests)
+    - [Xdebug](#xdebug)
+    - [Code Coverage](#code-coverage)
+    - [Test paths](#test-paths)
   - [Development](#development)
+    - [Routes](#routes)
+  - [Suggestions](#suggestions)
+    - [VSCode](#vscode)
 
 ---
+
+## Requirements
+
+- PHP ^8.0
+- Composer 2.0
 
 ## Installation
 
 ```text
 composer install
-npm i
 ```
 
 The composer installation will also run additional tasks:
 
+- run npm i
+- run npm audit
+- compile assets
 - create a new .env and Dusk .env
 - generate new app keys
 
@@ -47,14 +59,6 @@ These commands will replace the existing .env files or create new ones. Use this
 
 Check the created ```.env``` for more information. SQLite is set by default, but you may also change to a different driver.
 
-### ChromeDriver for Dusk
-
-Make sure your ChromeDriver is up-to-date with:
-
-```text
-php artisan dusk:chrome-driver
-```
-
 ---
 
 ## Testing
@@ -63,7 +67,7 @@ php artisan dusk:chrome-driver
 
 Refer to [Laravel/Dusk](https://laravel.com/docs/8.x/dusk) when creating new test.
 
-Also refer to [Chrome-Driver version](https://laravel.com/docs/8.x/dusk#managing-chromedriver-installations).
+Also refer to [Chrome-Driver version](https://laravel.com/docs/8.x/dusk#managing-chromedriver-installations) - in case your environment depends on a different driver version.
 
 Before running the tests:
 
@@ -80,11 +84,29 @@ To "install" Xdebug, follow these steps:
 
 The paths may vary, make sure to specify the proper path to Xdebug extension in your ```php.ini```
 
-```zend_extension = C:\PATH_TO_YOUR_PHP\ext\php_xdebug-3.0.4-7.4-vc15-x86_64.dll```
+```zend_extension = FULL_PATH_TO_EXTENSION_FROM_WIZARD```
 
 You also have to add the following line to enable the Code Coverage
 
 ```xdebug.mode=coverage```
+
+### Code Coverage
+
+After installing Xdebug, the Code Coverage can viewed through Composer (on Windows!) with the following commands:
+
+- Firefox: ```composer coverage-ff```
+- Chrome: ```composer coverage-chrome```
+
+This is not required, **use this command if you are viewing the reports for the first time**.
+
+By default, Code Coverage will generate reports for the following paths:
+
+- ./app/Http/Controllers
+- ./app/Models
+- ./app/Helpers
+- ./app/Libs
+
+Add custom paths while developing.
 
 ### Test paths
 
@@ -96,10 +118,9 @@ Change paths to your likings in the root ```phpunit.xml```. By default it's:
 
 ---
 
-
-
 - Run the **Browser tests** with ```php artisan dusk```
-- Run **all tests** with ```composer test```
+- Run all tests regularly with ```php artisan test```
+- Run **all tests** with ```composer test``` - this will generate Code Coverage
 
 ---
 
