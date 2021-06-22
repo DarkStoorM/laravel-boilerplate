@@ -200,8 +200,6 @@ class ExecutionTimeMeasurement
 
     /**
      * Returns this timer's message (custom description or name provided during the initialization)
-     * 
-     * @return string|null
      */
     public function getMessage(): string|null
     {
