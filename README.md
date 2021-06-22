@@ -39,8 +39,6 @@ The composer installation will also run additional tasks:
 - create a new .env and Dusk .env
 - generate new app keys
 
-After installing npm dependencies, run `npm run development` to initially compile SASS, or just go straight for `npm run watch`.
-
 **From Laravel/Dusk**: set the `APP_URL` environment variable in your application's .env file. **This value should match the URL you use to access your application in a browser** - ```http://127.0.0.1:8000``` in most cases.
 
 If you wish to re-generate .env files, you can run one of the following commands:
