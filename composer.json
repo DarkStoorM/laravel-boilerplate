@@ -12,6 +12,7 @@
     "fideloper/proxy": "^4.4",
     "filp/whoops": "^2.13",
     "fruitcake/laravel-cors": "^2.0",
+    "graham-campbell/markdown": "13.1",
     "guzzlehttp/guzzle": "^7.0.1",
     "laravel/framework": "^8.40",
     "laravel/tinker": "^2.5",
