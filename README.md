@@ -40,7 +40,7 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 - create new `.env` files
 - generate APP_KEY for regular and Dusk `.env` files
 - require Dusk for --dev
-- Example Feature Test is now IndexTest (I always prepare Route Tests in this place)
+- Example Feature Test is now IndexTest (I always prepare Index Tests in this place)
 - create ```db.sqlite``` file
 - use SQLite by default (set by ```.env```)
 - prepare the following directories:
