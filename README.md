@@ -1,6 +1,6 @@
 # Laravel - Boilerplate
 
-Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes. This was supposed to be a blog, but there was too much setup and I'm too lazy to prepare each new Laravel project.
+Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes. This was supposed to be a blog, but there was too much setup and I'm too lazy to prepare each new Laravel project. Some steps require manual work, since they depend on the environment configuration.
 
 ---
 
@@ -24,6 +24,7 @@ Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** 
 
 - PHP ^8.0
 - Composer 2.0
+- SQLite
 
 ## Installation
 
@@ -33,8 +34,8 @@ composer install
 
 The composer installation will also run additional tasks:
 
-- run npm i
-- run npm audit
+- run ```npm i```
+- run ```npm audit```
 - compile assets
 - create a new .env and Dusk .env
 - generate new app keys
@@ -43,13 +44,8 @@ The composer installation will also run additional tasks:
 
 If you wish to re-generate .env files, you can run one of the following commands:
 
-```text
-composer copy-env
-```
-
-```text
-composer copy-env-dusk
-```
+- ```composer copy-env```
+- ```composer copy-env-dusk```
 
 These commands will replace the existing .env files or create new ones. Use this only if you need a fresh copy!
 
@@ -77,7 +73,7 @@ Before running the tests:
 To "install" Xdebug, follow these steps:
 
 - Run ```php -i```
-- Visit [Xdebug Installation Wizard](https://xdebug.org/wizard) and paste the contents of the below command
+- Visit [Xdebug Installation Wizard](https://xdebug.org/wizard) and paste the contents of the ```php -i``` output
 - The Wizard will suggest the proper binaries, and the required modifications to ```php.ini```
 
 The paths may vary, make sure to specify the proper path to Xdebug extension in your ```php.ini```
@@ -90,7 +86,7 @@ You also have to add the following line to enable the Code Coverage
 
 ### Code Coverage
 
-After installing Xdebug, the Code Coverage can viewed through Composer (on Windows!) with the following commands:
+After installing Xdebug, the ```Code Coverage``` can viewed through Composer (**on Windows!**) with the following commands:
 
 - Firefox: ```composer coverage-ff```
 - Chrome: ```composer coverage-chrome```
@@ -99,11 +95,11 @@ This is not required, **use this command if you are viewing the reports for the 
 
 By default, Code Coverage will generate reports for the following paths:
 
-- ./app/Http/Controllers
-- ./app/Models
-- ./app/Helpers
-- ./app/Libs
-- ./routes/web
+- ```./app/Http/Controllers```
+- ```./app/Models```
+- ```./app/Helpers```
+- ```./app/Libs```
+- ```./routes/web```
 
 Add custom paths while developing.
 
@@ -125,7 +121,7 @@ Change paths to your likings in the root ```phpunit.xml```. By default it's:
 
 ## Development
 
-Usually, when dealing with SASS, I have my watcher running in the background:
+Usually, when dealing with SASS, I have my ```watcher``` running in the background:
 
 ```text
 npm run watch
@@ -160,7 +156,7 @@ The routes were using new syntax (Laravel 8):
 Route::get('/', [IndexController::class, 'index'])->name('index');
 ```
 
-but I don't like it, so old syntax **will also work**
+but I don't like it, so old syntax **will also work**, the ```namespace``` is uncommented under ```RouteServiceProvider```.
 
 ```php
 Route::get('/', "IndexController@index")->name('index');
