@@ -6,6 +6,7 @@ Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** 
 
 - [Laravel - Boilerplate](#laravel---boilerplate)
   - [Requirements](#requirements)
+  - [Difference between a fresh Laravel install](#difference-between-a-fresh-laravel-install)
   - [Installation](#installation)
     - [Database](#database)
   - [Testing](#testing)
@@ -25,6 +26,41 @@ Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** 
 - PHP ^8.0
 - Composer 2.0
 - SQLite
+
+---
+
+## Differences between a fresh Laravel install and this repo
+
+**This is not a professionally prepared repository** for all Laravel applications, but rather a quick pseudo-preconfiguration. Most of the *manual* tasks are not even needed, like installing Xdebug for Code Coverage, but since Laravel is perfect for TDD, having Code Coverage available is always nice.
+
+What actually is this "pre-configuration"? They are some simple steps **for basic applications**:
+
+- npm dependency install
+- npm audit fix
+- create new `.env` files
+- generate APP_KEY for regular and Dusk `.env` files
+- require Dusk for --dev
+- Example Feature Test is now IndexTest (I always prepare Route Tests in this place)
+- create ```db.sqlite``` file
+- use SQLite by default (set by ```.env```)
+- prepare the following directories:
+  - app/Helpers/
+  - app/Libs/
+    - Messages (exceptions, etc.)
+    - Utils
+- include ```sass``` boilerplate (explained in the end of this README)
+
+
+**Included Packages:**
+
+- "filp/whoops" - better than CodeIgniter error reporting...
+- "graham-campbell/markdown" - not really needed, but I use Markdown frequently, so I included this one
+- "spatie/laravel-sluggable"
+- (DEV) "laravel/dusk"
+- (DEV) "phpunit/php-code-coverage"
+- (DEV) "phpunit/phpunit"
+
+---
 
 ## Installation
 
