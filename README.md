@@ -26,6 +26,7 @@ Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** 
 - PHP ^8.0
 - Composer 2.0
 - SQLite
+- Xdebug (for Code Coverage - not really a requirement, but it's good to have)
 
 ---
 
@@ -51,7 +52,7 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 - include ```sass``` boilerplate (explained in the end of this README)
 
 
-**Included Packages:**
+**Additional Package Includes:**
 
 - "filp/whoops" - better than CodeIgniter error reporting...
 - "graham-campbell/markdown" - not really needed, but I use Markdown frequently, so I included this one
@@ -64,7 +65,13 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 
 ## Installation
 
+Clone this repo somewhere:
+
 ```text
+git clone https://github.com/DarkStoorM/laravel-boilerplate.git <your_project_name>
+
+cd <your_project_name>
+
 composer install
 ```
 
@@ -73,12 +80,12 @@ The composer installation will also run additional tasks:
 - run ```npm i```
 - run ```npm audit```
 - compile assets
-- create a new .env and Dusk .env
+- create a new .env and Dusk .env (APP_URL in these files is set to ```http://127.0.0.1:8000``` by default)
 - generate new app keys
 
-**From Laravel/Dusk**: set the `APP_URL` environment variable in your application's .env file. **This value should match the URL you use to access your application in a browser** - ```http://127.0.0.1:8000``` in most cases.
+**From Laravel/Dusk**: set the `APP_URL` environment variable in your application's .env file. **This value should match the URL you use to access your application in a browser** - ```http://127.0.0.1:8000``` in most cases. Change this address if you serve your files from dirrefent address.
 
-If you wish to re-generate .env files, you can run one of the following commands:
+If you wish to re-generate .env files at some point, you can run one of the following commands:
 
 - ```composer copy-env```
 - ```composer copy-env-dusk```
