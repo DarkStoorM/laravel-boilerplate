@@ -69,36 +69,7 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 
 I don't like having all my routes defined under ```/routes/web.php```, so Route Separation usage should be encouraged. This only features Basic Split, though, but can be extended with custom rules. With this, rather than having everything registered in one file, all Routes can be split into separate files, grouped and prefixed separately.
 
-The below example has been explained in detail in ```main.php``` file under ```routes/web``` (example files not included). This only requires manual adding of a new route to ```main.php```.
-
-```text
-|-  routes
-|   |-  web/
-|   |   |- profile
-|   |   |   |- settings.php
-|   |   |   |- stats.php
-|   |   |   |- dashboard.php
-|   |   |- index.php (basic Index)
-|   |   |- main.php (main file - route loader)
-```
-
-This structure is evaluated by the following example code:
-
-```php
-$profileRoutePrefix = __DIR__ . '/profile';
-Route::prefix('profile')->group($profileRoutePrefix . 'profile/dashboard.php');
-Route::prefix('profile/stats')->group($profileRoutePrefix . 'profile/stats.php');
-Route::prefix('profile/settings')->group($profileRoutePrefix . 'profile/settings.php');
-
-// The following is also valid for more readable group:
-Route::prefix("profile")->group(function () {
-  $profileRoutePrefix = __DIR__ . '/profile';
-  
-  Route::prefix('/')->group($profileRoutePrefix . '/dashboard.php');
-  Route::prefix('/stats')->group($profileRoutePrefix . '/stats.php');
-  Route::prefix('/settings')->group($profileRoutePrefix . '/settings.php');
-});
-```
+// TODO
 
 ---
 
