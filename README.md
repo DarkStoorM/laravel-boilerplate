@@ -54,7 +54,7 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
   - app/Libs/
     - Messages (exceptions, etc.)
     - Utils
-- include ```sass``` boilerplate (explained in the end of this README)
+- include ```sass``` boilerplate (explained at the end of this README)
 
 ### Additional Packages
 
