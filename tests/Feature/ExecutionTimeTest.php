@@ -79,10 +79,14 @@ class ExecutionTimeTest extends TestCase
 
     /**
      * Tests if the results are formatted correctly depending on the calculated time values
+     * 
+     * Warning: this test will sometimes fail due to the sleep not delaying the tests correctly (?).
+     * This might not even be needed anyway. Test Restart is needed to avoid this, but it might break
+     * Continuous Integration...
      */
     public function test_formatsTheResultsCorrectly(): void
     {
-        $delays = [0, 1000, 1000000];
+        $delays = [0, 3000, 1050000];
         $tests = ['μs', 'ms', 's'];
 
         foreach ($delays as $index => $delay) {
@@ -95,7 +99,7 @@ class ExecutionTimeTest extends TestCase
 
             // Each test has to be delayed by a certain amount to force the "expected" result
             $condition = preg_match("/\d+" . $tests[$index] . "/", $timer->getResult());
-            $this->assertTrue($condition == 1, "Looking for '{$tests[$index]}' in {$timer->getMessage()}");
+            $this->assertTrue($condition == 1, "Looking for '{$tests[$index]}' in {$timer->getResult()}. Closure delayed by: {$delay}");
         }
     }
 }
