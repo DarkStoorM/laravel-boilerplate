@@ -1,4 +1,6 @@
-# Laravel - Boilerplate ![img](https://img.shields.io/badge/-WIP-red)
+# Laravel - Boilerplate
+
+![img](https://img.shields.io/badge/-WIP-red)
 
 Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes. This was supposed to be a blog, but there was too much setup and I'm too lazy to prepare each new Laravel project. Some steps require manual work, since they depend on the environment configuration.
 
@@ -9,6 +11,7 @@ Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** 
   - [Differences between a fresh Laravel install and this repo](#differences-between-a-fresh-laravel-install-and-this-repo)
     - [Preconfiguration](#preconfiguration)
     - [Additional Packages](#additional-packages)
+    - [Additional Libraries](#additional-libraries)
     - [Route Separation](#route-separation)
   - [Installation](#installation)
     - [Database](#database)
