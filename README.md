@@ -2,14 +2,14 @@
 
 ![img](https://img.shields.io/badge/-WIP-red)
 
-Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes. This was supposed to be a blog, but there was too much setup and I'm too lazy to prepare each new Laravel project. Some steps require manual work, since they depend on the environment configuration.
+Simple, a bit pre-configured boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes. This was supposed to be a blog, but there was too much setup and I'm too lazy to prepare each new Laravel project. Some steps require manual work, since they depend on the environment configuration.
 
 ---
 
 - [Laravel - Boilerplate](#laravel---boilerplate)
   - [Requirements](#requirements)
   - [Differences between a fresh Laravel install and this repo](#differences-between-a-fresh-laravel-install-and-this-repo)
-    - [Preconfiguration](#preconfiguration)
+    - [Pre-configuration](#pre-configuration)
     - [Additional Packages](#additional-packages)
     - [Additional Libraries](#additional-libraries)
     - [Route Separation](#route-separation)
@@ -39,9 +39,9 @@ Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** 
 
 ## Differences between a fresh Laravel install and this repo
 
-**This is not a professionally prepared repository** for all Laravel applications, but rather a quick pseudo-preconfiguration. Most of the *manual* tasks are not even needed, like installing Xdebug for Code Coverage, but since Laravel is perfect for TDD, having Code Coverage available is always nice.
+**This is not a professionally prepared repository** for all Laravel applications, but rather a quick pseudo-pre-configuration. Most of the *manual* tasks are not even needed, like installing Xdebug for Code Coverage, but since Laravel is perfect for TDD, having Code Coverage available is always nice.
 
-### Preconfiguration
+### Pre-configuration
 
 What actually is this "pre-configuration"? They are some simple steps **for basic applications**:
 
@@ -136,7 +136,7 @@ The composer installation will also run additional tasks:
 - create a new .env and Dusk .env (APP_URL in these files is set to ```http://127.0.0.1:8000``` by default)
 - generate new app keys
 
-**From Laravel/Dusk**: set the `APP_URL` environment variable in your application's .env file. **This value should match the URL you use to access your application in a browser** - ```http://127.0.0.1:8000``` in most cases. Change this address if you serve your files from dirrefent address.
+**From Laravel/Dusk**: set the `APP_URL` environment variable in your application's .env file. **This value should match the URL you use to access your application in a browser** - ```http://127.0.0.1:8000``` in most cases. Change this address if you serve your files from different address.
 
 If you wish to re-generate .env files at some point, you can run one of the following commands:
 
