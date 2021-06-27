@@ -65,11 +65,46 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 - (DEV) "phpunit/php-code-coverage"
 - (DEV) "phpunit/phpunit"
 
+### Additional Libraries
+
+As a small experiment, I've written and included a small script to measure the ```code execution time``` for blocks of code and functions.
+
+Usage:
+
+```php
+// Testing a function
+$test = function () {
+  // Assuming there is a test() function declared somewhere
+  test();
+}
+
+// -- Check the class for more information
+$timer = new ExecutionTimeMeasurement(
+  "Test Function" /* result message (optional) */,
+  false           /* start immediately (optional) */,
+  $test           /* closure (optional) - can also be replaced with anonymous function */
+);
+
+// Result: "Test Function - 13μs"
+echo $timer->getResult();
+
+// -------
+// Testing a block of code
+
+// Start the timer right after the initialization
+$timer = new ExecutionTimeMeasurement("Some Code", true);
+for ($i = 0; $i < 1000000; $i++);
+$result = $timer->getResult();
+
+// Result: "Some Code - 102.48ms"
+echo $result;
+```
+
 ### Route Separation
 
 I don't like having all my routes defined under ```/routes/web.php```, so Route Separation usage should be encouraged. This only features Basic Split, though, but can be extended with custom rules. With this, rather than having everything registered in one file, all Routes can be split into separate files, grouped and prefixed separately.
 
-// TODO
+I wanted to kind of enforce Route Separation, but since it's a matter of personal preference, read this instead: [Laravel Route Separation experiment](https://gist.github.com/DarkStoorM/fadf4297d4871e3df0d580e0e96cf8bf).
 
 ---
 
@@ -215,8 +250,6 @@ but I don't like it, so old syntax **will also work**, the ```namespace``` is un
 Route::get('/', "IndexController@index")->name('index');
 ```
 
-I wanted to kind of enforce Route Separation, but since it's a matter of personal preference, read this instead: [Laravel Route Separation experiment](https://gist.github.com/DarkStoorM/fadf4297d4871e3df0d580e0e96cf8bf).
-
 ---
 
 ## Suggestions
@@ -225,14 +258,18 @@ I wanted to kind of enforce Route Separation, but since it's a matter of persona
 
 **Not really needed**, but for VSCode you can install the following extensions:
 
-- Laravel Blade Formatter
-- Laravel Blade Snippets
-- Laravel Blade Spacer
-- Laravel Extra Intellisense
-- Laravel goto view
-- Laravel Snippets
-- PHP Parameter Hint
-- VS DocBlockr
+- Laravel Blade Formatter [**shufo.vscode-blade-formatter**]
+- Laravel Blade Snippets [**onecentlin.laravel-blade**]
+- Laravel Blade Spacer [**austenc.laravel-blade-spacer**] Automatically inserts spaces between curly braces in Blade
+- Laravel Extra Intellisense [**amiralizadeh9480.laravel-extra-intellisense**]
+- Laravel goto view - [**codingyu.laravel-goto-view**] ctrl+click in the ```Controller``` to navigate to the ```view```
+- Laravel Snippets [**onecentlin.laravel5-snippets**]
+- PHP Parameter Hint [**robertgr991.php-parameter-hint**]
+- VS DocBlockr [**jeremyljackson.vs-docblock**] (for most languages) or use [**neilbrayfield.php-docblocker**] for PHP - or both, but switch them in settings.json
+
+Note on PHP Parameter Hint: install this only if you like the parameter labels. It tends to be buggy (not removing the hints while deleting lines of code)
+
+![img](https://i.imgur.com/ohpX6QP.png)
 
 ---
 
