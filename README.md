@@ -60,6 +60,8 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
     - Utils
 - include ```sass``` boilerplate (explained at the end of this README)
 
+`View Composers` can not be pre-configured, but refer to [the docs here](https://laravel.com/docs/8.x/views#view-composers) if you need them.
+
 ### Additional Packages
 
 - "filp/whoops" - better than CodeIgniter error reporting...
