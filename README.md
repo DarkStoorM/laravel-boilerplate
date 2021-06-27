@@ -51,7 +51,6 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 - generate APP_KEY for regular and Dusk `.env` files
 - require Dusk for --dev
 - Example Feature Test is now IndexTest (I always prepare Index Tests in this place)
-- create ```db.sqlite``` file
 - use SQLite by default (set by ```.env```)
 - prepare the following directories:
   - app/Helpers/
@@ -148,6 +147,8 @@ These commands will replace the existing .env files or create new ones. Use this
 ### Database
 
 Check the created ```.env``` for more information. SQLite is set by default, but you may also change to a different driver.
+
+For a quick database, create a new file under ```/database/db.sqlite``` directory or type ```type NUL > database/db.sqlite``` (windows)
 
 ---
 
