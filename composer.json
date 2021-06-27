@@ -60,7 +60,8 @@
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
       "@php -r \"file_exists('.env.dusk.local') || copy('.env.example', '.env.dusk.local');\"",
       "@php artisan key:generate --ansi",
-      "@php artisan key:generate --env=dusk.local --ansi"
+      "@php artisan key:generate --env=dusk.local --ansi",
+      "@php php artisan dusk:chrome-driver --all"
     ],
     "test": [
       "vendor/bin/phpunit --verbose --coverage-html tests/reports"

@@ -125,10 +125,6 @@ cd <your_project_name>
 composer install
 ```
 
-I usually run ```php artisan dusk:chrome-driver --all``` right after composer is done. ```86``` sometimes just does not work(?)
-
-The composer installation will also run additional tasks:
-
 - run ```npm i```
 - run ```npm audit```
 - compile assets
