@@ -40,18 +40,14 @@ class ExecutionTimeMeasurement
 
     /**
      * An optional message prepended to the execution time result
-     *
-     * @var string
      */
-    private $message;
+    private string|null $message;
 
     /**
      * Separates the result message from calculated execution time. This will only be used
      * if there was a message provided during initialization
-     *
-     * @var string
      */
-    private $separator = " - ";
+    private string $separator = " - ";
 
     /**
      * Modified immediately in the constructor. If a callback has been passed, this will ignore calling finish();
