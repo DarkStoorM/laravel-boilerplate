@@ -1,4 +1,4 @@
-# Laravel - Boilerplate
+# Laravel - Boilerplate ![img](https://img.shields.io/badge/-WIP-red)
 
 Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes. This was supposed to be a blog, but there was too much setup and I'm too lazy to prepare each new Laravel project. Some steps require manual work, since they depend on the environment configuration.
 
