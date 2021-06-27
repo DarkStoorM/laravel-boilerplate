@@ -50,5 +50,7 @@ jobs:
 
       # run tests with phpunit or codecept
       #- run: ./vendor/bin/phpunit
-      - run: php artisan serve
+      - run: 
+          background: true
+          command: php artisan serve
       - run: composer test
