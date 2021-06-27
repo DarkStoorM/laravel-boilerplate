@@ -31,6 +31,7 @@ Simple, a bit preconfigured boilerplate with a purpose of Learning - do **not** 
 
 - PHP ^8.0
 - Composer 2.0
+- NodeJS
 - SQLite
 - Xdebug (for Code Coverage - not really a requirement, but it's good to have)
 
