@@ -25,7 +25,7 @@ use Exception;
  | $result = $timer->getResult();
  |
  | When testing Callables, it can be even more simplified to one line
- | $timer = (new ExecutionTimeMeasurement("Some Timer Description, ))
+ | $timer = (new ExecutionTimeMeasurement("Some Timer Description, false, function() { <function_call> }))
  */
 
 class ExecutionTimeMeasurement
