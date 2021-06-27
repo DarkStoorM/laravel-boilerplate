@@ -215,6 +215,8 @@ but I don't like it, so old syntax **will also work**, the ```namespace``` is un
 Route::get('/', "IndexController@index")->name('index');
 ```
 
+I wanted to kind of enforce Route Separation, but since it's a matter of personal preference, read this instead: [Laravel Route Separation experiment](https://gist.github.com/DarkStoorM/fadf4297d4871e3df0d580e0e96cf8bf).
+
 ---
 
 ## Suggestions
