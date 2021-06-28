@@ -67,9 +67,11 @@
       "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml"
     ],
     "start": [
+      "Composer\\Config::disableProcessTimeout",
       "@php artisan serve --env=.env"
     ],
     "start-dusk": [
+      "Composer\\Config::disableProcessTimeout",
       "@php artisan serve --env=.env.dusk.local"
     ],
     "coverage-ff": [
