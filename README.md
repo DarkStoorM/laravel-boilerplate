@@ -15,6 +15,7 @@ Simple, a bit pre-configured boilerplate with a purpose of Learning - do **not**
     - [Route Separation](#route-separation)
   - [Installation](#installation)
     - [Database](#database)
+  - [Running](#running)
   - [Testing](#testing)
     - [Browser Tests](#browser-tests)
     - [Xdebug](#xdebug)
@@ -34,6 +35,15 @@ Simple, a bit pre-configured boilerplate with a purpose of Learning - do **not**
 - NodeJS
 - SQLite
 - Xdebug (for Code Coverage - not really a requirement, but it's good to have)
+
+### Manual configuration
+
+Some files require **manual** configuration depending on your environment. Although, the default config in this project should be enough, but some projects might have different preferences. Files to configure (if you need to):
+
+- .env
+- .env.dusk.local
+- phpunit.xml
+- phpunit.dusk.xml
 
 ---
 
@@ -144,7 +154,22 @@ These commands will replace the existing .env files or create new ones. Use this
 
 Check the created ```.env``` for more information. SQLite is set by default, but you may also change to a different driver.
 
-For a quick database, create a new file under ```/database/db.sqlite``` directory or type ```type NUL > database/db.sqlite``` (windows)
+For a quick database, create a new file under ```/database/db.sqlite``` directory or type ```type NUL > database/db.sqlite``` (windows).
+
+**NOTICE**: *there are no additional migrations, only default one are left untouched.*
+
+---
+
+## Running
+
+There are two scripts allowing to run the server
+
+* ```composer start```
+* ```composer start-dusk```
+
+Those commands will run on different environments. ```composer start``` will use ```.env``` environment file, while ```composer start-dusk``` points at ```.env.dusk.local```.
+
+**It is important to configure both environment files as well as ```phpunit.xml|phpunit.dusk.xml``` files, since different machines require different configuration!**
 
 ---
 
@@ -158,7 +183,7 @@ Also refer to [Chrome-Driver version](https://laravel.com/docs/8.x/dusk#managing
 
 Before running the tests:
 
-- **make sure the server is running** either via built-in PHP development server or ```php artisan serve```
+- **make sure the server is running** either via built-in PHP development server or ```composer start-dusk``` - this will run a composer script executing ```php artisan dusk --env=.env.dusk.local```
 - make sure you have **Xdebug** installed
 
 ### Xdebug
@@ -206,8 +231,10 @@ Change paths to your likings in the root ```phpunit.xml```. By default it's:
 
 ---
 
+I usually run all test at once, for that I added ```composer test``` command. This will also run Browser tests (I modified phpunit.xml). Below is the list of available commands for running tests:
+
 - Run the **Browser tests** with ```php artisan dusk```
-- Run all tests regularly with ```php artisan test```
+- Run all tests with ```php artisan test``` - no Code Coverage, different output
 - Run **all tests** with ```composer test``` - this will generate Code Coverage
 
 ---
@@ -226,19 +253,19 @@ The css should be kept separated in the following manner:
 
 ```text
 sass
-|- bem
-|   |- layout
-|   |   |- <BEM_layout_files>
-|   |- other
-|   |   |- <BEM_other> (e.g. forms)
-|- utils
-|   |- functions.scss
-|   |- mixins.scss
-|- variables
-|   |- colors.scss
-|   |- globals.scss
-|   |- <other>.scss
-|- app.scss
+├─ bem
+│   ├─ layout
+│   │   └─ <BEM_layout_files>
+│   ├─ other
+│   │   └─ <BEM_other> (e.g. forms)
+├─ utils
+│   ├─ functions.scss
+│   └─ mixins.scss
+├─ variables
+│   ├─ colors.scss
+│   ├─ globals.scss
+│   └─ <other>.scss
+├─ app.scss
 ```
 
 ### Routes

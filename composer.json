@@ -66,6 +66,12 @@
     "test": [
       "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml"
     ],
+    "start": [
+      "@php artisan serve --env=.env"
+    ],
+    "start-dusk": [
+      "@php artisan serve --env=.env.dusk.local"
+    ],
     "coverage-ff": [
       "start firefox \"%cd%\\tests\\reports\\index.html\""
     ],
