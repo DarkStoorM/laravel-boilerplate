@@ -54,3 +54,4 @@ jobs:
           background: true
           command: php artisan serve
       - run: composer test
+      - run: php artisan dusk
