@@ -52,6 +52,6 @@ jobs:
       #- run: ./vendor/bin/phpunit
       - run: 
           background: true
-          command: php artisan serve
+          command: php artisan serve --env=env.dusk.local
       - run: composer test
       - run: php artisan dusk
