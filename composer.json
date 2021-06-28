@@ -64,7 +64,7 @@
       "@php artisan dusk:chrome-driver --all"
     ],
     "test": [
-      "vendor/bin/phpunit --verbose --coverage-html tests/reports"
+      "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml"
     ],
     "coverage-ff": [
       "start firefox \"%cd%\\tests\\reports\\index.html\""
