@@ -152,7 +152,7 @@ These commands will replace the existing .env files or create new ones. Use this
 
 ### Database
 
-Check the created ```.env``` for more information. SQLite is set by default, but you may also change to a different driver.
+Check the created ```.env``` for more information. SQLite is set by default, but you may also change to a different driver. ```DB_Database``` will be ignored for SQLite - it tends to not work on different machines. Default ```'database' => database_path('db.sqlite')``` is used under ```config/database.php```.
 
 For a quick database, create a new file under ```/database/db.sqlite``` directory or type ```type NUL > database/db.sqlite``` (windows).
 
