@@ -59,20 +59,26 @@
       "npm audit fix",
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
       "@php -r \"file_exists('.env.dusk.local') || copy('.env.example', '.env.dusk.local');\"",
+      "@php -r \"file_put_contents('database/db.sqlite', '');\"",
+      "@php -r \"file_put_contents('database/db_dusk.sqlite', '');\"",
       "@php artisan key:generate --ansi",
       "@php artisan key:generate --env=dusk.local --ansi",
-      "@php artisan dusk:chrome-driver --all"
+      "@php artisan dusk:chrome-driver --all",
+      "@php artisan migrate",
+      "@php artisan db:seed"
     ],
     "test": [
-      "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml"
+      "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml",
+      "@php artisan migrate",
+      "@php artisan db:seed"
     ],
     "start": [
       "Composer\\Config::disableProcessTimeout",
-      "@php artisan serve --env=.env"
+      "@php artisan serve"
     ],
     "start-dusk": [
       "Composer\\Config::disableProcessTimeout",
-      "@php artisan serve --env=.env.dusk.local"
+      "@php artisan serve --env=dusk.local"
     ],
     "coverage-ff": [
       "start firefox \"%cd%\\tests\\reports\\index.html\""
