@@ -18,9 +18,8 @@
     "spatie/laravel-sluggable": "^2.6"
   },
   "require-dev": {
-    "barryvdh/laravel-debugbar": "^3.6",
-    "fakerphp/faker": "^1.9.1",
     "filp/whoops": "^2.13",
+    "fakerphp/faker": "^1.9.1",
     "laravel/dusk": "^6.15",
     "laravel/sail": "^1.0.1",
     "mockery/mockery": "^1.4.2",
@@ -60,26 +59,20 @@
       "npm audit fix",
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
       "@php -r \"file_exists('.env.dusk.local') || copy('.env.example', '.env.dusk.local');\"",
-      "@php -r \"file_put_contents('database/db.sqlite', '');\"",
-      "@php -r \"file_put_contents('database/db_dusk.sqlite', '');\"",
       "@php artisan key:generate --ansi",
       "@php artisan key:generate --env=dusk.local --ansi",
-      "@php artisan dusk:chrome-driver --all",
-      "@php artisan migrate",
-      "@php artisan db:seed"
+      "@php artisan dusk:chrome-driver --all"
     ],
     "test": [
-      "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml",
-      "@php artisan migrate",
-      "@php artisan db:seed"
+      "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml"
     ],
     "start": [
       "Composer\\Config::disableProcessTimeout",
-      "@php artisan serve"
+      "@php artisan serve --env=.env"
     ],
     "start-dusk": [
       "Composer\\Config::disableProcessTimeout",
-      "@php artisan serve --env=dusk.local"
+      "@php artisan serve --env=.env.dusk.local"
     ],
     "coverage-ff": [
       "start firefox \"%cd%\\tests\\reports\\index.html\""
