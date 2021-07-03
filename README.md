@@ -8,6 +8,7 @@ Simple, a bit pre-configured boilerplate with a purpose of Learning - do **not**
 
 - [Laravel - Boilerplate](#laravel---boilerplate)
   - [Requirements](#requirements)
+    - [Manual configuration](#manual-configuration)
   - [Differences between a fresh Laravel install and this repo](#differences-between-a-fresh-laravel-install-and-this-repo)
     - [Pre-configuration](#pre-configuration)
     - [Additional Packages](#additional-packages)
@@ -40,10 +41,18 @@ Simple, a bit pre-configured boilerplate with a purpose of Learning - do **not**
 
 Some files require **manual** configuration depending on your environment. Although, the default config in this project should be enough, but some projects might have different preferences. Files to configure (if you need to):
 
-- .env
-- .env.dusk.local
-- phpunit.xml
-- phpunit.dusk.xml
+- ```.env``` (1)
+- ```.env.dusk.local``` (2)
+- ```phpunit.xml``` (3)
+- ```phpunit.dusk.xml``` (4)
+- ```.\config\database.php``` (5)
+
+```text
+You are required to verify the database configuration to make tests work
+(1) / (2) - Both '.env' and '.env.dusk` use the same config, database path is the difference
+(3) / (4) - every environment has different configuration requirements or just preferences
+(5) - Database paths for SQLite have been changed. Verify this on your machine
+```
 
 ---
 
@@ -57,13 +66,14 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 
 - npm dependency install
 - npm audit fix
-- create new `.env` files
-- generate APP_KEY for regular and Dusk `.env` files
+- create new ```.env``` files
+- generate APP_KEY for regular and Dusk ```.env``` files
 - require Dusk for --dev
-- Example Feature Test is now IndexTest (I always prepare Index Tests in this place)
+- Example Feature Test is now IndexTest (I always prepare Index Tests in this place), but **this can be deleted**
 - use SQLite by default (set by ```.env```)
+- create ```.\database\db.sqlite``` and ```.\database\db_dusk.sqlite```
 - prepare the following directories:
-  - app/Helpers/
+  - app/Helpers/ (a generic Helper file is created just for the autoload)
   - app/Libs/
     - Messages (exceptions, etc.)
     - Utils
@@ -73,16 +83,19 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 
 ### Additional Packages
 
-- "filp/whoops" - better than CodeIgniter error reporting...
 - "graham-campbell/markdown" - not really needed, but I use Markdown frequently, so I included this one
 - "spatie/laravel-sluggable"
-- (DEV) "laravel/dusk"
-- (DEV) "phpunit/php-code-coverage"
-- (DEV) "phpunit/phpunit"
+- ```DEV``` -  "filp/whoops" - better than CodeIgniter error reporting...
+- ```DEV``` - "Barryvdh\Debugbar"
+- ```DEV``` - "laravel/dusk"
+- ```DEV``` - "phpunit/php-code-coverage"
+- ```DEV``` - "phpunit/phpunit"
 
 ### Additional Libraries
 
-As a small experiment, I've written and included a small script to measure the ```code execution time``` for blocks of code and functions.
+As a small experiment, I've written and included a small script to measure the ```code execution time``` **for blocks of code and functions**.
+
+The rest is handled by Debugbar.
 
 Usage:
 
@@ -135,11 +148,17 @@ cd <your_project_name>
 composer install
 ```
 
+```composer install``` will also execute the following:
+
 - run ```npm i```
 - run ```npm audit```
 - compile assets
 - create a new .env and Dusk .env (APP_URL in these files is set to ```http://127.0.0.1:8000``` by default)
 - generate new app keys
+- install Chrome Drivers for Dusk
+- create database files
+- migrate default tables
+- seed the default database
 
 **From Laravel/Dusk**: set the `APP_URL` environment variable in your application's .env file. **This value should match the URL you use to access your application in a browser** - ```http://127.0.0.1:8000``` in most cases. Change this address if you serve your files from different address.
 
@@ -164,8 +183,8 @@ For a quick database, create a new file under ```/database/db.sqlite``` director
 
 There are two scripts allowing to run the server
 
-* ```composer start```
-* ```composer start-dusk```
+- ```composer start```
+- ```composer start-dusk```
 
 Those commands will run on different environments. ```composer start``` will use ```.env``` environment file, while ```composer start-dusk``` points at ```.env.dusk.local```.
 
@@ -185,6 +204,42 @@ Before running the tests:
 
 - **make sure the server is running** either via built-in PHP development server or ```composer start-dusk``` - this will run a composer script executing ```php artisan dusk --env=.env.dusk.local```
 - make sure you have **Xdebug** installed
+
+Dusk Tests can be filtered with groups. The example has been left under ```./tests/Browser/IndexTest.php```.
+
+Executing ```php artisan dusk --group=index``` will only execute tests with the specified **group** filter.
+
+```php
+/**
+ * @group GROUP_NAME
+ */
+public function test_something(): void
+{
+  // to run this test (or a group of tests tagged with GROUP_NAME) execute
+  // php artisan dusk --group=GROUP_NAME
+}
+```
+
+```php
+/**
+ * Asserts that user visiting the index route will see a piece of text that
+ * is hardcoded for now and serves only as an example to check if Browser Tests
+ * are working correctly
+ * 
+ * @group index
+ */
+public function test_userCanSeeHelloOnMainPage(): void
+{
+    $this->browse(function (Browser $browser) {
+        $browser->visit(route("index"))
+            ->assertSee('hello');
+    });
+}
+```
+
+Few words on the test naming:
+
+There is no forced convention, but snake case should be the best choice. As you can see in the example above, long names with ```camelCase``` are quite unreadable...
 
 ### Xdebug
 
@@ -217,7 +272,6 @@ By default, Code Coverage will generate reports for the following paths:
 - ```./app/Models```
 - ```./app/Helpers```
 - ```./app/Libs```
-- ```./routes/web```
 
 Add custom paths while developing.
 
@@ -235,7 +289,7 @@ I usually run all test at once, for that I added ```composer test``` command. Th
 
 - Run the **Browser tests** with ```php artisan dusk```
 - Run all tests with ```php artisan test``` - no Code Coverage, different output
-- Run **all tests** with ```composer test``` - this will generate Code Coverage
+- Run **all tests** with ```composer test``` - this will generate Code Coverage. After the tests are done, this will automatically **migrate** and **seed** the database with the default seeder
 
 ---
 
@@ -299,7 +353,7 @@ Route::get('/', "IndexController@index")->name('index');
 - PHP Parameter Hint [**robertgr991.php-parameter-hint**]
 - VS DocBlockr [**jeremyljackson.vs-docblock**] (for most languages) or use [**neilbrayfield.php-docblocker**] for PHP - or both, but switch them in settings.json
 
-Note on PHP Parameter Hint: install this only if you like the parameter labels. It tends to be buggy (not removing the hints while deleting lines of code)
+Note on PHP Parameter Hint: install this only if you like the parameter labels. It tends to be buggy (not removing the hints while deleting lines of code). If the parameter hints are still visible after deleting the code, depending on your settings, usually saving the file **or** switching Tabs will delete them (assuming there are no errors in the currently opened file).
 
 ![img](https://i.imgur.com/ohpX6QP.png)
 
