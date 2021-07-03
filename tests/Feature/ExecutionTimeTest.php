@@ -12,7 +12,7 @@ class ExecutionTimeTest extends TestCase
      * 
      * To pass this test, the timer should have no message and should not start immediately
      */
-    public function test_canMeasureWithoutParameters(): void
+    public function test_can_measure_without_parameters(): void
     {
         $timer = new ExecutionTimeMeasurement();
 
@@ -23,7 +23,7 @@ class ExecutionTimeTest extends TestCase
     /**
      * Tests if custom timer message can be set and retrieved properly
      */
-    public function test_canMeasureWithCustomMessage(): void
+    public function test_can_measure_with_custom_message(): void
     {
         $customMessage = "Test Timer";
         $timer = new ExecutionTimeMeasurement($customMessage);
@@ -34,7 +34,7 @@ class ExecutionTimeTest extends TestCase
     /**
      * Tests if the timer can immediately start when requested after initialization
      */
-    public function test_canMeasureWithImmediateStart(): void
+    public function test_can_measure_with_immediate_start(): void
     {
         $timer  = new ExecutionTimeMeasurement(null, true);
 
@@ -44,7 +44,7 @@ class ExecutionTimeTest extends TestCase
     /**
      * Tests if this class can detect a callback being passed in.
      */
-    public function test_canMeasureCallbackExecutionTime(): void
+    public function test_can_measure_callback_execution_time(): void
     {
         // Create a new anonymous function for this test, no functionality is needed
         $testClosure = function () {
@@ -60,7 +60,7 @@ class ExecutionTimeTest extends TestCase
     /**
      * Tests if we are not actually able to ask for the results when the timer has not started yet.
      */
-    public function test_canNotGetResultsBeforeStarting(): void
+    public function test_can_not_get_results_before_starting(): void
     {
         // This requires the timer to be initialized without starting
         $timer = new ExecutionTimeMeasurement(null, false);
@@ -84,7 +84,7 @@ class ExecutionTimeTest extends TestCase
      * This might not even be needed anyway. Test Restart is needed to avoid this, but it might break
      * Continuous Integration...
      */
-    public function test_formatsTheResultsCorrectly(): void
+    public function test_formats_the_results_correctly(): void
     {
         $delays = [0, 3000, 1050000];
         $tests = ['μs', 'ms', 's'];
