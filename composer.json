@@ -59,7 +59,7 @@
       "npm i",
       "npm audit fix",
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-      "@php -r \"file_exists('.env.dusk.local') || copy('.env.example', '.env.dusk.local');\"",
+      "@php -r \"file_exists('.env.dusk.local') || copy('.env.dusk.example', '.env.dusk.local');\"",
       "@php -r \"file_put_contents('database/db.sqlite', '');\"",
       "@php -r \"file_put_contents('database/db_dusk.sqlite', '');\"",
       "@php artisan key:generate --ansi",
