@@ -196,10 +196,14 @@ class PasswordResetFeatureTest extends TestCase
                     "token" => $token->token,
                     "email" => "some@different.mail",
                 ]
-            )->assertSee(trans("password_reset.invalid-token"));
+            );
 
-        // The token should still be there
+        // The token should still be there, which means we did not change our password
         $this->assertDatabaseHas("password_resets", ["token" => $token->token]);
+
+        // We have to retrieve the user to grab a fresh copy
+        $user = User::find($this->user->id);
+        $this->assertTrue(Hash::check("password", $user->password));
 
         // Now let's say we do the same, but with the correct data
         // the password is now changed and the token does not exist
@@ -212,10 +216,14 @@ class PasswordResetFeatureTest extends TestCase
                     "token" => $token->token,
                     "email" => $this->user->email,
                 ]
-            )->assertSee(trans("password_reset.password-changed"));
+            );
 
-        // The token should still be there
+        // The token should not be there anymore
         $this->assertDatabaseMissing("password_resets", ["token" => $token->token]);
+
+        // We have to grab a fresh user again
+        $user = User::find($this->user->id);
+        $this->assertTrue(Hash::check("newPassword1!", $user->password));
     }
 
     /**
