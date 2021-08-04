@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: nathanheffley/laravel-phpunit-action@v0.1.0
-    - uses: actions/checkout@v2
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --prefer-dist
+    - uses: hdev14/laravel-test-action@v1
+    - uses: actions/checkout@v2
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: run tests
