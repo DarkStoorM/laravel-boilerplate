@@ -26,21 +26,24 @@ a.link {
   text-decoration: none;
   font-weight: bold;
 
+  /**
+   * There is no Light Mode Color Theme in this, yet.
+   */
   &__light {
     &:link {
-      color: $color-base-accent;
+      // color:
     }
 
     &:visited {
-      color: $color-base-accent;
+      // color:
     }
 
     &:hover {
-      color: $color-base-highlight;
+      // color:
     }
 
     &:active {
-      color: $color-base-accent;
+      // color:
     }
   }
 
