@@ -1,7 +1,3 @@
-@php
-use App\Libs\Utils\RouteNames as RouteName;
-@endphp
-
 <div class="container">
     <div class="container__header">
         @lang("forms.password-reset.form-header")
@@ -9,7 +5,7 @@ use App\Libs\Utils\RouteNames as RouteName;
     <div class="container__row">
         @lang("forms.password-reset.form-description")
     </div>
-    <form method="POST" action="{{ route(RouteName::POST_PASSWORD_RESET_STORE) }}">
+    <form method="POST" action="{{ route(RouteNames::POST_PASSWORD_RESET_STORE) }}">
         @csrf
 
         <div class="container__row">

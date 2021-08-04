@@ -1,7 +1,3 @@
-@php
-use App\Libs\Utils\RouteNames;
-@endphp
-
 <div class="navbar">
     @auth
         <div>

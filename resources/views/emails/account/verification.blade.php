@@ -1,7 +1,4 @@
 @php
-use App\Libs\Utils\RouteNames;
-use App\Libs\Constants;
-
 $uri = route(RouteNames::GET_ACCOUNT_CREATION_VERIFY, ['token' => $token->token, 'email' => $user->email]);
 $timeToExpire = Constants::VERIFICATION_TOKEN_EXPIRE_TIME;
 @endphp

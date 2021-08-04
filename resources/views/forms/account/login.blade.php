@@ -1,7 +1,3 @@
-@php
-use App\Libs\Utils\RouteNames;
-@endphp
-
 <div class="container">
     <div class="container__header">
         @lang("forms.login.form-header")
