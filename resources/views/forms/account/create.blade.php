@@ -2,7 +2,7 @@
     <div class="container__header">
         @lang("forms.account-creation.form-header")
     </div>
-    <form method="POST" action="{{ route(RouteNames::POST_ACCOUNT_CREATION_STORE) }}">
+    <form method="POST" action="{{ route(NamedRoute::POST_ACCOUNT_CREATION_STORE) }}">
         @csrf
         <div class="container__row">
             <input class="text-field text-field--full" name="email" placeholder="@lang('forms.account-creation.email')" type="email"

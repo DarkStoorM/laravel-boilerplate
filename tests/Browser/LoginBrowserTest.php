@@ -3,7 +3,7 @@
 namespace Tests\Browser;
 
 use App\Libs\Constants;
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Rules\Throttle;
@@ -27,7 +27,7 @@ class LoginBrowserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->assertGuest()
-                ->visit(route(RouteNames::GET_SESSION_INDEX))
+                ->visit(route(NamedRoute::GET_SESSION_INDEX))
                 ->assertPresent("@button-login");
         });
     }
@@ -44,7 +44,7 @@ class LoginBrowserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
                 ->assertAuthenticatedAs($this->user)
-                ->visit(route(RouteNames::GET_SESSION_INDEX))
+                ->visit(route(NamedRoute::GET_SESSION_INDEX))
                 ->assertRouteIs(RouteServiceProvider::HOME);
         });
     }
@@ -60,7 +60,7 @@ class LoginBrowserTest extends DuskTestCase
             $browser->assertGuest()
                 ->visit(route(RouteServiceProvider::HOME))
                 ->click("@link-login")
-                ->assertRouteIs(RouteNames::GET_SESSION_INDEX)
+                ->assertRouteIs(NamedRoute::GET_SESSION_INDEX)
                 ->type("email", $this->user->email)
                 ->type("password", "password")
                 ->click("@button-login")
@@ -81,11 +81,11 @@ class LoginBrowserTest extends DuskTestCase
             $browser->assertGuest()
                 ->visit(route(RouteServiceProvider::HOME))
                 ->click("@link-login")
-                ->assertRouteIs(RouteNames::GET_SESSION_INDEX)
+                ->assertRouteIs(NamedRoute::GET_SESSION_INDEX)
                 ->type("email", $this->fakeEmail)
                 ->type("password", "fakepass")
                 ->click("@button-login")
-                ->assertRouteIs(RouteNames::GET_SESSION_INDEX)
+                ->assertRouteIs(NamedRoute::GET_SESSION_INDEX)
                 ->assertSee(trans("login.failed"));
             // We should still be on the Login route after trying to log in with incorrect credentials
             // We also have to check for this specific error message
@@ -102,13 +102,13 @@ class LoginBrowserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             // Force hitting the rate limit to make the next request get blocked by the Throttle rule1
             for ($i = 0; $i < Constants::LOGIN_MAXIMUM_ATTEMPTS + 1; $i++) {
-                $this->followingRedirects()->post(route(RouteNames::POST_SESSION_STORE), ["email" => $this->fakeEmail, "password" => "password"]);
+                $this->followingRedirects()->post(route(NamedRoute::POST_SESSION_STORE), ["email" => $this->fakeEmail, "password" => "password"]);
             }
 
             $browser->assertGuest()
                 ->visit(route(RouteServiceProvider::HOME))
                 ->click("@link-login")
-                ->assertRouteIs(RouteNames::GET_SESSION_INDEX)
+                ->assertRouteIs(NamedRoute::GET_SESSION_INDEX)
                 ->type("email", $this->fakeEmail)
                 ->type("password", "fakepass")
                 ->click("@button-login")
@@ -128,7 +128,7 @@ class LoginBrowserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $user = User::factory()->unverified()->create();
 
-            $browser->visit(route(RouteNames::GET_SESSION_INDEX))
+            $browser->visit(route(NamedRoute::GET_SESSION_INDEX))
                 ->type("email", $user->email)
                 ->type("password", "password")
                 ->click("@button-login")

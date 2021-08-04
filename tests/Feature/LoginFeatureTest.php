@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Libs\Constants;
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Models\User;
 use App\Rules\Throttle;
 use Tests\TestCase;
@@ -23,7 +23,7 @@ class LoginFeatureTest extends TestCase
     public function test_user_can_log_in(): void
     {
         $this->followingRedirects()
-            ->post(route(RouteNames::POST_SESSION_STORE), ["email" => $this->user->email, "password" => "password"])
+            ->post(route(NamedRoute::POST_SESSION_STORE), ["email" => $this->user->email, "password" => "password"])
             ->assertSee(trans("links.index.logout"));
     }
 
@@ -35,7 +35,7 @@ class LoginFeatureTest extends TestCase
     public function test_user_cant_login_with_incorrect_credentials(): void
     {
         $this->followingRedirects()
-            ->post(route(RouteNames::POST_SESSION_STORE), ["email" => $this->fakeEmail, "password" => "password"])
+            ->post(route(NamedRoute::POST_SESSION_STORE), ["email" => $this->fakeEmail, "password" => "password"])
             ->assertSee(trans("login.failed"));
     }
 
@@ -46,12 +46,12 @@ class LoginFeatureTest extends TestCase
     public function test_user_gets_throttled_on_too_many_attempts(): void
     {
         for ($i = 0; $i < Constants::LOGIN_MAXIMUM_ATTEMPTS + 1; $i++) {
-            $this->followingRedirects()->post(route(RouteNames::POST_SESSION_STORE), ["email" => $this->fakeEmail, "password" => "password"]);
+            $this->followingRedirects()->post(route(NamedRoute::POST_SESSION_STORE), ["email" => $this->fakeEmail, "password" => "password"]);
         }
 
         // The next message should be throttled, so the user should see "too many attempts" message
         $this->followingRedirects()
-            ->post(route(RouteNames::POST_SESSION_STORE), ["email" => $this->fakeEmail, "password" => "password"])
+            ->post(route(NamedRoute::POST_SESSION_STORE), ["email" => $this->fakeEmail, "password" => "password"])
             ->assertSee(trans("login.validation.throttled"));
 
         // The user should be able to log in after some time, so let's also test the cache clear
@@ -59,7 +59,7 @@ class LoginFeatureTest extends TestCase
         Throttle::Clear("throttle-login");
 
         $this->followingRedirects()
-            ->post(route(RouteNames::POST_SESSION_STORE), ["email" => $this->fakeEmail, "password" => "password"])
+            ->post(route(NamedRoute::POST_SESSION_STORE), ["email" => $this->fakeEmail, "password" => "password"])
             ->assertSee(trans("login.failed"));
     }
 
@@ -70,7 +70,7 @@ class LoginFeatureTest extends TestCase
         $user = User::factory()->unverified()->create();
 
         $this->followingRedirects()
-            ->post(route(RouteNames::POST_SESSION_STORE), ["email" => $user->email, "password" => "password"])
+            ->post(route(NamedRoute::POST_SESSION_STORE), ["email" => $user->email, "password" => "password"])
             ->assertSee(trans("login.unverified"));
     }
 }

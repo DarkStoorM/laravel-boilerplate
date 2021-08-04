@@ -2,7 +2,7 @@
 
 namespace Tests\Route;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Providers\RouteServiceProvider;
 use Tests\TestCase;
 
@@ -11,7 +11,7 @@ class LoginRouteTest extends TestCase
     /** Test if login route returns any errors for unauthenticated users */
     public function test_login_is_ok_for_unauthenticated_user(): void
     {
-        $this->get(route(RouteNames::GET_SESSION_INDEX))
+        $this->get(route(NamedRoute::GET_SESSION_INDEX))
             ->assertOk()
             ->assertSee(trans("forms.login.form-header"));
     }
@@ -21,7 +21,7 @@ class LoginRouteTest extends TestCase
     {
         $this->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
-            ->get(route(RouteNames::GET_SESSION_INDEX))
+            ->get(route(NamedRoute::GET_SESSION_INDEX))
             ->assertRedirect(route(RouteServiceProvider::HOME));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'DashboardController@index')->name(RouteNames::GET_DASHBOARD_INDEX);
+Route::get('/', 'DashboardController@index')->name(NamedRoute::GET_DASHBOARD_INDEX);

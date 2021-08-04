@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Models\User;
 use App\Models\VerificationToken;
 use App\Providers\RouteServiceProvider;
@@ -15,7 +15,7 @@ class AccountCreationFeatureTest extends TestCase
     public function test_unauthenticated_user_can_visit_account_creation_page(): void
     {
         $this->assertGuest()
-            ->get(route(RouteNames::GET_ACCOUNT_CREATION_INDEX))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_INDEX))
             ->assertSee(trans("forms.account-creation.form-header"));
     }
 
@@ -24,7 +24,7 @@ class AccountCreationFeatureTest extends TestCase
     {
         $this->followingRedirects()
             ->actingAs($this->user)
-            ->get(route(RouteNames::GET_ACCOUNT_CREATION_INDEX))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_INDEX))
             ->assertOk();
     }
 
@@ -34,7 +34,7 @@ class AccountCreationFeatureTest extends TestCase
         $this->followingRedirects()
             ->assertGuest()
             ->post(
-                route(RouteNames::POST_ACCOUNT_CREATION_STORE),
+                route(NamedRoute::POST_ACCOUNT_CREATION_STORE),
                 [
                     "email" => $this->fakeEmail,
                     "email_confirmation" => $this->fakeEmail,
@@ -55,7 +55,7 @@ class AccountCreationFeatureTest extends TestCase
             ->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
             ->post(
-                route(RouteNames::POST_ACCOUNT_CREATION_STORE),
+                route(NamedRoute::POST_ACCOUNT_CREATION_STORE),
                 [
                     "email" => $this->fakeEmail,
                     "email_confirmation" => $this->fakeEmail,
@@ -70,7 +70,7 @@ class AccountCreationFeatureTest extends TestCase
     public function test_unauthenticated_user_sees_login_reminder(): void
     {
         $this->assertGuest()
-            ->get(route(RouteNames::GET_ACCOUNT_CREATION_STATUS))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_STATUS))
             ->assertSee(trans("account_create.verified-reminder"));
     }
 
@@ -81,7 +81,7 @@ class AccountCreationFeatureTest extends TestCase
 
         $this->followingRedirects()
             ->assertGuest()
-            ->get(route(RouteNames::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $token->email]))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $token->email]))
             ->assertSee(trans("account_create.verified"));
     }
 
@@ -93,7 +93,7 @@ class AccountCreationFeatureTest extends TestCase
 
         $this->followingRedirects()
             ->assertGuest()
-            ->get(route(RouteNames::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $token->email]))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $token->email]))
             ->assertSee(trans("account_create.expired-token"));
 
         // Make sure that the user does not exist anymore

@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;

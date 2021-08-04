@@ -2,7 +2,7 @@
 
 namespace Tests\Route;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Models\VerificationToken;
 use Tests\TestCase;
 
@@ -12,7 +12,7 @@ class AccountCreationRouteTest extends TestCase
     public function test_account_creation_is_ok_for_unauthenticated_user(): void
     {
         $this->assertGuest()
-            ->get(route(RouteNames::GET_ACCOUNT_CREATION_INDEX))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_INDEX))
             ->assertOk()
             ->assertSee(trans("links.index.login"));
     }
@@ -27,7 +27,7 @@ class AccountCreationRouteTest extends TestCase
         $this->followingRedirects()
             ->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
-            ->get(route(RouteNames::GET_ACCOUNT_CREATION_INDEX))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_INDEX))
             ->assertOk()
             ->assertSee(trans("links.index.logout"));
     }
@@ -41,7 +41,7 @@ class AccountCreationRouteTest extends TestCase
     {
         $this->followingRedirects()
             ->post(
-                route(RouteNames::POST_ACCOUNT_CREATION_STORE),
+                route(NamedRoute::POST_ACCOUNT_CREATION_STORE),
                 [
                     "email" => $this->fakeEmail,
                     "email_confirmation" => $this->fakeEmail,
@@ -56,7 +56,7 @@ class AccountCreationRouteTest extends TestCase
     public function test_account_creation_results_page_is_ok_for_unauthenticated_user(): void
     {
         $this->assertGuest()
-            ->get(route(RouteNames::GET_ACCOUNT_CREATION_STATUS))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_STATUS))
             ->assertOk();
     }
 
@@ -73,7 +73,7 @@ class AccountCreationRouteTest extends TestCase
         $this->followingRedirects()
             ->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
-            ->get(route(RouteNames::GET_ACCOUNT_CREATION_STATUS))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_STATUS))
             ->assertOk();
     }
 
@@ -86,7 +86,7 @@ class AccountCreationRouteTest extends TestCase
 
         $this->followingRedirects()
             ->assertGuest()
-            ->get(route(RouteNames::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $token->email]))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $token->email]))
             ->assertOk();
     }
 
@@ -99,7 +99,7 @@ class AccountCreationRouteTest extends TestCase
 
         $this->followingRedirects()
             ->assertGuest()
-            ->get(route(RouteNames::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $this->fakeEmail]))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $this->fakeEmail]))
             ->assertOk();
     }
 }

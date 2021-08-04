@@ -22,7 +22,7 @@ namespace App\Libs\Utils;
  * 
  * Not required - can be completely skipped.
  */
-class RouteNames
+class NamedRoute
 {
     /* -- INDEX GROUP -- */
     public const GET_INDEX = "index";
@@ -39,6 +39,7 @@ class RouteNames
     public const GET_ACCOUNT_CREATION_STATUS = "account-create-status";
 
     /* -- SESSION (LOGIN) GROUP -- */
+    /** This HAS TO remain unchanged due to Laravel Auth using "login" named route under the hood... */
     public const GET_SESSION_INDEX = "login";
     public const POST_SESSION_STORE = "account-session-store";
     public const GET_SESSION_DESTROY = "account-session-destroy";

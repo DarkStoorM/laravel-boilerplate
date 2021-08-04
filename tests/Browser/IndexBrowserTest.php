@@ -2,7 +2,7 @@
 
 namespace Tests\Browser;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Providers\RouteServiceProvider;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
@@ -18,7 +18,7 @@ class IndexBrowserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->assertGuest()
-                ->visit(route(RouteNames::GET_INDEX))
+                ->visit(route(NamedRoute::GET_INDEX))
                 ->assertPresent("@link-login");
         });
     }
@@ -33,7 +33,7 @@ class IndexBrowserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
                 ->assertAuthenticated()
-                ->visit(route(RouteNames::GET_INDEX))
+                ->visit(route(NamedRoute::GET_INDEX))
                 ->assertSeeLink(trans("links.index.logout"));
         });
     }

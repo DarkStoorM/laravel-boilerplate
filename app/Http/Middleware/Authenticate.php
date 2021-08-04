@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
@@ -16,7 +16,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (!$request->expectsJson()) {
-            return route(RouteNames::GET_SESSION_INDEX);
+            return route(NamedRoute::GET_SESSION_INDEX);
         }
     }
 }

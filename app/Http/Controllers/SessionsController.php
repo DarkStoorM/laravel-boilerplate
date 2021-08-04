@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Http\Requests\LoginRequest;
 use App\Providers\RouteServiceProvider;
 
@@ -38,14 +38,14 @@ class SessionsController extends Controller
                 $this->logout($request);
 
                 flash_error(trans("login.unverified"));
-                return redirect(route(RouteNames::GET_SESSION_INDEX));
+                return redirect(route(NamedRoute::GET_SESSION_INDEX));
             }
 
             // We have to redirect to the index
             return redirect(route(RouteServiceProvider::HOME));
         } else {
             flash_error(trans("login.failed"));
-            return redirect(route(RouteNames::GET_SESSION_INDEX));
+            return redirect(route(NamedRoute::GET_SESSION_INDEX));
         }
     }
 

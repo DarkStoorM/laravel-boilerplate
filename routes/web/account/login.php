@@ -1,8 +1,8 @@
 <?php
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'SessionsController@sessionIndex')->name(RouteNames::GET_SESSION_INDEX);
+Route::get('/', 'SessionsController@sessionIndex')->name(NamedRoute::GET_SESSION_INDEX);
 Route::post('/', 'SessionsController@sessionStore')
-    ->name(RouteNames::POST_SESSION_STORE);
+    ->name(NamedRoute::POST_SESSION_STORE);

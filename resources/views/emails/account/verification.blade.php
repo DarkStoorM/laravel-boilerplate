@@ -1,5 +1,5 @@
 @php
-$uri = route(RouteNames::GET_ACCOUNT_CREATION_VERIFY, ['token' => $token->token, 'email' => $user->email]);
+$uri = route(NamedRoute::GET_ACCOUNT_CREATION_VERIFY, ['token' => $token->token, 'email' => $user->email]);
 $timeToExpire = Constants::VERIFICATION_TOKEN_EXPIRE_TIME;
 @endphp
 

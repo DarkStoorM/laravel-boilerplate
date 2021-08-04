@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Providers\RouteServiceProvider;
 use Tests\TestCase;
 
@@ -13,7 +13,7 @@ class LogoutFeatureTest extends TestCase
     {
         $this->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
-            ->get(route(RouteNames::GET_SESSION_DESTROY));
+            ->get(route(NamedRoute::GET_SESSION_DESTROY));
 
         $this->assertGuest()
             ->get(route(RouteServiceProvider::HOME))

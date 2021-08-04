@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Libs\Constants;
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -23,7 +23,7 @@ class PasswordResetFeatureTest extends TestCase
     public function test_can_send_password_reset_links(): void
     {
         $this->assertGuest()
-            ->post(route(RouteNames::POST_PASSWORD_RESET_STORE), ["email" => $this->user->email]);
+            ->post(route(NamedRoute::POST_PASSWORD_RESET_STORE), ["email" => $this->user->email]);
         $this->assertDatabaseHas("password_resets", ["email" => $this->user->email]);
     }
 
@@ -31,7 +31,7 @@ class PasswordResetFeatureTest extends TestCase
     public function test_cant_send_password_reset_links_with_invalid_email(): void
     {
         $this->assertGuest()
-            ->post(route(RouteNames::POST_PASSWORD_RESET_STORE), ["email" => "invalid email"])
+            ->post(route(NamedRoute::POST_PASSWORD_RESET_STORE), ["email" => "invalid email"])
             ->assertSessionHasErrors();
         $this->assertDatabaseMissing("password_resets", ["email" => "invalid email"]);
     }
@@ -44,15 +44,15 @@ class PasswordResetFeatureTest extends TestCase
     public function test_can_throttle_password_reset_requests(): void
     {
         for ($i = 0; $i < Constants::PASSWORD_RESET_MAX_REQUEST_ATTEMPTS + 1; $i++) {
-            $this->followingRedirects()->post(route(RouteNames::POST_PASSWORD_RESET_STORE), ["email" => "fake@mail.com"]);
+            $this->followingRedirects()->post(route(NamedRoute::POST_PASSWORD_RESET_STORE), ["email" => "fake@mail.com"]);
         }
 
         // Just make sure that the token was not created for the user that does not exist
         $this->assertDatabaseMissing("password_resets", ["email" => "fake@mail.com"]);
 
         // This request should be throttled
-        $this->post(route(RouteNames::POST_PASSWORD_RESET_STORE), ["email" => $this->user->email])
-            ->assertRedirect(route(RouteNames::GET_PASSWORD_RESET_INDEX));
+        $this->post(route(NamedRoute::POST_PASSWORD_RESET_STORE), ["email" => $this->user->email])
+            ->assertRedirect(route(NamedRoute::GET_PASSWORD_RESET_INDEX));
         $this->assertDatabaseMissing("password_resets", ["email" => $this->user->email]);
 
         // Clear the throttle from this test
@@ -68,13 +68,13 @@ class PasswordResetFeatureTest extends TestCase
         $routeParameters = ["token" => $token->token, "email" => $this->user->email];
 
         $this->assertGuest()
-            ->get(route(RouteNames::GET_PASSWORD_RESET_VALIDATE_TOKEN, $routeParameters))
-            ->assertRedirect(route(RouteNames::GET_PASSWORD_RESET_CHANGE_CREATE, $routeParameters));
+            ->get(route(NamedRoute::GET_PASSWORD_RESET_VALIDATE_TOKEN, $routeParameters))
+            ->assertRedirect(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE, $routeParameters));
 
         // Now that we have tested the redirection from token validation, we can test the link itself
         // We should still be able to see the password change form
         // This is required as we are not directly accessing the below route in the above test
-        $this->get(route(RouteNames::GET_PASSWORD_RESET_CHANGE_CREATE, $routeParameters))
+        $this->get(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE, $routeParameters))
             ->assertSee(trans("forms.password-reset.change-password-header"));
     }
 
@@ -95,14 +95,14 @@ class PasswordResetFeatureTest extends TestCase
         $this->assertGuest();
         foreach ($invalidData as $token) {
             $this->followingRedirects()
-                ->get(route(RouteNames::GET_PASSWORD_RESET_VALIDATE_TOKEN, $token))
+                ->get(route(NamedRoute::GET_PASSWORD_RESET_VALIDATE_TOKEN, $token))
                 ->assertSee(trans("password_reset.invalid-token"));
         }
 
         // Now we also have to test the link itself, any invalid token will do
         // This is required as we are not directly accessing the below route in the above test
         $this->followingRedirects()
-            ->get(route(RouteNames::GET_PASSWORD_RESET_CHANGE_CREATE, $token))
+            ->get(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE, $token))
             ->assertSee(trans("password_reset.invalid-token"));
     }
 
@@ -117,7 +117,7 @@ class PasswordResetFeatureTest extends TestCase
         $this->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
             ->post(
-                route(RouteNames::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
+                route(NamedRoute::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
                 ["password" => "newpassword", "password_confirmation" => "newpassword"]
             )
             ->assertRedirect(route(RouteServiceProvider::HOME));
@@ -133,7 +133,7 @@ class PasswordResetFeatureTest extends TestCase
 
         $this->followingRedirects()
             ->post(
-                route(RouteNames::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
+                route(NamedRoute::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
                 [
                     "password" => "newPassword1!",
                     "password_confirmation" => "newPassword1!",
@@ -165,7 +165,7 @@ class PasswordResetFeatureTest extends TestCase
 
         foreach ($passwordCases as $password) {
             $this->post(
-                route(RouteNames::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
+                route(NamedRoute::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
                 [
                     "password" => $password[0],
                     "password_confirmation" => $password[1],
@@ -189,7 +189,7 @@ class PasswordResetFeatureTest extends TestCase
         $this->followingRedirects()
             ->assertGuest()
             ->post(
-                route(RouteNames::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
+                route(NamedRoute::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
                 [
                     "password" => "newPassword1!",
                     "password_confirmation" => "newPassword1!",
@@ -205,7 +205,7 @@ class PasswordResetFeatureTest extends TestCase
         // the password is now changed and the token does not exist
         $this->followingRedirects()
             ->post(
-                route(RouteNames::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
+                route(NamedRoute::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
                 [
                     "password" => "newPassword1!",
                     "password_confirmation" => "newPassword1!",
@@ -231,7 +231,7 @@ class PasswordResetFeatureTest extends TestCase
 
         $this->followingRedirects()
             ->post(
-                route(RouteNames::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
+                route(NamedRoute::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
                 [
                     "password" => "newPassword1!",
                     "password_confirmation" => "newPassword1!",

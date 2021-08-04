@@ -1,6 +1,6 @@
 <?php
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 
 return [
     /** Password Change Form */
@@ -27,7 +27,7 @@ return [
         "email"                 => "Email address",
         "email-confirmation"    => "Confirm your email address",
         "form-header"           => "Sign Up",
-        "form-footer"           => "Got an account? <a href='" . route(RouteNames::GET_SESSION_INDEX) . "'>Sign In</a>.",
+        "form-footer"           => "Got an account? <a href='" . route(NamedRoute::GET_SESSION_INDEX) . "'>Sign In</a>.",
         "password"              => "Password",
         "password-confirmation" => "Confirm your password",
         "submit-button"         => "Submit",

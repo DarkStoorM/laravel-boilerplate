@@ -2,7 +2,7 @@
 
 namespace Tests\Browser;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Models\User;
 use App\Models\VerificationToken;
 use App\Providers\RouteServiceProvider;
@@ -37,7 +37,7 @@ class AccountCreationBrowserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
                 ->assertAuthenticatedAs($this->user)
-                ->visit(route(RouteNames::GET_ACCOUNT_CREATION_INDEX))
+                ->visit(route(NamedRoute::GET_ACCOUNT_CREATION_INDEX))
                 ->assertRouteIs(RouteServiceProvider::HOME)
                 ->assertNotPresent("@link-signup");
             /** Check if the signup link is not visible in the same test */
@@ -64,7 +64,7 @@ class AccountCreationBrowserTest extends DuskTestCase
                 ->click("@button-register")
                 ->assertSee(trans("account_create.created"));
 
-            $browser->visit(route(RouteNames::GET_SESSION_INDEX))
+            $browser->visit(route(NamedRoute::GET_SESSION_INDEX))
                 ->type("email", $this->fakeEmail)
                 ->type("password", $password)
                 ->click("@button-login")
@@ -85,7 +85,7 @@ class AccountCreationBrowserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->assertGuest()
-                ->visit(route(RouteNames::GET_ACCOUNT_CREATION_STATUS))
+                ->visit(route(NamedRoute::GET_ACCOUNT_CREATION_STATUS))
                 ->assertSee(trans("account_create.verified-reminder"));
         });
     }
@@ -107,7 +107,7 @@ class AccountCreationBrowserTest extends DuskTestCase
             $this->assertNotNull($token);
 
             $browser->assertGuest()
-                ->visit(route(RouteNames::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $token->email]))
+                ->visit(route(NamedRoute::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $token->email]))
                 ->assertSee(trans("account_create.verified"))
                 ->refresh()
                 ->assertSee(trans("account_create.verified-reminder"));

@@ -2,7 +2,7 @@
 
 namespace Tests\Route;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use Tests\TestCase;
 
 class LogoutRouteTest extends TestCase
@@ -11,7 +11,7 @@ class LogoutRouteTest extends TestCase
     public function test_logout_is_ok_for_unauthenticated_user(): void
     {
         $this->followingRedirects()
-            ->get(route(RouteNames::GET_SESSION_DESTROY))
+            ->get(route(NamedRoute::GET_SESSION_DESTROY))
             ->assertOk();
     }
 
@@ -26,6 +26,6 @@ class LogoutRouteTest extends TestCase
         $this->followingRedirects()
             ->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
-            ->get(route(RouteNames::GET_SESSION_DESTROY))->assertOk();
+            ->get(route(NamedRoute::GET_SESSION_DESTROY))->assertOk();
     }
 }

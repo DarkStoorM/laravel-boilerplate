@@ -3,7 +3,7 @@
 namespace Tests\Browser;
 
 use App\Libs\Constants;
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Models\PasswordReset;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -30,7 +30,7 @@ class PasswordResetBrowserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->assertGuest()
-                ->visit(route(RouteNames::GET_PASSWORD_RESET_INDEX))
+                ->visit(route(NamedRoute::GET_PASSWORD_RESET_INDEX))
                 ->assertSee(trans("forms.password-reset.form-header"));
         });
     }
@@ -46,7 +46,7 @@ class PasswordResetBrowserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
                 ->assertAuthenticatedAs($this->user)
-                ->visit(route(RouteNames::GET_PASSWORD_RESET_INDEX))
+                ->visit(route(NamedRoute::GET_PASSWORD_RESET_INDEX))
                 ->assertRouteIs(RouteServiceProvider::HOME);
         });
     }
@@ -66,7 +66,7 @@ class PasswordResetBrowserTest extends DuskTestCase
                 ->visit(route(RouteServiceProvider::HOME))
                 ->click("@link-login")
                 ->click("@link-forgot-password")
-                ->assertRouteIs(RouteNames::GET_PASSWORD_RESET_INDEX);
+                ->assertRouteIs(NamedRoute::GET_PASSWORD_RESET_INDEX);
         });
     }
 
@@ -82,7 +82,7 @@ class PasswordResetBrowserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             // We have covered navigating to the Login screen, we will start straight up send the form
             $browser->assertGuest()
-                ->visit(route(RouteNames::GET_PASSWORD_RESET_INDEX))
+                ->visit(route(NamedRoute::GET_PASSWORD_RESET_INDEX))
                 ->type("email", $this->user->email)
                 ->click("@button-password-reset-request")
                 ->assertSee(trans("password_reset.reset-sent"));
@@ -103,7 +103,7 @@ class PasswordResetBrowserTest extends DuskTestCase
             $fakeEmail = $this->fakeEmail;
 
             $browser->assertGuest()
-                ->visit(route(RouteNames::GET_PASSWORD_RESET_INDEX))
+                ->visit(route(NamedRoute::GET_PASSWORD_RESET_INDEX))
                 ->type("email", $fakeEmail)
                 ->click("@button-password-reset-request")
                 ->assertSee(trans("password_reset.reset-sent"));
@@ -122,13 +122,13 @@ class PasswordResetBrowserTest extends DuskTestCase
     {
         // Force throttle
         for ($i = 0; $i < Constants::PASSWORD_RESET_MAX_REQUEST_ATTEMPTS + 1; $i++) {
-            $this->followingRedirects()->post(route(RouteNames::POST_PASSWORD_RESET_STORE), ["email" => $this->fakeEmail]);
+            $this->followingRedirects()->post(route(NamedRoute::POST_PASSWORD_RESET_STORE), ["email" => $this->fakeEmail]);
         }
 
         // The following request should return a throttle message
         $this->browse(function (Browser $browser) {
             $browser->assertGuest()
-                ->visit(route(RouteNames::GET_PASSWORD_RESET_INDEX))
+                ->visit(route(NamedRoute::GET_PASSWORD_RESET_INDEX))
                 ->type("email", $this->user->email)
                 ->click("@button-password-reset-request")
                 ->assertSee(trans("password_reset.validation.throttled"));
@@ -147,7 +147,7 @@ class PasswordResetBrowserTest extends DuskTestCase
             $this->assertDatabaseHas("password_resets", ["email" => $this->user->email]);
 
             $browser->assertGuest()
-                ->visit(route(RouteNames::GET_PASSWORD_RESET_VALIDATE_TOKEN, ["token" => $token->token, "email" => $token->email]))
+                ->visit(route(NamedRoute::GET_PASSWORD_RESET_VALIDATE_TOKEN, ["token" => $token->token, "email" => $token->email]))
                 ->assertSee(trans("forms.password-reset.change-password-header"));
         });
     }
@@ -172,7 +172,7 @@ class PasswordResetBrowserTest extends DuskTestCase
             $browser->assertGuest();
 
             foreach ($invalidData as $token) {
-                $browser->visit(route(RouteNames::GET_PASSWORD_RESET_VALIDATE_TOKEN, $token))
+                $browser->visit(route(NamedRoute::GET_PASSWORD_RESET_VALIDATE_TOKEN, $token))
                     ->assertSee(trans("password_reset.invalid-token"));
             }
         });
@@ -192,7 +192,7 @@ class PasswordResetBrowserTest extends DuskTestCase
 
             $browser->loginAs($this->user)
                 ->assertAuthenticatedAs($this->user)
-                ->visit(route(RouteNames::GET_PASSWORD_RESET_CHANGE_CREATE, ["token" => $token->token, "email" => $token->email]))
+                ->visit(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE, ["token" => $token->token, "email" => $token->email]))
                 ->assertRouteIs(RouteServiceProvider::HOME);
         });
     }
@@ -210,9 +210,9 @@ class PasswordResetBrowserTest extends DuskTestCase
             $newPassword = "someNewPasswoRD1!";
             $this->assertFalse(Hash::check($newPassword, User::first()->password));
 
-            $browser->visit(route(RouteNames::GET_SESSION_INDEX))
+            $browser->visit(route(NamedRoute::GET_SESSION_INDEX))
                 ->click("@link-forgot-password")
-                ->assertRouteIs(RouteNames::GET_PASSWORD_RESET_INDEX)
+                ->assertRouteIs(NamedRoute::GET_PASSWORD_RESET_INDEX)
                 ->type("email", $this->user->email)
                 ->click("@button-password-reset-request")
                 ->assertSee(trans("password_reset.reset-sent"));
@@ -220,7 +220,7 @@ class PasswordResetBrowserTest extends DuskTestCase
             $token = PasswordReset::first();
             $this->assertNotNull($token);
 
-            $browser->visit(route(RouteNames::GET_PASSWORD_RESET_VALIDATE_TOKEN, ["token" => $token->token, "email" => $token->email]))
+            $browser->visit(route(NamedRoute::GET_PASSWORD_RESET_VALIDATE_TOKEN, ["token" => $token->token, "email" => $token->email]))
                 ->assertSee(trans("forms.password-reset.change-password-header"))
                 ->type("password", $newPassword)
                 ->type("password_confirmation", $newPassword)

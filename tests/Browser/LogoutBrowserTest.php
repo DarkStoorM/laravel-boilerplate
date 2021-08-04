@@ -2,7 +2,7 @@
 
 namespace Tests\Browser;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Providers\RouteServiceProvider;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
@@ -18,7 +18,7 @@ class LogoutBrowserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->assertGuest()
-                ->visit(route(RouteNames::GET_SESSION_DESTROY))
+                ->visit(route(NamedRoute::GET_SESSION_DESTROY))
                 ->assertRouteIs(RouteServiceProvider::HOME);
         });
     }
@@ -33,7 +33,7 @@ class LogoutBrowserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
                 ->assertAuthenticatedAs($this->user)
-                ->visit(route(RouteNames::GET_SESSION_DESTROY))
+                ->visit(route(NamedRoute::GET_SESSION_DESTROY))
                 ->assertRouteIs(RouteServiceProvider::HOME);
         });
     }

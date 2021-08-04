@@ -2,7 +2,7 @@
 
 namespace Tests\Route;
 
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Models\PasswordReset;
 use App\Providers\RouteServiceProvider;
 use App\Rules\Throttle;
@@ -24,7 +24,7 @@ class PasswordResetRouteTest extends TestCase
     public function test_password_reset_is_ok_for_unauthenticated_user(): void
     {
         $this->assertGuest()
-            ->get(route(RouteNames::GET_PASSWORD_RESET_INDEX))
+            ->get(route(NamedRoute::GET_PASSWORD_RESET_INDEX))
             ->assertOk();
     }
 
@@ -39,7 +39,7 @@ class PasswordResetRouteTest extends TestCase
         $this->followingRedirects()
             ->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
-            ->get(route(RouteNames::GET_PASSWORD_RESET_INDEX))
+            ->get(route(NamedRoute::GET_PASSWORD_RESET_INDEX))
             ->assertOk();
     }
 
@@ -47,11 +47,11 @@ class PasswordResetRouteTest extends TestCase
     public function test_password_reset_is_ok_after_submission(): void
     {
         $this->assertGuest()
-            ->post(route(RouteNames::POST_PASSWORD_RESET_STORE), ["email" => $this->user->email])
+            ->post(route(NamedRoute::POST_PASSWORD_RESET_STORE), ["email" => $this->user->email])
             ->assertSessionHasNoErrors();
 
         // Let's also try incorrect data just in case
-        $this->post(route(RouteNames::POST_PASSWORD_RESET_STORE), ["email" => "asdf"])
+        $this->post(route(NamedRoute::POST_PASSWORD_RESET_STORE), ["email" => "asdf"])
             ->assertSessionHasErrors();
     }
 
@@ -59,7 +59,7 @@ class PasswordResetRouteTest extends TestCase
     public function test_password_reset_results_route_is_ok(): void
     {
         $this->assertGuest()
-            ->get(route(RouteNames::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT))
+            ->get(route(NamedRoute::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT))
             ->assertOk();
     }
 
@@ -68,7 +68,7 @@ class PasswordResetRouteTest extends TestCase
     {
         $this->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
-            ->get(route(RouteNames::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT))
+            ->get(route(NamedRoute::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT))
             ->assertRedirect(route(RouteServiceProvider::HOME));
     }
 
@@ -76,7 +76,7 @@ class PasswordResetRouteTest extends TestCase
     public function test_password_change_route_is_ok(): void
     {
         $token = PasswordReset::GenerateAndInsert($this->user->email);
-        $this->get(route(RouteNames::GET_PASSWORD_RESET_CHANGE_CREATE, ["token" => $token->token, "email" => $token->email]))
+        $this->get(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE, ["token" => $token->token, "email" => $token->email]))
             ->assertOk();
     }
 
@@ -93,7 +93,7 @@ class PasswordResetRouteTest extends TestCase
         $this->followingRedirects()
             ->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
-            ->get(route(RouteNames::GET_PASSWORD_RESET_CHANGE_CREATE, ["token" => $token->token, "email" => $token->email]))
+            ->get(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE, ["token" => $token->token, "email" => $token->email]))
             ->assertOk();
     }
 }

@@ -1,5 +1,5 @@
 @php
-$uri = route(RouteNames::GET_PASSWORD_RESET_VALIDATE_TOKEN, ['token' => $token->token, 'email' => $user->email]);
+$uri = route(NamedRoute::GET_PASSWORD_RESET_VALIDATE_TOKEN, ['token' => $token->token, 'email' => $user->email]);
 @endphp
 
 @component('mail::message')

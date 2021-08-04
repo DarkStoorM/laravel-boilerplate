@@ -2,7 +2,7 @@
     <div class="container__header">
         @lang("forms.password-reset.change-password-header")
     </div>
-    <form method="POST" action="{{ route(RouteNames::POST_PASSWORD_RESET_CHANGE_STORE, ['token' => $token, 'email' => $email]) }}">
+    <form method="POST" action="{{ route(NamedRoute::POST_PASSWORD_RESET_CHANGE_STORE, ['token' => $token, 'email' => $email]) }}">
         @csrf
         <input type="hidden" name="token" value="{{ $token }}">
         <input type="hidden" name="email" value="{{ $email }}">

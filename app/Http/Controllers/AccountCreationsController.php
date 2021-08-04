@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
 
 use App\Models\User;
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Models\VerificationToken;
 use App\Mail\MailableVerificationToken;
 use App\Http\Requests\AccountCreationRequest;
@@ -40,7 +40,7 @@ class AccountCreationsController extends Controller
         // the account verification.
         flash_success(trans("account_create.created"));
 
-        return redirect(route(RouteNames::GET_ACCOUNT_CREATION_STATUS));
+        return redirect(route(NamedRoute::GET_ACCOUNT_CREATION_STATUS));
     }
 
     /** Account Verification "status" page */
@@ -55,7 +55,7 @@ class AccountCreationsController extends Controller
         // Check if the Token is valid. If the token is used / expired / mismatched
         if (VerificationToken::IsValid($token, $email) === false) {
             // The error has already been flashed by the token validator
-            return redirect(route(RouteNames::GET_ACCOUNT_CREATION_STATUS));
+            return redirect(route(NamedRoute::GET_ACCOUNT_CREATION_STATUS));
         }
 
         // Verify the user under given token
@@ -69,6 +69,6 @@ class AccountCreationsController extends Controller
         // and he can log into his account
         flash_success(trans("account_create.verified"));
 
-        return redirect(route(RouteNames::GET_ACCOUNT_CREATION_STATUS));
+        return redirect(route(NamedRoute::GET_ACCOUNT_CREATION_STATUS));
     }
 }

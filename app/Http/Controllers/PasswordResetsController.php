@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 
 use App\Models\User;
 use App\Models\PasswordReset;
-use App\Libs\Utils\RouteNames;
+use App\Libs\Utils\NamedRoute;
 use App\Mail\MailablePasswordReset;
 use App\Http\Requests\PasswordResetRequest;
 use App\Http\Requests\PasswordResetChangeRequest;
@@ -54,7 +54,7 @@ class PasswordResetsController extends Controller
 
         flash_success(trans('password_reset.reset-sent'));
 
-        return redirect(route(RouteNames::GET_PASSWORD_RESET_INDEX));
+        return redirect(route(NamedRoute::GET_PASSWORD_RESET_INDEX));
     }
 
     /** 
@@ -80,8 +80,8 @@ class PasswordResetsController extends Controller
         // Since this token can be changed by the potentially malicious user, 
         // we have to validate if that token actually exists
         return PasswordReset::IsValid($token, $email) === true
-            ? redirect(route(RouteNames::GET_PASSWORD_RESET_CHANGE_CREATE, ['token' => $token, 'email' => $email]))
-            : redirect(route(RouteNames::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT));
+            ? redirect(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE, ['token' => $token, 'email' => $email]))
+            : redirect(route(NamedRoute::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT));
     }
 
     /** Displays the results of Password Change and information that user can log in */
@@ -100,7 +100,7 @@ class PasswordResetsController extends Controller
     {
         // We have to validate that token again, and in the same way
         if (PasswordReset::IsValid($token, $email) === false) {
-            return redirect(route(RouteNames::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT));
+            return redirect(route(NamedRoute::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT));
         }
 
         return view('account.password-reset.new-password')->with(['token' => $token, 'email' => $email]);
@@ -117,7 +117,7 @@ class PasswordResetsController extends Controller
         // be validated even on the final step, because here user can still send invalid
         // email or the one that belongs to a different user
         if (PasswordReset::IsValid($validated['token'], $validated['email']) === false) {
-            return redirect(route(RouteNames::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT));
+            return redirect(route(NamedRoute::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT));
         }
 
         // The token is valid so we can just straight up update user's password
@@ -132,11 +132,11 @@ class PasswordResetsController extends Controller
             PasswordReset::DeleteToken($validated["token"], $validated["email"]);
         } catch (Exception $exception) {
             flash_error($exception->getMessage());
-            return redirect(route(RouteNames::GET_PASSWORD_RESET_CHANGE_RESULT));
+            return redirect(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_RESULT));
         }
 
         flash_success(trans('password_reset.password-changed'));
 
-        return redirect(route(RouteNames::GET_PASSWORD_RESET_CHANGE_RESULT));
+        return redirect(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_RESULT));
     }
 }
