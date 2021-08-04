@@ -1,0 +1,64 @@
+a {
+  text-decoration: none;
+  font-weight: bold;
+
+  &:link {
+    color: $color-base-accent;
+  }
+
+  &:visited {
+    color: $color-base-accent;
+  }
+
+  &:hover {
+    color: $color-base-highlight;
+  }
+
+  &:active {
+    color: $color-base-accent;
+  }
+}
+
+a.link {
+  /**
+   * Duplicated if the base colors were overridden and have to be overridden again, for whatever reason
+   */
+  text-decoration: none;
+  font-weight: bold;
+
+  &__light {
+    &:link {
+      color: $color-base-accent;
+    }
+
+    &:visited {
+      color: $color-base-accent;
+    }
+
+    &:hover {
+      color: $color-base-highlight;
+    }
+
+    &:active {
+      color: $color-base-accent;
+    }
+  }
+
+  &__dark {
+    &:link {
+      color: $color-base-accent;
+    }
+
+    &:visited {
+      color: $color-base-accent;
+    }
+
+    &:hover {
+      color: $color-base-highlight;
+    }
+
+    &:active {
+      color: $color-base-accent;
+    }
+  }
+}
