@@ -34,19 +34,18 @@ return [
     */
 
     'connections' => [
-
+        'testing' => [
+            'driver' => 'sqlite',
+            'database' => env('DB_DATABASE/..', database_path('testing.sqlite')),
+        ],
+        'dusk' => [
+            'driver' => 'sqlite',
+            'database' => env('DB_DATABASE/..', database_path('dusk.sqlite')),
+        ],
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
-            'database' => database_path('db.sqlite'),
-            'prefix' => '',
-            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
-        ],
-
-        'sqlite_dusk' => [
-            'driver' => 'sqlite',
-            'url' => env('DATABASE_URL'),
-            'database' => database_path('db_dusk.sqlite'),
+            'database' => env('DB_DATABASE/..', database_path('db.sqlite')),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
