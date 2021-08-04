@@ -54,12 +54,16 @@
     "copy-env": [
       "@php -r \"copy('.env.example', '.env');\""
     ],
+    "copy-env-testing": [
+      "@php -r \"copy('.env.testing.example', '.env.testing');\""
+    ],
     "copy-env-dusk": [
-      "@php -r \"copy('.env.example', '.env.dusk.testing');\""
+      "@php -r \"copy('.env.dusk.local.example', '.env.dusk.local');\""
     ],
     "post-install-cmd": [
       "npm i",
       "npm audit fix",
+      "npm run dev",
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
       "@php -r \"file_exists('.env.dusk.local') || copy('.env.dusk.local.example', '.env.dusk.local');\"",
       "@php -r \"file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');\"",
