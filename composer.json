@@ -30,7 +30,9 @@
   },
   "autoload": {
     "files": [
-      "app/Helpers/helpers.php"
+      "app/Helpers/Dates.php",
+      "app/Helpers/Flashers.php",
+      "app/Helpers/Generators.php"
     ],
     "psr-4": {
       "App\\": "app/",
@@ -53,16 +55,19 @@
       "@php -r \"copy('.env.example', '.env');\""
     ],
     "copy-env-dusk": [
-      "@php -r \"copy('.env.example', '.env.dusk.local');\""
+      "@php -r \"copy('.env.example', '.env.dusk.testing');\""
     ],
     "post-install-cmd": [
       "npm i",
       "npm audit fix",
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-      "@php -r \"file_exists('.env.dusk.local') || copy('.env.dusk.example', '.env.dusk.local');\"",
+      "@php -r \"file_exists('.env.dusk.local') || copy('.env.dusk.local.example', '.env.dusk.local');\"",
+      "@php -r \"file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');\"",
       "@php -r \"file_put_contents('database/db.sqlite', '');\"",
-      "@php -r \"file_put_contents('database/db_dusk.sqlite', '');\"",
+      "@php -r \"file_put_contents('database/dusk.sqlite', '');\"",
+      "@php -r \"file_put_contents('database/testing.sqlite', '');\"",
       "@php artisan key:generate --ansi",
+      "@php artisan key:generate --env=testing --ansi",
       "@php artisan key:generate --env=dusk.local --ansi",
       "@php artisan dusk:chrome-driver --all",
       "@php artisan migrate",
@@ -70,16 +75,13 @@
     ],
     "test": [
       "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml",
-      "@php artisan migrate",
-      "@php artisan db:seed"
+      "@php artisan migrate:refresh",
+      "@php artisan db:seed",
+      "@php artisan optimize:clear"
     ],
     "start": [
       "Composer\\Config::disableProcessTimeout",
-      "@php artisan serve"
-    ],
-    "start-dusk": [
-      "Composer\\Config::disableProcessTimeout",
-      "@php artisan serve --env=dusk.local"
+      "@php artisan serve --port=8000"
     ],
     "coverage-ff": [
       "start firefox \"%cd%\\tests\\reports\\index.html\""
