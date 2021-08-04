@@ -8,23 +8,20 @@
  */
 
 // Import Variables
-@import "variables/colors";
-@import "variables/fonts";
-@import "variables/globals";
+@import 'variables/colors';
+@import 'variables/fonts';
+@import 'variables/globals';
 
 // Import functions and mixin
-@import "utils/functions";
-@import "utils/mixins";
+@import 'utils/functions';
+@import 'utils/mixins';
 
 // Import Layout files
-@import "bem/properties";
-@import "bem/links";
-@import "bem/layout/containers";
+@import 'bem/links';
+@import 'bem/layout/containers';
+@import 'bem/layout/main';
+@import 'bem/layout/navbar';
 
-@import "bem/layout/main";
-@import "bem/layout/navbar";
-
-@import "bem/layout/forms/elements/buttons";
-@import "bem/layout/forms/elements/generic";
-@import "bem/layout/forms/elements/labels";
-@import "bem/layout/forms/elements/inputs";
+@import 'bem/layout/forms/elements/buttons';
+@import 'bem/layout/forms/elements/labels';
+@import 'bem/layout/forms/elements/inputs';
