@@ -36,6 +36,8 @@ Some files require **manual** configuration depending on your environment. Altho
 
 **This is (obviously) not a professionally prepared repository** for all Laravel applications, but rather a quick pseudo-pre-configuration. Most of the *manual* tasks are not even needed, like installing Xdebug for Code Coverage, but since Laravel is perfect for TDD, having Code Coverage available is always nice.
 
+> The existing template is fully localized with `@lang`. Since there is no user input, there is nothing that needs to be escaped.
+
 ### Pre-configuration
 
 What actually is this "pre-configuration"? They are some simple steps **for basic applications**:
