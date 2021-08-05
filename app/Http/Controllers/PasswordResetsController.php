@@ -20,13 +20,13 @@ class PasswordResetsController extends Controller
      * Displays the password Reset Form. This view serves a purpose of acquiring the reset link
      * and displaying the information about reset status (redirecting back with errors/success flash)
      */
-    public function passwordResetIndex(): View
+    public function index(): View
     {
         return view('account.password-reset.request');
     }
 
     /** Attempts to send the user an email with a password reset link */
-    public function passwordResetStore(PasswordResetRequest $request): RedirectResponse
+    public function storeRequest(PasswordResetRequest $request): RedirectResponse
     {
         $validated = $request->validated();
         // For 'security' reasons, this should never show a failure to prevent bruteforce attacks
@@ -62,7 +62,7 @@ class PasswordResetsController extends Controller
      *
      * Clarification: user clicks the password reset link from the received Email
      */
-    public function passwordResetActivate(): View
+    public function activate(): View
     {
         return view('account.password-reset.request');
     }
@@ -75,7 +75,7 @@ class PasswordResetsController extends Controller
      * @param   string  $token   Password Reset identification token
      * @param   string  $email  Email address associated with the given token
      */
-    public function passwordResetValidateToken(string $token, string $email): RedirectResponse
+    public function validateToken(string $token, string $email): RedirectResponse
     {
         // Since this token can be changed by the potentially malicious user, 
         // we have to validate if that token actually exists
@@ -85,7 +85,7 @@ class PasswordResetsController extends Controller
     }
 
     /** Displays the results of Password Change and information that user can log in */
-    public function passwordResetChangeResult(): View
+    public function changeStatus(): View
     {
         return view("account.password-reset.results");
     }
@@ -93,10 +93,10 @@ class PasswordResetsController extends Controller
     /**
      * Displays the Password Change form after token validation
      * 
-     * @param   string  $token   Password Reset identification token
-     * @param   string  $email  Email address associated with the given token
+     * @param   string  $token      Password Reset identification token
+     * @param   string  $email      Email address associated with the given token
      */
-    public function passwordResetChangeCreate(string $token, string $email): View|RedirectResponse
+    public function reset(string $token, string $email): View|RedirectResponse
     {
         // We have to validate that token again, and in the same way
         if (PasswordReset::IsValid($token, $email) === false) {
@@ -109,7 +109,7 @@ class PasswordResetsController extends Controller
     /**
      * Changes user's password and deletes the created password reset token
      */
-    public function passwordResetChangeStore(PasswordResetChangeRequest $request): RedirectResponse
+    public function update(PasswordResetChangeRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
@@ -127,7 +127,7 @@ class PasswordResetsController extends Controller
             User::UpdatePassword($validated['email'], $validated['password']);
 
             // Throttle clear should be taken with caution, please refer to:
-            // SessionsController -> successful sessionStore()
+            // SessionsController -> successful store()
             // Throttle::Clear("throttle-password-throttle");
             PasswordReset::DeleteToken($validated["token"], $validated["email"]);
         } catch (QueryException $exception) {

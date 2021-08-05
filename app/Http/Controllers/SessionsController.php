@@ -14,13 +14,13 @@ use App\Providers\RouteServiceProvider;
 class SessionsController extends Controller
 {
     /** Displays the Login index - shows the Login form */
-    public function sessionIndex(): View
+    public function index(): View
     {
         return view("account.session-create");
     }
 
     /** Authenticates the user and redirects back to the Dashboard Index */
-    public function sessionStore(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
@@ -50,7 +50,7 @@ class SessionsController extends Controller
     }
 
     /** Logs the user out of the application / regenerates the app CSRF token */
-    public function sessionDestroy(Request $request): RedirectResponse
+    public function destroy(Request $request): RedirectResponse
     {
         $this->logout($request);
 
