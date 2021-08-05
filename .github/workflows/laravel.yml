@@ -8,7 +8,7 @@ on:
 
 jobs:
   phpunit:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     container:
       image: lorisleiva/laravel-docker:8.0
