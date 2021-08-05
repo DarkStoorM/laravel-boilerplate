@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -94,7 +95,7 @@ class User extends Authenticatable
     {
         try {
             static::where("email", $email)->update(["password" => Hash::make($newPassword)]);
-        } catch (Exception $exception) {
+        } catch (QueryException $exception) {
             throw $exception->getMessage();
         }
     }
@@ -114,7 +115,7 @@ class User extends Authenticatable
             $user = DB::transaction(function () use ($userData) {
                 DB::beginTransaction();
 
-                $user = User::create([
+                $user = static::create([
                     "email" => $userData["email"],
                     "password" => Hash::make($userData["password"])
                 ]);
@@ -128,8 +129,8 @@ class User extends Authenticatable
                     "token" => $token
                 ];
             });
-        } catch (\Throwable $th) {
-            throw $th;
+        } catch (QueryException $exception) {
+            throw $exception->getMessage();
         }
 
         return $user;

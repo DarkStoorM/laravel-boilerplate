@@ -11,6 +11,7 @@ use App\Libs\Utils\NamedRoute;
 use App\Models\VerificationToken;
 use App\Mail\MailableVerificationToken;
 use App\Http\Requests\AccountCreationRequest;
+use Illuminate\Database\QueryException;
 
 class AccountCreationsController extends Controller
 {
@@ -31,9 +32,9 @@ class AccountCreationsController extends Controller
             $userData = User::CreateNew($validated);
 
             Mail::send(new MailableVerificationToken($userData));
-        } catch (\Throwable $th) {
+        } catch (QueryException $exception) {
             $userData["user"]->delete();
-            throw $th;
+            throw $exception->getMessage();
         }
 
         // We have to notify the new users about an additional step, which is
@@ -61,8 +62,8 @@ class AccountCreationsController extends Controller
         // Verify the user under given token
         try {
             User::where("email", $email)->first()->verify();
-        } catch (\Throwable $th) {
-            throw $th;
+        } catch (QueryException $exception) {
+            throw $exception->getMessage();
         }
 
         // Now we can notify the user that his account has been verified

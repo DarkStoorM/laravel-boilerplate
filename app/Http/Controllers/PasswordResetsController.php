@@ -13,6 +13,7 @@ use App\Libs\Utils\NamedRoute;
 use App\Mail\MailablePasswordReset;
 use App\Http\Requests\PasswordResetRequest;
 use App\Http\Requests\PasswordResetChangeRequest;
+use Illuminate\Database\QueryException;
 
 class PasswordResetsController extends Controller
 {
@@ -130,7 +131,7 @@ class PasswordResetsController extends Controller
             // SessionsController -> successful sessionStore()
             // Throttle::Clear("throttle-password-throttle");
             PasswordReset::DeleteToken($validated["token"], $validated["email"]);
-        } catch (Exception $exception) {
+        } catch (QueryException $exception) {
             flash_error($exception->getMessage());
             return redirect(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_RESULT));
         }
