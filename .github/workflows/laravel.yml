@@ -7,10 +7,10 @@ on:
     branches: [ main ]
 
 env:
-  APP_ENV: testing
-  APP_KEY: base64:q7U5qyAkedR1F6UhN0SQlUxBpAMDyfHy3NNFkqmiMqA=
-  APP_URL: http://localhost:8000
-  DB_HOST: 127.0.0.1
+  APP_KEY: base64:aCBbAF8BYWGoGTZEfXn8bMexeGj8jsGo3Snpob1aiZU=
+  APP_URL: http://127.0.0.1:8000
+  DB_DATABASE: ..\database\testing.sqlite
+  DB_CONNECTION: testing
 
 jobs:
   phpunit:
