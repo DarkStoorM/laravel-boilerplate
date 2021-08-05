@@ -8,7 +8,29 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
 
 ---
 
-TOC
+- [Laravel - Boilerplate](#laravel---boilerplate)
+  - [Requirements](#requirements)
+    - [Manual configuration](#manual-configuration)
+  - [Differences between a fresh Laravel install and this repo](#differences-between-a-fresh-laravel-install-and-this-repo)
+    - [Pre-configuration](#pre-configuration)
+    - [Additional Packages](#additional-packages)
+    - [Additional Libraries](#additional-libraries)
+      - [Code Execution Time Measurement](#code-execution-time-measurement)
+      - [Constants](#constants)
+      - [Route Naming](#route-naming)
+    - [Route Separation](#route-separation)
+  - [Installation](#installation)
+    - [Database](#database)
+  - [Running](#running)
+  - [Testing](#testing)
+    - [Browser Tests](#browser-tests)
+    - [Xdebug](#xdebug)
+    - [Code Coverage](#code-coverage)
+    - [Test paths](#test-paths)
+  - [Development](#development)
+    - [Routes](#routes)
+  - [Suggestions](#suggestions)
+    - [VSCode](#vscode)
 
 ---
 
