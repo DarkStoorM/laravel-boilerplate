@@ -140,8 +140,7 @@ class PasswordResetFeatureTest extends TestCase
                     "token" => $token->token, /* we have to add hidden inputs */
                     "email" => $token->email, /* to validate this user again */
                 ]
-            )
-            ->assertSee(trans("password_reset.password-changed"));
+            )->assertOk();
 
         // User's password should be changed now
         $user = User::find($this->user->id);
