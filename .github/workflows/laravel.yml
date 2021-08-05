@@ -6,12 +6,6 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  APP_KEY: base64:aCBbAF8BYWGoGTZEfXn8bMexeGj8jsGo3Snpob1aiZU=
-  APP_URL: http://127.0.0.1:8000
-  DB_DATABASE: ..\database\testing.sqlite
-  DB_CONNECTION: testing
-
 jobs:
   phpunit:
     strategy:
@@ -46,7 +40,7 @@ jobs:
         run: composer update
 
       - name: Composer dependencies
-        run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+        run: composer install --no-ansi --no-interaction --no-suggest --no-progress --prefer-dist
 
       - name: Run Testsuite
         run: composer test
