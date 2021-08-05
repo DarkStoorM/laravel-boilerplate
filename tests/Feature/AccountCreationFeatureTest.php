@@ -6,7 +6,6 @@ use App\Libs\Utils\NamedRoute;
 use App\Models\User;
 use App\Models\VerificationToken;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AccountCreationFeatureTest extends TestCase

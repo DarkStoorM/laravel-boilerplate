@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;

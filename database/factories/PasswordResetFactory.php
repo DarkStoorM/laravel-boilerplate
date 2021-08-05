@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Libs\Constants;
 use App\Models\PasswordReset;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PasswordResetFactory extends Factory

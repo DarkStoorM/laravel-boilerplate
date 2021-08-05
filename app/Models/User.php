@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -89,7 +88,11 @@ class User extends Authenticatable
     /**
      * Updates the password of user identified by given email address
      *
-     * This assumes the user already exists
+     * This assumes the user already exists. Warning, this method should only be called
+     * with __validated__ data.
+     *
+     * @param   string  $email        Validated email address
+     * @param   string  $newPassword  Validated password
      */
     public static function UpdatePassword(string $email, string $newPassword): void
     {
