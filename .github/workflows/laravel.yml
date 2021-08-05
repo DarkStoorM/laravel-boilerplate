@@ -1,4 +1,4 @@
-name: Laravel
+name: Tests
 
 on:
   push:
@@ -25,34 +25,29 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Get composer cache directory
-        id: composercache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache composer
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.composercache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - name: Composer dependencies
+      - name: Install Composer dependencies
         run: composer install --no-ansi --no-interaction --no-suggest --no-progress --prefer-dist
 
-      - name: Run Testsuite
+      - name: Run Tests
         run: composer test-workflow
 
       - name: Upgrade Chrome Driver
         run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
+
       - name: Run Migrations
         run: php artisan migrate
+
       - name: Change permissions to dusk
         run: chmod -R 0755 vendor/laravel/dusk/bin/ 
+
       - name: Run Laravel Server
         run: php artisan serve  > /dev/null 2>&1 &
+
       - name: curl to localhost
         run: curl localhost:8000 &
+
       - name: Start Chrome Driver
         run: ./vendor/laravel/dusk/bin/chromedriver-linux > /dev/null 2>&1 &
+        
       - name: Run Dusk Tests
         run: php artisan dusk
