@@ -141,9 +141,10 @@ class PasswordResetFeatureTest extends TestCase
                     "email" => $token->email, /* to validate this user again */
                 ]
             )->assertOk();
-
+        dump($this->user);
         // User's password should be changed now
         $user = User::find($this->user->id);
+        dump($user);
         $this->assertTrue(Hash::check("newPassword1!", $user->password));
     }
 
