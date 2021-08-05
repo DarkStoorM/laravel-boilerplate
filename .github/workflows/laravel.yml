@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 1
 
-      -name: Composer update
+      - name: Composer update
         run: composer update
 
       - name: Composer dependencies
