@@ -133,7 +133,7 @@ class PasswordResetFeatureTest extends TestCase
         Artisan::call("migrate:refresh");
         $this->user = User::factory()->create();
         $token = PasswordReset::GenerateAndInsert($this->user->email);
-
+        dump($this->user);
         $this->followingRedirects()
             ->post(
                 route(NamedRoute::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
@@ -143,11 +143,11 @@ class PasswordResetFeatureTest extends TestCase
                     "token" => $token->token, /* we have to add hidden inputs */
                     "email" => $token->email, /* to validate this user again */
                 ]
-            )->dumpSession()
-            ->assertOk();
+            )->assertOk();
 
         // User's password should be changed now
         $user = User::find($this->user->id);
+        dump($this->user);
         $this->assertTrue(Hash::check("newPassword1!", $user->password), "Testing if password has changed");
     }
 
