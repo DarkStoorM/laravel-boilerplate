@@ -35,8 +35,7 @@ class AccountCreationRequest extends FormRequest
                     ->mixedCase()
                     ->letters()
                     ->numbers()
-                    ->symbols()
-                    ->uncompromised(),
+                    ->symbols(),
             ]
         ];
     }
