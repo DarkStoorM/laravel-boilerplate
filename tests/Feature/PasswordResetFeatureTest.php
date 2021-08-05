@@ -141,6 +141,11 @@ class PasswordResetFeatureTest extends TestCase
                     "email" => $token->email, /* to validate this user again */
                 ]
             )->assertOk();
+
+        // User's password should be changed now
+        $user = User::find($this->user->id);
+
+        $this->assertTrue(Hash::check("newPassword1!", $user->password));
     }
 
     /** Tests if the user will encounter validation errors if the password did not pass the validation */
@@ -174,14 +179,15 @@ class PasswordResetFeatureTest extends TestCase
     /**
      * This tests if user gets stopped by the Controller after trying to post new password with a different token
      *
-     * Changing the email in the request should send the user back to the token validation
+     * Changing the email in the request should send the user back to the token invalidation
      */
     public function test_user_cant_change_password_with_malformed_data(): void
     {
         $token = PasswordReset::GenerateAndInsert($this->user->email);
 
         // Since we are dealing with a regular flash, we are not checking for SessionErrors
-        $this->assertGuest()
+        $this->followingRedirects()
+            ->assertGuest()
             ->post(
                 route(NamedRoute::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
                 [
@@ -190,21 +196,34 @@ class PasswordResetFeatureTest extends TestCase
                     "token" => $token->token,
                     "email" => "some@different.mail",
                 ]
-            )->assertRedirect(route(NamedRoute::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT))
-            ->assertSessionHas("error-generic", trans("password_reset.invalid-token"));
+            );
+
+        // The token should still be there, which means we did not change our password
+        $this->assertDatabaseHas("password_resets", ["token" => $token->token]);
+
+        // We have to retrieve the user to grab a fresh copy
+        $user = User::find($this->user->id);
+        $this->assertTrue(Hash::check("password", $user->password));
 
         // Now let's say we do the same, but with the correct data
         // the password is now changed and the token does not exist
-        $this->post(
-            route(NamedRoute::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
-            [
-                "password" => "newPassword1!",
-                "password_confirmation" => "newPassword1!",
-                "token" => $token->token,
-                "email" => $this->user->email,
-            ]
-        )->assertRedirect(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_RESULT))
-            ->assertSessionHas("success-generic", trans("password_reset.password-changed"));
+        $this->followingRedirects()
+            ->post(
+                route(NamedRoute::POST_PASSWORD_RESET_CHANGE_STORE, ["token" => $token->token, "email" => $token->email]),
+                [
+                    "password" => "newPassword1!",
+                    "password_confirmation" => "newPassword1!",
+                    "token" => $token->token,
+                    "email" => $this->user->email,
+                ]
+            );
+
+        // The token should not be there anymore
+        $this->assertDatabaseMissing("password_resets", ["token" => $token->token]);
+
+        // We have to grab a fresh user again
+        $user = User::find($this->user->id);
+        $this->assertTrue(Hash::check("newPassword1!", $user->password));
     }
 
     /**
