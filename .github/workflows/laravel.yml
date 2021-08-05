@@ -18,6 +18,8 @@ jobs:
         with:
           path: vendor
           key: composer-${{ hashFiles('composer.lock') }}
+      - name: Update packages
+        run: composer update
 
       - name: Run composer install
         run: composer install -n --prefer-dist
