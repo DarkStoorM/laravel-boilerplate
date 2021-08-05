@@ -7,5 +7,32 @@
  |
  */
 
-$main-background-color-dark: #1a202c;
+/**
+ * TEMPLATE
+ */
+$color-base-highlight: #86c232;
+$color-base-accent: #61892f;
+$color-base-background: #222629;
+$color-base-shadow: #181a1b;
+$color-base-dark: #474b4f;
+$color-base-dark-accent: #6b6e70;
+
+$main-background-color-dark: $color-base-background;
 $main-font-color: #d1d8e6;
+
+/**
+ * CONTAINERS
+ */
+$color-container-generic: mix($color-base-background, $color-base-dark-accent, 90%);
+
+/**
+ * BUTTONS
+ */
+$color-button: $color-base-accent;
+$color-button-hover: $color-base-highlight;
+
+/**
+ * FLASHES AND NOTIFICATION
+ */
+// This should be used if the notification box has a regular, dark color
+$flash-font-color-error: #c2324a;

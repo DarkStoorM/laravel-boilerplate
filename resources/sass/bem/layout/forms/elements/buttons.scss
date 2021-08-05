@@ -1,0 +1,29 @@
+.button {
+  height: 2rem;
+  background-color: $color-button;
+  border: none;
+  font-family: inherit;
+  font-weight: bold;
+  letter-spacing: inherit;
+  text-transform: uppercase;
+  transition: all 0.1s cubic-bezier(0.28, 1, 0.69, 0.37);
+
+  @include round-corners(3px);
+
+  &:hover {
+    letter-spacing: 0.15rem;
+    background-color: $color-button-hover;
+  }
+
+  &--small {
+    @include width-quarter;
+  }
+
+  &--medium {
+    @include width-half;
+  }
+
+  &--full {
+    @include width-full;
+  }
+}

@@ -17,4 +17,11 @@
 @import 'utils/mixins';
 
 // Import Layout files
+@import 'bem/links';
+@import 'bem/layout/containers';
 @import 'bem/layout/main';
+@import 'bem/layout/navbar';
+
+@import 'bem/layout/forms/elements/buttons';
+@import 'bem/layout/forms/elements/labels';
+@import 'bem/layout/forms/elements/inputs';

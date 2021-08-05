@@ -1,0 +1,14 @@
+.navbar {
+    align-items: center;
+    background-color: mix($color-base-background, $color-base-dark-accent, 75%);
+    border-bottom: 2px solid $color-base-accent;
+    display: flex;
+    font-weight: bold;
+    height: 3rem;
+    justify-content: flex-end;
+    text-transform: uppercase;
+
+    & > div {
+        margin-right: 1rem;
+    }
+}

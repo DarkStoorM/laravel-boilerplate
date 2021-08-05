@@ -62,7 +62,7 @@ class ExecutionTimeMeasurement
     private bool $hasStarted = false;
 
     /**
-     * @param   string|null     $message            Optional message to prepend to the execution time result. Both Empty or Null are valid when no message is provided
+     * @param   string|null     $message            Optional message to prepend to the execution time result. Both Empty of Null are valid when no message is provided
      * @param   bool            $startImmediately   If true, the initial timestamp will be added without needing to start manually. NOTICE: this parameter is ignored if Callback is tested
      * @param   callable        $callback           Callback used for execution time calculation. Tested Callback will immediately build the result
      */

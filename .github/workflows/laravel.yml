@@ -1,0 +1,53 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  phpunit:
+    strategy:
+      matrix:
+        php: ['8.0']
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set php version
+        uses: shivammathur/setup-php@v2
+        with:
+          tools: composer:v2
+          php-version: ${{ matrix.php }}
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Install Composer dependencies
+        run: composer install --no-ansi --no-interaction --no-suggest --no-progress --prefer-dist
+
+      - name: Run Tests
+        run: composer test-workflow
+
+      - name: Upgrade Chrome Driver
+        run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
+
+      - name: Run Migrations
+        run: php artisan migrate
+
+      - name: Change permissions to dusk
+        run: chmod -R 0755 vendor/laravel/dusk/bin/ 
+
+      - name: Run Laravel Server
+        run: php artisan serve  > /dev/null 2>&1 &
+
+      - name: curl to localhost
+        run: curl localhost:8000 &
+
+      - name: Start Chrome Driver
+        run: ./vendor/laravel/dusk/bin/chromedriver-linux > /dev/null 2>&1 &
+        
+      - name: Run Dusk Tests
+        run: php artisan dusk

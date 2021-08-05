@@ -9,3 +9,31 @@
  | Mixins output lines of SASS code.
  |
  */
+
+/**
+  * This assumes the display is set to Flex on the container this is going be used on
+  */
+@mixin center-content {
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin center-element {
+    margin: 0px auto;
+}
+
+@mixin round-corners($size: 5px) {
+    border-radius: $size;
+}
+
+@mixin width-quarter($offset: 0px) {
+    width: calc(50% - #{$offset});
+}
+
+@mixin width-half($offset: 0px) {
+    width: calc(50% - #{$offset});
+}
+
+@mixin width-full($offset: 0px) {
+    width: calc(100% - #{$offset});
+}

@@ -2,34 +2,51 @@
 
 namespace Tests;
 
-use Facebook\WebDriver\Chrome\ChromeOptions;
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
+use App\Models\User;
+use Laravel\Dusk\Browser;
 use Laravel\Dusk\TestCase as BaseTestCase;
+use Facebook\WebDriver\Chrome\ChromeOptions;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithFaker;
 
 abstract class DuskTestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, DatabaseMigrations, WithFaker;
 
     /**
      * Prepare for Dusk test execution.
      *
      * @beforeClass
-     * @return void
      */
-    public static function prepare()
+    public static function prepare(): void
     {
         if (!static::runningInSail()) {
             static::startChromeDriver();
         }
     }
 
-    /**
-     * Create the RemoteWebDriver instance.
-     *
-     * @return \Facebook\WebDriver\Remote\RemoteWebDriver
-     */
-    protected function driver()
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->user = User::factory()->create();
+
+        // This email will be used for new users that have to be created separately
+        // - entering a non-existing email
+        $this->fakeEmail = $this->faker->safeEmail();
+    }
+
+    public function tearDown(): void
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->logout();
+        });
+        parent::tearDown();
+    }
+
+    /** Create the RemoteWebDriver instance. */
+    protected function driver(): RemoteWebDriver
     {
         $options = (new ChromeOptions)->addArguments(collect([
             '--window-size=1920,1080',
@@ -49,12 +66,8 @@ abstract class DuskTestCase extends BaseTestCase
         );
     }
 
-    /**
-     * Determine whether the Dusk command has disabled headless mode.
-     *
-     * @return bool
-     */
-    protected function hasHeadlessDisabled()
+    /** Determine whether the Dusk command has disabled headless mode. */
+    protected function hasHeadlessDisabled(): bool
     {
         return isset($_SERVER['DUSK_HEADLESS_DISABLED']) ||
             isset($_ENV['DUSK_HEADLESS_DISABLED']);

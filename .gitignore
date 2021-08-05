@@ -22,3 +22,4 @@ Homestead.json
 public/css/*
 public/js/*
 .vscode/settings.json
+.env.testing

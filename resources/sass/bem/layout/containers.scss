@@ -1,0 +1,50 @@
+.container {
+    background-color: $color-container-generic;
+    border-top: 2px solid $color-base-accent;
+    border-bottom: 2px solid $color-base-shadow;
+    margin: 1rem auto 0;
+    padding: 1rem;
+    width: 25rem;
+
+    @include round-corners(0.5rem);
+
+    ul {
+        padding: 0px 0px 0px 1rem;
+        margin: 0px;
+    }
+
+    &__header {
+        border-bottom: 1px solid $color-base-shadow;
+        font-size: 150%;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        padding: 0.25rem 0px 0.5rem 0px;
+        text-align: center;
+    }
+
+    &__row {
+        padding: 0.5rem 0;
+    }
+
+    &__footer {
+        font-size: 80%;
+        padding: 0.5rem 0.5rem 0rem;
+        text-align: right;
+    }
+
+    &__separator {
+        background-color: $color-base-accent;
+        height: 1px;
+        margin-top: 0.25rem;
+        width: 100%;
+    }
+
+    &--big {
+        width: 35rem;
+    }
+
+    &--error {
+        color: $flash-font-color-error;
+        font-weight: bold;
+    }
+}
