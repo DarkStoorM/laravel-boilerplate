@@ -140,7 +140,7 @@ class PasswordResetFeatureTest extends TestCase
                     "token" => $token->token, /* we have to add hidden inputs */
                     "email" => $token->email, /* to validate this user again */
                 ]
-            )->assertOk();
+            )->assertSee(trans("password_reset.password-changed"));
 
         // User's password should be changed now
         $user = User::find($this->user->id);
@@ -196,7 +196,7 @@ class PasswordResetFeatureTest extends TestCase
                     "token" => $token->token,
                     "email" => "some@different.mail",
                 ]
-            );
+            )->assertSee(trans("password_reset.invalid-token"));
 
         // The token should still be there, which means we did not change our password
         $this->assertDatabaseHas("password_resets", ["token" => $token->token]);
@@ -216,7 +216,7 @@ class PasswordResetFeatureTest extends TestCase
                     "token" => $token->token,
                     "email" => $this->user->email,
                 ]
-            );
+            )->assertSee(trans("password_reset.password-changed"));
 
         // The token should not be there anymore
         $this->assertDatabaseMissing("password_resets", ["token" => $token->token]);
