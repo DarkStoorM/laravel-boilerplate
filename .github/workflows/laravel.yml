@@ -11,12 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: lorisleiva/laravel-docker:7.3
+      image: lorisleiva/laravel-docker:8.0
 
     steps:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
+
+      -name: Composer update
+        run composer update
 
       - name: Composer dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
