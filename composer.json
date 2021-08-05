@@ -83,6 +83,9 @@
       "@php artisan db:seed",
       "@php artisan optimize:clear"
     ],
+    "test-workflow": [
+      "vendor/bin/phpunit --configuration phpunit.xml"
+    ],
     "start": [
       "Composer\\Config::disableProcessTimeout",
       "@php artisan serve --port=8000"
