@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 1
 
       -name: Composer update
-        run composer update
+        run: composer update
 
       - name: Composer dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
