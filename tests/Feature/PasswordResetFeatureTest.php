@@ -8,11 +8,14 @@ use App\Models\PasswordReset;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Rules\Throttle;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class PasswordResetFeatureTest extends TestCase
 {
+    use DatabaseMigrations;
+
     public function setUp(): void
     {
         parent::setUp();

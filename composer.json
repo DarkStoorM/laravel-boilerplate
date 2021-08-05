@@ -78,7 +78,7 @@
       "@php artisan db:seed"
     ],
     "test": [
-      "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml",
+      "vendor/bin/phpunit --verbose --coverage-html tests/reports --testdox --do-not-cache-result",
       "@php artisan migrate:refresh",
       "@php artisan db:seed",
       "@php artisan optimize:clear"
