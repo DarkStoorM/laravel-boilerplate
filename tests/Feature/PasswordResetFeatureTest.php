@@ -144,7 +144,7 @@ class PasswordResetFeatureTest extends TestCase
 
         // User's password should be changed now
         $user = User::find($this->user->id);
-        $this->assertTrue(Hash::check("newPassword1!", $user->password));
+        $this->assertTrue(Hash::check("newPassword1!", $user->password), "Testing if password has changed");
     }
 
     /** Tests if the user will encounter validation errors if the password did not pass the validation */

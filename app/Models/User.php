@@ -93,7 +93,9 @@ class User extends Authenticatable
     public static function UpdatePassword(string $email, string $newPassword): void
     {
         try {
-            User::where("email", $email)->update(["password" => Hash::make($newPassword)]);
+            $user = static::where("email", $email)->first();
+            $user->password = Hash::make($newPassword);
+            $user->save();
         } catch (Exception $exception) {
             throw $exception->getMessage();
         }
