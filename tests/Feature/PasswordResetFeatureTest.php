@@ -8,14 +8,12 @@ use App\Models\PasswordReset;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Rules\Throttle;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class PasswordResetFeatureTest extends TestCase
 {
-    use DatabaseMigrations;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -132,6 +130,8 @@ class PasswordResetFeatureTest extends TestCase
      */
     public function test_unauthenticated_user_can_submit_password_change_form(): void
     {
+        Artisan::call("migrate:refresh");
+        $this->user = User::factory()->create();
         $token = PasswordReset::GenerateAndInsert($this->user->email);
 
         $this->followingRedirects()
@@ -143,7 +143,8 @@ class PasswordResetFeatureTest extends TestCase
                     "token" => $token->token, /* we have to add hidden inputs */
                     "email" => $token->email, /* to validate this user again */
                 ]
-            )->assertOk();
+            )->dumpSession()
+            ->assertOk();
 
         // User's password should be changed now
         $user = User::find($this->user->id);
