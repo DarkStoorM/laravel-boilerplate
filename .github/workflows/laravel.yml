@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Xdebug Action
+      uses: MilesChou/docker-xdebug@master
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-progress
     - name: Directory Permissions
