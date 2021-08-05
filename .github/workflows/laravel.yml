@@ -7,42 +7,19 @@ on:
     branches: [ main ]
 
 jobs:
-  tests:
-    name: Run tests
-    runs-on: windows-latest
+  phpunit:
+    runs-on: ubuntu-latest
+
+    container:
+      image: lorisleiva/laravel-docker:7.3
+
     steps:
       - uses: actions/checkout@v1
-
-      - name: Cache composer dependencies
-        uses: actions/cache@v1
         with:
-          path: vendor
-          key: composer-${{ hashFiles('composer.lock') }}
-      - name: Update packages
-        run: composer update --ignore-platform-reqs
+          fetch-depth: 1
 
-      - name: Run composer install
-        run: composer install -n --prefer-dist
-        env:
-          APP_ENV: testing
+      - name: Composer dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
 
-      - name: Cache yarn dependencies
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: yarn-${{ hashFiles('yarn.lock') }}
-
-      - name: Run yarn
-        run: yarn && yarn dev
-
-      - name: Run tests
-        run: ./vendor/bin/phpunit
-        env:
-          APP_ENV: testing
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@master
-        if: failure()
-        with:
-          name: Logs
-          path: ./storage/logs
+      - name: Run Testsuite
+        run: vendor/bin/phpunit
