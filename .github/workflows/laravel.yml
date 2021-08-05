@@ -16,8 +16,12 @@ jobs:
     - name: Xdebug Action
       uses: MilesChou/docker-xdebug@master
     - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-progress
+      run: composer install
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Execute tests (Unit and Feature tests) via PHPUnit
+      env:
+        APP_ENV: testing
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/testing.sqlite
       run: composer test
