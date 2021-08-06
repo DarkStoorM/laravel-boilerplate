@@ -31,6 +31,9 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
     - [Testing Mailables](#testing-mailables)
       - [Sending Emails with Gmail SMTP](#sending-emails-with-gmail-smtp)
   - [Development](#development)
+    - [Localization](#localization)
+      - [Validation messages](#validation-messages)
+      - [External translation file](#external-translation-file)
     - [Routes](#routes)
   - [Suggestions](#suggestions)
     - [VSCode](#vscode)
@@ -327,6 +330,22 @@ sass
 `sass/bem/layout/` - This directory contains some definitions, like a basic container, form elements (just a little, not fully stylized!).
 
 `sass/bem/links.scss` - I put the Links styles separately, I tend to have many different link styles, so I just keep them in one file.
+
+### Localization
+
+The included template for custom Authentication has been fully localized and the localization has been "somewhat" structured to separate the translation keys by *Section*:
+
+- translation keys that belong to the Login Page **only**, excluding forms and their elements - those belong in separate files, e.g. everything form-related belongs in the `forms.php`, Login Page localization belongs in the `login.php`.
+
+#### Validation messages
+
+I like having custom validation messages and I always group all the translation keys with the form localization. All of them are located under `forms.php` translation file.
+
+Validation messages are always declared under `/app/Http/Requests` in FormRequests. I sometimes swap attributes in `FormRequest` too, but there was no need for this in this project.
+
+#### External translation file
+
+There is a small problem with one of the Validators. The new [Password](https://github.com/laravel/framework/pull/36960) object can not be translated through the Translator, it has to be string-based. For that, check `/resources/lang/en.json` - the Password object translation is stored in this file until Laravel resolves this issue.
 
 ### Routes
 
