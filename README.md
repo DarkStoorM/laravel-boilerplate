@@ -346,8 +346,10 @@ I switched to the new syntax for the extra intellisense. The switch is pretty mu
 
 ⚠️ warning: use this under the Source Control since there is no `Undo Replace All` in case something goes wrong ⚠️
 
+**Only in VSCode, I guess:**
+
 - `ctrl+shift+h`
-- Search Phrase (regex): `'(\w+Controller)@(\w+)'`
+- Search Phrase (regex): `['"](\w+Controller)@(\w+)['"]`
 - Replace: `[$1::class, '$2']`
 - ⚠️ **verify the replace** ⚠️
 - `ctrl+alt+enter` in the Replace field to **replace all**
@@ -358,7 +360,7 @@ This will perform a replace in your routes files:
 
 ![replace](https://i.imgur.com/SCFCpYq.png)
 
-**Adjust the Search Phrase** - single vs double quotes. **This, sadly, requires you to use the fully qualified Controller class names.**
+**This, sadly, requires you to use the fully qualified Controller class names.**
 
 **PHP Namespace Resolver** (**mehedidracula.php-namespace-resolver**) can help with this in VSCode.
 
