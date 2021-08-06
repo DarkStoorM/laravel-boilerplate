@@ -339,7 +339,7 @@ The included template for custom Authentication has been fully localized and the
 
 #### Validation messages
 
-I like having custom validation messages and I always group all the translation keys with the form localization. All of them are located under `forms.php` translation file.
+I like having custom validation messages and I always group all the translation keys with the page localization for example: `login.php` translation file contains all the text that should be visible on the `Login Page`, including `validation error messages`.
 
 Validation messages are always declared under `/app/Http/Requests` in FormRequests. I sometimes swap attributes in `FormRequest` too, but there was no need for this in this project.
 
