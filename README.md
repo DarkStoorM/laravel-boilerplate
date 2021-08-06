@@ -200,7 +200,7 @@ For a quick database, create a new file under ```/database/db.sqlite``` director
 
 Start the server with the following command: - ```composer start```
 
-**It is important to configure the environment files as well as ```phpunit.xml|phpunit.dusk.xml``` files, since different machines require different configuration!** - the default configuration
+**It is important to configure the environment files as well as ```phpunit.xml|phpunit.dusk.xml``` files, since different machines require different configuration!** - the default configuration should be enough to allow a quick start.
 
 ---
 
