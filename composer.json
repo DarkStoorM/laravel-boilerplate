@@ -78,10 +78,7 @@
       "@php artisan db:seed"
     ],
     "test": [
-      "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml --testdox",
-      "@php artisan migrate:refresh",
-      "@php artisan db:seed",
-      "@php artisan optimize:clear"
+      "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml --testdox"
     ],
     "test-workflow": [
       "vendor/bin/phpunit --configuration phpunit.xml"
