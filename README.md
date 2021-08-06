@@ -339,7 +339,7 @@ Route::get('/', [IndexController::class, 'index'])->name('index');
 The old syntax **will also work**, the ```namespace``` is uncommented under ```RouteServiceProvider```.
 
 ```php
-Route::get('/', 'IndexController@index'])->name('index');
+Route::get('/', 'IndexController@index')->name('index');
 ```
 
 I switched to the new syntax for the extra intellisense. The switch is pretty much straightforward (**the following does not apply to this project, leaving this only to show the migration steps**):
