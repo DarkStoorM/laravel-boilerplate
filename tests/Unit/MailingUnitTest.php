@@ -2,38 +2,49 @@
 
 namespace Tests\Unit;
 
-use App\Models\User;
-use App\Models\PasswordReset;
+use App\Libs\Utils\NamedRoute;
 use App\Mail\MailablePasswordReset;
 use App\Mail\MailableVerificationToken;
-use Illuminate\Foundation\Testing\WithFaker;
+
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
+/**
+ * This class tests sending emails
+ */
 class MailingUnitTest extends TestCase
 {
-    use WithFaker;
-
-    /** Tests if the generated token and user's email is present in the mailable content */
-    public function test_mailable_password_resets(): void
+    /** Tests if emails with account activation link can be sent after creating a new account */
+    public function test_mailable_can_send_account_verification_link(): void
     {
-        $token = PasswordReset::GenerateAndInsert($this->user->email);
+        Mail::fake();
 
-        $mailable = new MailablePasswordReset($token);
-        $mailable->assertSeeInHtml($token->token);
-        $mailable->assertSeeInHtml($token->email);
+        // Request a new account, which should send a new email to the user
+        $this->post(
+            route(NamedRoute::POST_ACCOUNT_CREATION_STORE),
+            [
+                "email" => $this->fakeEmail,
+                "email_confirmation" => $this->fakeEmail,
+                "password" => "SomePassword1!",
+                "password_confirmation" => "SomePassword1!",
+            ]
+        );
+
+        Mail::assertQueued(MailableVerificationToken::class);
     }
 
-    /** Tests if the generated token for a new user is present in the mailable content */
-    public function test_mailable_account_verification_tokens(): void
+    /** Tests if emails with password reset link can be sent after requesting a new password */
+    public function test_mailable_can_send_password_reset_links(): void
     {
-        // We have to create a new user in order to test this Mailable
-        // We will not be using a Factory here since we basically need a new Account that we want to verify
-        // Keep in mind this method should only be available in the Controller or testing, since the data
-        // comes in __pre-validated__ 
-        $userData = User::CreateNew(["email" => $this->faker->safeEmail(), "password" => "Password1!"]);
+        Mail::fake();
 
-        $mailable = new MailableVerificationToken($userData);
-        $mailable->assertSeeInHtml($userData["user"]->email);
-        $mailable->assertSeeInHtml($userData["token"]->token);
+        // Request a new password reset link for the existing user
+        // This can't use fake email since the user has to exist in the database
+        $this->post(
+            route(NamedRoute::POST_PASSWORD_RESET_STORE),
+            ["email" => $this->user->email]
+        );
+
+        Mail::assertQueued(MailablePasswordReset::class);
     }
 }
