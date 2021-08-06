@@ -19,6 +19,7 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
       - [Constants](#constants)
       - [Route Naming](#route-naming)
     - [Route Separation](#route-separation)
+    - [Mailing](#mailing)
   - [Installation](#installation)
     - [Database](#database)
   - [Running](#running)
@@ -27,6 +28,8 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
     - [Xdebug](#xdebug)
     - [Code Coverage](#code-coverage)
     - [Test paths](#test-paths)
+    - [Testing Mailables](#testing-mailables)
+      - [Sending Emails with Gmail SMTP](#sending-emails-with-gmail-smtp)
   - [Development](#development)
     - [Routes](#routes)
   - [Suggestions](#suggestions)
@@ -70,7 +73,7 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 - generate APP_KEY for regular and Dusk `.env` files
 - require Dusk for --dev
 - use SQLite by default (set by ```.env```)
-- use ```log``` Mail Driver - mailables are included with custom authentication as an example
+- use ```log``` Mail Driver - mailables are included with custom authentication as an example - Note, that `MAIL_DRIVER` has been changed to `MAIL_MAILER` since Laravel 7
 - prepare the following directories:
   - app/Helpers/
   - app/Libs/
@@ -144,6 +147,22 @@ The file resides under `App\Libs\Utils\NamedRoute`. As explained in the file, th
 I don't like having all my routes defined under ```/routes/web.php```, so Route Separation usage should be encouraged. This only features Basic Split, though, but can be extended with custom rules or some advanced magic. With this, rather than having everything registered in one file, all Routes can be split into separate files, grouped and prefixed separately. This obviously can be done better, but for my tiny needs it works as intended.
 
 I wanted to kind of enforce Route Separation, but since it's a matter of personal preference, read this instead: [Laravel Route Separation experiment](https://gist.github.com/DarkStoorM/fadf4297d4871e3df0d580e0e96cf8bf).
+
+### Mailing
+
+Laravel makes it really easy to send emails. I've included some Mailables since this repo has a custom Authentication which requires sending Emails.
+
+For new Mailable use the following command `php artisan make:mail Mailable<Something>` - where *Something* is your Mailable name, like MailableNotification.
+
+You can use Markdown emails - appending a `--markdown=path.to.view` argument creates a template for Markdown Email under `/resources/views`. The `path.to.view` is usually `/emails/section/final-view`, for example: `--markdown=emails.account.verification`
+
+The `php artisan make:mail` command will create a new Mailable class under `/app/Mail`.
+
+For more information about Mailables, please refer to the [Laravel 8.x/mail docs](https://laravel.com/docs/8.x/mail).
+
+By default, mails will be Logged to file. Configure your `/app/logging.php` to change where your logged emails go. They will appear under `/storage/logs/laravel.log` - the emails will be rendered as they would be sent to the user.
+
+For testing please refer to [Testing Mailables](#testing-mailables)
 
 ---
 
@@ -238,6 +257,32 @@ Change paths to your likings in the root ```phpunit.xml```. By default it's:
 - ```[./tests/Routes]``` Testsuite: Routes
 
 > Small note on Test Naming - I use snake_case, it was more readable for me. The test files also have the Testsuite in their name, e.g. `AccountCreationFeatureTest.php` - which is just `<Feature><Testsuite>Test.php`
+
+### Testing Mailables
+
+Laravel provides a bunch of methods for testing Mailables, which does not require you to actually send an email to the user in order to check the rendered content. You should test the mailable content separately if you also need to test if emails can be sent.
+
+Refer to the Docs for [testing mailable content](https://laravel.com/docs/8.x/mail#testing-mailables) or [Faking the Mail Send](https://laravel.com/docs/8.x/mocking#mail-fake).
+
+#### Sending Emails with Gmail SMTP
+
+If you would want to send emails through Gmail SMTP, the configuration is really simple:
+
+- Create a Gmail account
+- Configure your `.env<env>` as following
+
+   ```text
+   MAIL_MAILER=smtp
+   MAIL_HOST=smtp.googlemail.com
+   MAIL_PORT=465
+   MAIL_USERNAME=ENTER_YOUR_EMAIL_ADDRESS(GMAIL)
+   MAIL_PASSWORD=ENTER_YOUR_GMAIL_PASSWORD
+   MAIL_ENCRYPTION=ssl
+   ```
+
+- Navigate to `Manage Google Account` -> `Security` tab -> Scroll down to `Less secure app access` settings and turn it `on`.
+
+Gmail Mailer should be ready to go. **Don't use this in production, though.**
 
 ---
 
