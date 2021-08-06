@@ -330,17 +330,43 @@ sass
 
 ### Routes
 
-The routes were using new syntax (Laravel 8) - I guess for intellisense (?):
+The routes are now using the new syntax (Laravel 8) - I guess for intellisense (?):
 
 ```php
 Route::get('/', [IndexController::class, 'index'])->name('index');
 ```
 
-but I don't like it, so old syntax **will also work**, the ```namespace``` is uncommented under ```RouteServiceProvider```.
+The old syntax **will also work**, the ```namespace``` is uncommented under ```RouteServiceProvider```.
 
 ```php
-Route::get('/', "IndexController@index")->name('index');
+Route::get('/', 'IndexController@index'])->name('index');
 ```
+
+I switched to the new syntax for the extra intellisense. The switch is pretty much straightforward (**the following does not apply to this project, leaving this only to show the migration steps**):
+
+⚠️ warning: use this under the Source Control since there is no `Undo Replace All` in case something goes wrong ⚠️
+
+- `ctrl+shift+h`
+- Search Phrase (regex): `'(\w+Controller)@(\w+)'`
+- Replace: `[$1::class, '$2']`
+- ⚠️ **verify the replace** ⚠️
+- `ctrl+alt+enter` in the Replace field to **replace all**
+
+This will perform a replace in your routes files:
+
+![replace](https://i.imgur.com/xcb9GsH.png)
+
+![replace](https://i.imgur.com/SCFCpYq.png)
+
+**Adjust the Search Phrase** - single vs double quotes. **This, sadly, requires you to use the fully qualified Controller class names.**
+
+**PHP Namespace Resolver** (**mehedidracula.php-namespace-resolver**) can help with this in VSCode.
+
+- Open your Routes file
+- Open Command Palette: `import all classes`
+- When duplicate classes are present, you can pick which class to import from the list
+
+![import](https://i.imgur.com/wTz8X7k.png)
 
 ---
 
@@ -358,6 +384,7 @@ Route::get('/', "IndexController@index")->name('index');
 - Laravel Snippets [**onecentlin.laravel5-snippets**]
 - PHP Parameter Hint [**robertgr991.php-parameter-hint**]
 - VS DocBlockr [**jeremyljackson.vs-docblock**] (for most languages) or use [**neilbrayfield.php-docblocker**] for PHP - or both, but switch them in settings.json
+- PHP Namespace Resolver [**mehedidracula.php-namespace-resolver**] - allows to auto-import missing classes
 
 Note on PHP Parameter Hint: install this only if you like the parameter labels. It tends to be buggy (not removing the hints while deleting lines of code, requires switching tabs)
 
