@@ -15,6 +15,6 @@
         "lodash": "^4.17.19",
         "postcss": "^8.3.9",
         "sass": "^1.42.1",
-        "sass-loader": "^12.1.0"
+        "sass-loader": "^12.2.0"
     }
 }
