@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2e7237acadd7561b94d3dee53d92632",
+    "content-hash": "3bee7b3709b0e29c7b4e2c92668ddd6c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -291,16 +291,16 @@
         },
         {
             "name": "dragonmantank/cron-expression",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dragonmantank/cron-expression.git",
-                "reference": "47c53bbb260d3c398fba9bfa9683dcf67add2579"
+                "reference": "9545dea2a1d92b60c8b3d06f02025c83e999bde0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/47c53bbb260d3c398fba9bfa9683dcf67add2579",
-                "reference": "47c53bbb260d3c398fba9bfa9683dcf67add2579",
+                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/9545dea2a1d92b60c8b3d06f02025c83e999bde0",
+                "reference": "9545dea2a1d92b60c8b3d06f02025c83e999bde0",
                 "shasum": ""
             },
             "require": {
@@ -340,7 +340,7 @@
             ],
             "support": {
                 "issues": "https://github.com/dragonmantank/cron-expression/issues",
-                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.2.3"
+                "source": "https://github.com/dragonmantank/cron-expression/tree/v3.2.4"
             },
             "funding": [
                 {
@@ -348,7 +348,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-06T05:35:07+00:00"
+            "time": "2022-01-13T04:09:37+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -559,16 +559,16 @@
         },
         {
             "name": "graham-campbell/markdown",
-            "version": "v13.1.0",
+            "version": "v13.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrahamCampbell/Laravel-Markdown.git",
-                "reference": "bd95ce6bb31b9d9732e42907c983b9f8e31c8854"
+                "reference": "275f96e5b1a2f86f3239eb2c2c5262790725f4ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Markdown/zipball/bd95ce6bb31b9d9732e42907c983b9f8e31c8854",
-                "reference": "bd95ce6bb31b9d9732e42907c983b9f8e31c8854",
+                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Markdown/zipball/275f96e5b1a2f86f3239eb2c2c5262790725f4ba",
+                "reference": "275f96e5b1a2f86f3239eb2c2c5262790725f4ba",
                 "shasum": ""
             },
             "require": {
@@ -581,7 +581,7 @@
             },
             "require-dev": {
                 "graham-campbell/analyzer": "^3.0",
-                "graham-campbell/testbench": "^5.4",
+                "graham-campbell/testbench": "^5.6",
                 "mockery/mockery": "^1.3.1",
                 "phpunit/phpunit": "^8.5.8 || ^9.3.7"
             },
@@ -605,7 +605,8 @@
             "authors": [
                 {
                     "name": "Graham Campbell",
-                    "email": "graham@alt-three.com"
+                    "email": "hello@gjcampbell.co.uk",
+                    "homepage": "https://github.com/GrahamCampbell"
                 }
             ],
             "description": "Markdown Is A CommonMark Wrapper For Laravel",
@@ -622,7 +623,7 @@
             ],
             "support": {
                 "issues": "https://github.com/GrahamCampbell/Laravel-Markdown/issues",
-                "source": "https://github.com/GrahamCampbell/Laravel-Markdown/tree/13.1"
+                "source": "https://github.com/GrahamCampbell/Laravel-Markdown/tree/v13.1.2"
             },
             "funding": [
                 {
@@ -634,7 +635,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-08-14T18:55:51+00:00"
+            "time": "2021-11-21T15:23:56+00:00"
         },
         {
             "name": "graham-campbell/result-type",
