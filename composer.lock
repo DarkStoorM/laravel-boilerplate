@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2e7237acadd7561b94d3dee53d92632",
+    "content-hash": "3bee7b3709b0e29c7b4e2c92668ddd6c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1324,16 +1324,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.6.6",
+            "version": "1.6.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "c4228d11e30d7493c6836d20872f9582d8ba6dcf"
+                "reference": "2b8185c13bc9578367a5bf901881d1c1b5bbd09b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c4228d11e30d7493c6836d20872f9582d8ba6dcf",
-                "reference": "c4228d11e30d7493c6836d20872f9582d8ba6dcf",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/2b8185c13bc9578367a5bf901881d1c1b5bbd09b",
+                "reference": "2b8185c13bc9578367a5bf901881d1c1b5bbd09b",
                 "shasum": ""
             },
             "require": {
@@ -1397,10 +1397,6 @@
             },
             "funding": [
                 {
-                    "url": "https://enjoy.gitstore.app/repositories/thephpleague/commonmark",
-                    "type": "custom"
-                },
-                {
                     "url": "https://www.colinodell.com/sponsor",
                     "type": "custom"
                 },
@@ -1413,15 +1409,11 @@
                     "type": "github"
                 },
                 {
-                    "url": "https://www.patreon.com/colinodell",
-                    "type": "patreon"
-                },
-                {
                     "url": "https://tidelift.com/funding/github/packagist/league/commonmark",
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-17T17:13:23+00:00"
+            "time": "2022-01-13T17:18:13+00:00"
         },
         {
             "name": "league/flysystem",
@@ -2617,28 +2609,27 @@
         },
         {
             "name": "spatie/laravel-sluggable",
-            "version": "3.2.0",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-sluggable.git",
-                "reference": "6eabac05de0e8fa26b8e21bf6ca4b073ac547ec5"
+                "reference": "92770711866e16cc4b71db587e152e2345e89aeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-sluggable/zipball/6eabac05de0e8fa26b8e21bf6ca4b073ac547ec5",
-                "reference": "6eabac05de0e8fa26b8e21bf6ca4b073ac547ec5",
+                "url": "https://api.github.com/repos/spatie/laravel-sluggable/zipball/92770711866e16cc4b71db587e152e2345e89aeb",
+                "reference": "92770711866e16cc4b71db587e152e2345e89aeb",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "^8.76.1",
-                "illuminate/support": "^8.0",
+                "illuminate/database": "^8.0|^9.0",
+                "illuminate/support": "^8.0|^9.0",
                 "php": "^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.18",
-                "orchestra/testbench": "^6.23",
+                "orchestra/testbench": "^6.23|^7.0",
                 "phpunit/phpunit": "^9.5.1",
-                "spatie/laravel-translatable": "^4.6"
+                "spatie/laravel-translatable": "^5.0"
             },
             "type": "library",
             "autoload": {
@@ -2666,7 +2657,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-sluggable/issues",
-                "source": "https://github.com/spatie/laravel-sluggable/tree/3.2.0"
+                "source": "https://github.com/spatie/laravel-sluggable/tree/3.3.0"
             },
             "funding": [
                 {
@@ -2674,7 +2665,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-12-15T07:40:37+00:00"
+            "time": "2022-01-13T11:33:08+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
