@@ -62,7 +62,6 @@
     ],
     "post-install-cmd": [
       "npm i",
-      "npm audit fix",
       "npm run dev",
       "@php -r \"copy('.env.example', '.env');\"",
       "@php -r \"copy('.env.dusk.local.example', '.env.dusk.local');\"",
