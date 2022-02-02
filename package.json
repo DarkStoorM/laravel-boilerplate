@@ -15,7 +15,7 @@
         "lodash": "^4.17.21",
         "node-forge": "^1.2.1",
         "postcss": "^8.4.5",
-        "sass": "^1.49.7",
+        "postcss": "^8.4.6",
         "sass-loader": "^12.4.0"
     }
 }
