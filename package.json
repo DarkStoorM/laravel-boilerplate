@@ -14,7 +14,7 @@
         "axios": "^0.26.0",
         "lodash": "^4.17.21",
         "node-forge": "^1.2.1",
-        "postcss": "^8.4.5",
+        "postcss": "^8.4.7",
         "sass": "^1.49.8",
         "sass-loader": "^12.6.0"
     }
