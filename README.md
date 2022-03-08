@@ -1,6 +1,8 @@
-# Laravel - Boilerplate
+# Laravel - Boilerplate ![img](https://img.shields.io/badge/-WIP-red)
 
-![img](https://img.shields.io/badge/-WIP-red)
+> Discontinued until I manage to convert it to Laravel 9.x / PHP 8.1
+
+
 
 Simple, a bit pre-configured boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes, as this README is a bit messy and the explanation probably won't cover everything. Feel free to review and fix this repo :)
 
