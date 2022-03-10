@@ -17,6 +17,7 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
       - [Constants](#constants)
       - [Route Naming](#route-naming)
     - [Route Separation](#route-separation)
+    - [Hidden Login Route](#hidden-login-route)
     - [Mailing](#mailing)
   - [Installation](#installation)
     - [Database](#database)
@@ -139,7 +140,7 @@ The file resides under `App\Libs\Constants`
 
 #### Route Naming
 
-There is a thing I don't like: having hard-coded Route names. While it's easy to grab them with VSCode extensions (route name resolving), I like having
+There is a thing I don't like: having hard-coded Route names. While it's easy to grab them with VSCode extensions (route name resolving), I like having the route names ready-to-use from a set of constants, so the route names can be referenced simply by a class constant everywhere. This is a nice feature, especially for testing, where same route names are used multiple times.
 
 The file resides under `App\Libs\Utils\NamedRoute`. As explained in the file, this can be completely skipped. The library is registered, so it's available in the Views without cluttering the Blade Templates with namespaces.
 
@@ -148,6 +149,38 @@ The file resides under `App\Libs\Utils\NamedRoute`. As explained in the file, th
 I don't like having all my routes defined under ```/routes/web.php```, so Route Separation usage should be encouraged. This only features Basic Split, though, but can be extended with custom rules or some advanced magic. With this, rather than having everything registered in one file, all Routes can be split into separate files, grouped and prefixed separately. This obviously can be done better, but for my tiny needs it works as intended.
 
 I wanted to kind of enforce Route Separation, but since it's a matter of personal preference, read this instead: [Laravel Route Separation experiment](https://gist.github.com/DarkStoorM/fadf4297d4871e3df0d580e0e96cf8bf).
+
+### Hidden Login/Dashboard Route
+
+Sometimes you would want to hide the `login` or `dashboard` routes, keeping them completely separate from other routes. This is useful for applications, which do not want to expose some of the endpoints to regular users.
+
+This is mostly applied in e-commerce, where `Admin Dashboards` are only meant to be accessible by the *authorized* users (given the dashboard link, not to confuse with logged in).
+
+This template allows changing the route prefix of all Login and Dashboard routes in the `.env` file:
+
+```text
+# -- Custom Auth Route Prefix --
+# Change this if your login/Dashboard routes have to be hidden from the outside world
+# example: AUTH_ROUTES_PREFIX=622a1ddfb575d622a1ddfb5760
+# route output: localhost:8000/622a1ddfb575d622a1ddfb5760-login/
+# route output: localhost:8000/622a1ddfb575d622a1ddfb5760-dashboard/
+```
+
+By default, the `Auth Prefix` will use `account` string, which leaves the auth routes as following:
+
+```text
+http://localhost:8000/account-login/
+http://localhost:8000/account-dashboard/
+```
+
+Changing this prefix gives the following output:
+
+```text
+http://localhost:8000/622a1ddfb575d622a1ddfb5760-login/
+http://localhost:8000/622a1ddfb575d622a1ddfb5760-dashboard/
+```
+
+Both Login and Dashboard uses a prefix on purpose - in case someone hits a `/dashboard` route unauthorized, getting redirected to a *hidden* login route.
 
 ### Mailing
 
