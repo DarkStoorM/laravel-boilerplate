@@ -247,7 +247,7 @@ Start the server with the following command: - ```composer start```
 This template uses `squizlabs/php_codesniffer` along with `slevomat/coding-standard`. Head over to `/phpcs.xml` to adjust the Code Sniffer rules.
 
 - execute `composer format` to run the code sniffer analysis
-- execute `composer format-fix` to attempt to automatically fox some of the found issues
+- execute `composer format-fix` to attempt to automatically fix some of the found issues
 
 Just in case, check your VSCode's `settings.json` if your  code sniffer is enabled:
 
