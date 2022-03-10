@@ -73,6 +73,8 @@
       "@php artisan key:generate --env=dusk.local --ansi",
       "@php artisan dusk:chrome-driver --all",
       "@php artisan migrate",
+      "@php artisan migrate --env=testing",
+      "@php artisan migrate --env=dusk.local",
       "@php artisan db:seed"
     ],
     "test": [
