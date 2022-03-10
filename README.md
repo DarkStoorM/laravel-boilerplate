@@ -1,9 +1,5 @@
 # Laravel - Boilerplate ![img](https://img.shields.io/badge/-WIP-red)
 
-> Discontinued until I manage to convert it to Laravel 9.x / PHP 8.1
-
-
-
 Simple, a bit pre-configured boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes, as this README is a bit messy and the explanation probably won't cover everything. Feel free to review and fix this repo :)
 
 This was supposed to be a blog, but there was too much setup and I'm too lazy to prepare each new Laravel project. Some steps require manual work, since they depend on the environment configuration.
@@ -44,7 +40,7 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
 
 ## Requirements
 
-- PHP ^8.0
+- PHP ^8.1
 - Composer 2.0
 - NodeJS
 - SQLite
