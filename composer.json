@@ -13,10 +13,10 @@
     "fruitcake/laravel-cors": "*",
     "graham-campbell/markdown": "*",
     "guzzlehttp/guzzle": "*",
-    "laravel/tinker": "*",
     "spatie/laravel-sluggable": "*"
   },
   "require-dev": {
+    "laravel/tinker": "*",
     "barryvdh/laravel-debugbar": "*",
     "fakerphp/faker": "*",
     "filp/whoops": "*",
