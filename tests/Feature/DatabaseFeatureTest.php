@@ -11,15 +11,15 @@ class DatabaseFeatureTest extends TestCase
     use DatabaseMigrations;
 
     /** Tests if the default model can be created during the SetUp */
-    public function test_can_create_users_on_start(): void
+    public function testCanCreateUsersOnStart(): void
     {
-        $this->assertDatabaseHas("users", ["email" => $this->user->email]);
+        $this->assertDatabaseHas('users', ['email' => $this->user->email]);
     }
 
     /** Tests if a model can be created at any point in time by the Factory */
-    public function test_can_create_users_at_runtime(): void
+    public function testCanCreateUsersAtRuntime(): void
     {
         $user = User::factory()->create();
-        $this->assertDatabaseHas("users", ["email" => $user->email]);
+        $this->assertDatabaseHas('users', ['email' => $user->email]);
     }
 }

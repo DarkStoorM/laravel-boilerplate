@@ -9,15 +9,15 @@ use Tests\TestCase;
 class LoginRouteTest extends TestCase
 {
     /** Test if login route returns any errors for unauthenticated users */
-    public function test_login_is_ok_for_unauthenticated_user(): void
+    public function testLoginIsOkForUnauthenticatedUser(): void
     {
         $this->get(route(NamedRoute::GET_SESSION_INDEX))
             ->assertOk()
-            ->assertSee(trans("forms.login.form-header"));
+            ->assertSee(trans('forms.login.form-header'));
     }
 
     /** Test if login route returns any errors for authenticated users - should redirect without errors */
-    public function test_login_page_is_ok_for_authenticated_user(): void
+    public function testLoginPageIsOkForAuthenticatedUser(): void
     {
         $this->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)

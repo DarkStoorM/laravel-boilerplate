@@ -9,10 +9,10 @@ class ExecutionTimeFeatureTest extends TestCase
 {
     /**
      * Tests if Execution Time Measurement can be performed without providing any parameters.
-     * 
+     *
      * To pass this test, the timer should have no message and should not start immediately
      */
-    public function test_canMeasureWithoutParameters(): void
+    public function testCanMeasureWithoutParameters(): void
     {
         $timer = new ExecutionTimeMeasurement();
 
@@ -23,9 +23,9 @@ class ExecutionTimeFeatureTest extends TestCase
     /**
      * Tests if custom timer message can be set and retrieved properly
      */
-    public function test_canMeasureWithCustomMessage(): void
+    public function testCanMeasureWithCustomMessage(): void
     {
-        $customMessage = "Test Timer";
+        $customMessage = 'Test Timer';
         $timer = new ExecutionTimeMeasurement($customMessage);
 
         $this->assertEquals($customMessage, $timer->getMessage());
@@ -34,7 +34,7 @@ class ExecutionTimeFeatureTest extends TestCase
     /**
      * Tests if the timer can immediately start when requested after initialization
      */
-    public function test_canMeasureWithImmediateStart(): void
+    public function testCanMeasureWithImmediateStart(): void
     {
         $timer  = new ExecutionTimeMeasurement(null, true);
 
@@ -44,13 +44,13 @@ class ExecutionTimeFeatureTest extends TestCase
     /**
      * Tests if this class can detect a callback being passed in.
      */
-    public function test_canMeasureCallbackExecutionTime(): void
+    public function testCanMeasureCallbackExecutionTime(): void
     {
         // Create a new anonymous function for this test, no functionality is needed
         $testClosure = function () {
         };
 
-        $timer = new ExecutionTimeMeasurement("Closure Test", true, $testClosure);
+        $timer = new ExecutionTimeMeasurement('Closure Test', true, $testClosure);
 
         // We only need to test if the flag was set up upon initialization
         // If the callback was passed, then the timer __should__ set it up
@@ -60,7 +60,7 @@ class ExecutionTimeFeatureTest extends TestCase
     /**
      * Tests if we are not actually able to ask for the results when the timer has not started yet.
      */
-    public function test_canNotGetResultsBeforeStarting(): void
+    public function testCanNotGetResultsBeforeStarting(): void
     {
         // This requires the timer to be initialized without starting
         $timer = new ExecutionTimeMeasurement(null, false);
@@ -79,12 +79,12 @@ class ExecutionTimeFeatureTest extends TestCase
 
     /**
      * Tests if the results are formatted correctly depending on the calculated time values
-     * 
+     *
      * Warning: this test will sometimes fail due to the sleep not delaying the tests correctly (?).
      * This might not even be needed anyway. Test Restart is needed to avoid this, but it might break
      * Continuous Integration...
      */
-    public function test_formatsTheResultsCorrectly(): void
+    public function testFormatsTheResultsCorrectly(): void
     {
         $delays = [0, 3000, 1050000];
         $tests = ['μs', 'ms', 's'];
@@ -98,8 +98,11 @@ class ExecutionTimeFeatureTest extends TestCase
             $timer = new ExecutionTimeMeasurement(null, false, $closure);
 
             // Each test has to be delayed by a certain amount to force the "expected" result
-            $condition = preg_match("/\d+" . $tests[$index] . "/", $timer->getResult());
-            $this->assertTrue($condition == 1, "Looking for '{$tests[$index]}' in {$timer->getResult()}. Closure delayed by: {$delay}");
+            $condition = preg_match('/\d+' . $tests[$index] . '/', $timer->getResult());
+            $this->assertTrue(
+                $condition === 1,
+                "Looking for '{$tests[$index]}' in {$timer->getResult()}. Closure delayed by: {$delay}"
+            );
         }
     }
 }

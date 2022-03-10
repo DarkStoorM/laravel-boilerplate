@@ -25,9 +25,9 @@ class PasswordResetFactory extends Factory
         static $email;
 
         return [
-            "email" => $email,
-            "token" => generate_random_token(),
-            "expires_at" => date_create_expiration_timestamp(Constants::PASSWORD_RESET_EXPIRE_TIME)
+            'email' => $email,
+            'token' => generate_random_token(),
+            'expires_at' => date_create_expiration_timestamp(Constants::PASSWORD_RESET_EXPIRE_TIME),
         ];
     }
 
@@ -36,7 +36,7 @@ class PasswordResetFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'expires_at' => date_create_expiration_timestamp(Constants::PASSWORD_RESET_EXPIRE_TIME, true)
+                'expires_at' => date_create_expiration_timestamp(Constants::PASSWORD_RESET_EXPIRE_TIME, true),
             ];
         });
     }

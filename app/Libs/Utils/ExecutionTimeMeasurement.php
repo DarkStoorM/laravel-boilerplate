@@ -47,7 +47,7 @@ class ExecutionTimeMeasurement
      * Separates the result message from calculated execution time. This will only be used
      * if there was a message provided during initialization
      */
-    private string $separator = " - ";
+    private string $separator = ' - ';
 
     /**
      * Modified immediately in the constructor. If a callback has been passed, this will ignore calling finish();
@@ -56,7 +56,7 @@ class ExecutionTimeMeasurement
 
     /**
      * Indicates that the timer has been started in some way (manually, by parameter or a Callback).
-     * 
+     *
      * This will will prevent calling finish() before starting
      */
     private bool $hasStarted = false;
@@ -91,7 +91,7 @@ class ExecutionTimeMeasurement
             $this->getResult();
 
             // Setting this after calling getResult() allows skipping immediately to finish(), __then__
-            // disallowing further calls. 
+            // disallowing further calls.
             $this->isTestingCallback = true;
         }
     }
@@ -101,15 +101,15 @@ class ExecutionTimeMeasurement
      */
     private function getCurrentTime(): float
     {
-        list($usec, $sec) = explode(" ", microtime());
+        [$usec, $sec] = explode(' ', microtime());
 
-        return ((float) $usec + (float) $sec);
+        return (float) $usec + (float) $sec;
     }
 
     /**
      * Formats the output to display the results in microseconds, then milliseconds and finally seconds
      * if the execution took long enough.
-     * 
+     *
      * This function was extracted from Laravel DebugBar
      *
      * @param   float  $timeResult  Numeric result (time execution)
@@ -128,9 +128,9 @@ class ExecutionTimeMeasurement
     /**
      * Sets a starting point for the execution time counter. Use this if $startImmediately
      * was omitted during initialization.
-     * 
+     *
      * This function will immediately skip to getResult() if a Callback was provided during the initialization.
-     * 
+     *
      * Calling this function before start() is not allowed
      */
     public function start(): void
@@ -141,7 +141,7 @@ class ExecutionTimeMeasurement
 
     /**
      * "Stops" the execution time counter and builds a formatted time result.
-     * 
+     *
      * Throws an exception when called before start()
      */
     private function finish(): void
@@ -150,7 +150,7 @@ class ExecutionTimeMeasurement
         // we have to throw an exception, because this will yield incorrect results (no startTime initialized)
         if ($this->hasStarted === false) {
             // Append the timer message to the thrown exception, if any
-            $message = ExecutionTimeExceptions::$FINISHED_BEFORE_STARTING . ($this->message != null ? " ({$this->message})" : "");
+            $message = ExecutionTimeExceptions::$FINISHED_BEFORE_STARTING . ($this->message !== null ? " ({$this->message})" : '');
 
             throw new Exception($message);
         }
@@ -160,7 +160,7 @@ class ExecutionTimeMeasurement
 
         // If there was no message, we will only output the Time Result
         // If the message is present, we will prepend the provided message with a separator
-        $this->result = ($this->message === null)
+        $this->result = $this->message === null
             ? $this->formatResult($this->endTime)
             : $this->message . $this->separator . $this->formatResult($this->endTime);
     }
@@ -170,7 +170,7 @@ class ExecutionTimeMeasurement
      *
      * If we had a Callback function passed to the constructor, we can't call finish() method since
      * it already had execution time calculated from the very beginning.
-     * 
+     *
      * @throws \Exception
      */
     public function getResult(): string

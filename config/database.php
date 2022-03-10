@@ -37,10 +37,12 @@ return [
         'testing' => [
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE/..', database_path('testing.sqlite')),
+            'prefix' => '',
         ],
         'dusk' => [
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE/..', database_path('dusk.sqlite')),
+            'prefix' => '',
         ],
         'sqlite' => [
             'driver' => 'sqlite',

@@ -80,7 +80,7 @@ class User extends Authenticatable
      * @param   string  $value   Lookup value to match the user with
      * @param   string  $column  Lookup column - Email address by default
      */
-    public static function Exists(string $value, string $column = "email"): bool
+    public static function exists(string $value, string $column = 'email'): bool
     {
         return static::where($column, $value)->exists();
     }
@@ -94,10 +94,10 @@ class User extends Authenticatable
      * @param   string  $email        Validated email address
      * @param   string  $newPassword  Validated password
      */
-    public static function UpdatePassword(string $email, string $newPassword): void
+    public static function updatePassword(string $email, string $newPassword): void
     {
         try {
-            static::where("email", $email)->update(["password" => Hash::make($newPassword)]);
+            static::where('email', $email)->update(['password' => Hash::make($newPassword)]);
         } catch (QueryException $exception) {
             throw $exception->getMessage();
         }
@@ -109,27 +109,27 @@ class User extends Authenticatable
      * This should never be called outside the Controller as this is tied to the Form Request
      *
      * @param   array   $userData  Array of user's Email and Password after validation
-     * 
+     *
      * @return  array   An array containing new User and Verification Token
      */
-    public static function CreateNew(array $userData): array|null
+    public static function createNew(array $userData): array|null
     {
         try {
             $user = DB::transaction(function () use ($userData) {
                 DB::beginTransaction();
 
                 $user = static::create([
-                    "email" => $userData["email"],
-                    "password" => Hash::make($userData["password"])
+                    'email' => $userData['email'],
+                    'password' => Hash::make($userData['password']),
                 ]);
 
-                $token = VerificationToken::GenerateAndInsert($userData["email"]);
+                $token = VerificationToken::generateAndInsert($userData['email']);
 
                 DB::commit();
 
                 return [
-                    "user" => $user,
-                    "token" => $token
+                    'user' => $user,
+                    'token' => $token,
                 ];
             });
         } catch (QueryException $exception) {

@@ -9,7 +9,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication, DatabaseMigrations, WithFaker;
+    use CreatesApplication;
+    use DatabaseMigrations;
+    use WithFaker;
 
     public function setUp(): void
     {

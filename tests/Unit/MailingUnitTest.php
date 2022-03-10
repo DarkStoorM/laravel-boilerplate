@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use App\Libs\Utils\NamedRoute;
 use App\Mail\MailablePasswordReset;
 use App\Mail\MailableVerificationToken;
-
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -15,7 +14,7 @@ use Tests\TestCase;
 class MailingUnitTest extends TestCase
 {
     /** Tests if emails with account activation link can be sent after creating a new account */
-    public function test_mailable_can_send_account_verification_link(): void
+    public function testMailableCanSendAccountVerificationLink(): void
     {
         Mail::fake();
 
@@ -23,10 +22,10 @@ class MailingUnitTest extends TestCase
         $this->post(
             route(NamedRoute::POST_ACCOUNT_CREATION_STORE),
             [
-                "email" => $this->fakeEmail,
-                "email_confirmation" => $this->fakeEmail,
-                "password" => "SomePassword1!",
-                "password_confirmation" => "SomePassword1!",
+                'email' => $this->fakeEmail,
+                'email_confirmation' => $this->fakeEmail,
+                'password' => 'SomePassword1!',
+                'password_confirmation' => 'SomePassword1!',
             ]
         );
 
@@ -34,7 +33,7 @@ class MailingUnitTest extends TestCase
     }
 
     /** Tests if emails with password reset link can be sent after requesting a new password */
-    public function test_mailable_can_send_password_reset_links(): void
+    public function testMailableCanSendPasswordResetLinks(): void
     {
         Mail::fake();
 
@@ -42,7 +41,7 @@ class MailingUnitTest extends TestCase
         // This can't use fake email since the user has to exist in the database
         $this->post(
             route(NamedRoute::POST_PASSWORD_RESET_STORE),
-            ["email" => $this->user->email]
+            ['email' => $this->user->email]
         );
 
         Mail::assertQueued(MailablePasswordReset::class);

@@ -27,16 +27,16 @@ class AccountCreationRequest extends FormRequest
     public function rules()
     {
         return [
-            "email" => "required|email|confirmed|unique:users,email",
-            "password" => [
-                "required",
-                "confirmed",
+            'email' => 'required|email|confirmed|unique:users,email',
+            'password' => [
+                'required',
+                'confirmed',
                 Password::min(Constants::PASSWORD_MIN_LENGTH)
                     ->mixedCase()
                     ->letters()
                     ->numbers()
                     ->symbols(),
-            ]
+            ],
         ];
     }
 

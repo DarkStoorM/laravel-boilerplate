@@ -26,26 +26,26 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email" => [
-                "required",
-                "email",
+            'email' => [
+                'required',
+                'email',
                 new Throttle(
-                    "throttle-login",
+                    'throttle-login',
                     Constants::LOGIN_MAXIMUM_ATTEMPTS,
                     Constants::LOGIN_THROTTLE_TIMEOUT,
-                    trans("login.validation.throttled")
-                )
+                    trans('login.validation.throttled')
+                ),
             ],
-            "password" => "required"
+            'password' => 'required',
         ];
     }
 
     public function messages(): array
     {
         return [
-            "email.required" => trans("login.validation.email-required"),
-            "email.email" => trans("login.validation.email-invalid"),
-            "password.required" => trans("login.validation.password-required"),
+            'email.required' => trans('login.validation.email-required'),
+            'email.email' => trans('login.validation.email-invalid'),
+            'password.required' => trans('login.validation.password-required'),
         ];
     }
 }

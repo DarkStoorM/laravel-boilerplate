@@ -1,16 +1,12 @@
 # Laravel - Boilerplate ![img](https://img.shields.io/badge/-WIP-red)
 
-> Discontinued until I manage to convert it to Laravel 9.x / PHP 8.1
-
-
-
 Simple, a bit pre-configured boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes, as this README is a bit messy and the explanation probably won't cover everything. Feel free to review and fix this repo :)
 
 This was supposed to be a blog, but there was too much setup and I'm too lazy to prepare each new Laravel project. Some steps require manual work, since they depend on the environment configuration.
 
 ---
 
-- [Laravel - Boilerplate](#laravel---boilerplate)
+- [Laravel - Boilerplate !img](#laravel---boilerplate-)
   - [Requirements](#requirements)
     - [Manual configuration](#manual-configuration)
   - [Differences between a fresh Laravel install and this repo](#differences-between-a-fresh-laravel-install-and-this-repo)
@@ -21,10 +17,12 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
       - [Constants](#constants)
       - [Route Naming](#route-naming)
     - [Route Separation](#route-separation)
+    - [Hidden Login/Dashboard Route](#hidden-logindashboard-route)
     - [Mailing](#mailing)
   - [Installation](#installation)
     - [Database](#database)
   - [Running](#running)
+  - [PHP Code Sniffer](#php-code-sniffer)
   - [Testing](#testing)
     - [Browser Tests](#browser-tests)
     - [Xdebug](#xdebug)
@@ -44,10 +42,11 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
 
 ## Requirements
 
-- PHP ^8.0
+- PHP ^8.1
 - Composer 2.0
 - NodeJS
 - SQLite
+- PHP Code Sniffer (Squizlabs) - `composer global require "squizlabs/php_codesniffer"`
 - Xdebug (for Code Coverage - not really a requirement, but it's good to have for testing)
 
 ### Manual configuration
@@ -87,7 +86,7 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 - include ```sass``` boilerplate (explained at the end of this README)
 - include custom and fully tested authentication
 
-`View Composers` can not be pre-configured, but refer to [the docs here](https://laravel.com/docs/8.x/views#view-composers) if you need them.
+`View Composers` can not be pre-configured, but refer to [the docs here](https://laravel.com/docs/9.x/views#view-composers) if you need them.
 
 ### Additional Packages
 
@@ -143,7 +142,7 @@ The file resides under `App\Libs\Constants`
 
 #### Route Naming
 
-There is a thing I don't like: having hard-coded Route names. While it's easy to grab them with VSCode extensions (route name resolving), I like having
+There is a thing I don't like: having hard-coded Route names. While it's easy to grab them with VSCode extensions (route name resolving), I like having the route names ready-to-use from a set of constants, so the route names can be referenced simply by a class constant everywhere. This is a nice feature, especially for testing, where same route names are used multiple times.
 
 The file resides under `App\Libs\Utils\NamedRoute`. As explained in the file, this can be completely skipped. The library is registered, so it's available in the Views without cluttering the Blade Templates with namespaces.
 
@@ -152,6 +151,38 @@ The file resides under `App\Libs\Utils\NamedRoute`. As explained in the file, th
 I don't like having all my routes defined under ```/routes/web.php```, so Route Separation usage should be encouraged. This only features Basic Split, though, but can be extended with custom rules or some advanced magic. With this, rather than having everything registered in one file, all Routes can be split into separate files, grouped and prefixed separately. This obviously can be done better, but for my tiny needs it works as intended.
 
 I wanted to kind of enforce Route Separation, but since it's a matter of personal preference, read this instead: [Laravel Route Separation experiment](https://gist.github.com/DarkStoorM/fadf4297d4871e3df0d580e0e96cf8bf).
+
+### Hidden Login/Dashboard Route
+
+Sometimes you would want to hide the `login` or `dashboard` routes, keeping them completely separate from other routes. This is useful for applications, which do not want to expose some of the endpoints to regular users.
+
+This is mostly applied in e-commerce, where `Admin Dashboards` are only meant to be accessible by the *authorized* users (given the dashboard link, not to confuse with logged in).
+
+This template allows changing the route prefix of all Login and Dashboard routes in the `.env` file:
+
+```text
+# -- Custom Auth Route Prefix --
+# Change this if your login/Dashboard routes have to be hidden from the outside world
+# example: AUTH_ROUTES_PREFIX=622a1ddfb575d622a1ddfb5760
+# route output: localhost:8000/622a1ddfb575d622a1ddfb5760-login/
+# route output: localhost:8000/622a1ddfb575d622a1ddfb5760-dashboard/
+```
+
+By default, the `Auth Prefix` will use `account` string, which leaves the auth routes as following:
+
+```text
+http://localhost:8000/account-login/
+http://localhost:8000/account-dashboard/
+```
+
+Changing this prefix gives the following output:
+
+```text
+http://localhost:8000/622a1ddfb575d622a1ddfb5760-login/
+http://localhost:8000/622a1ddfb575d622a1ddfb5760-dashboard/
+```
+
+Both Login and Dashboard uses a prefix on purpose - in case someone hits a `/dashboard` route unauthorized, getting redirected to a *hidden* login route.
 
 ### Mailing
 
@@ -163,7 +194,7 @@ You can use Markdown emails - appending a `--markdown=path.to.view` argument cre
 
 The `php artisan make:mail` command will create a new Mailable class under `/app/Mail`.
 
-For more information about Mailables, please refer to the [Laravel 8.x/mail docs](https://laravel.com/docs/8.x/mail).
+For more information about Mailables, please refer to the [Laravel 9.x/mail docs](https://laravel.com/docs/9.x/mail).
 
 By default, mails will be Logged to file. Configure your `/app/logging.php` to change where your logged emails go. They will appear under `/storage/logs/laravel.log` - the emails will be rendered as they would be sent to the user.
 
@@ -191,7 +222,7 @@ If you wish to re-generate .env files at some point, you can run one of the foll
 - ```composer copy-env-testing```
 - ```composer copy-env-dusk```
 
-**These commands will replace the existing .env files** or create new ones. Use this only if you need a fresh copy!
+**These commands will replace the existing .env files** or create new ones. Use this only if you need a fresh copy! Remember to regenerate the application key with `php artisan key:generate`
 
 ### Database
 
@@ -209,6 +240,21 @@ Start the server with the following command: - ```composer start```
 
 ---
 
+## PHP Code Sniffer
+
+This template uses `squizlabs/php_codesniffer` along with `slevomat/coding-standard`. Head over to `/phpcs.xml` to adjust the Code Sniffer rules.
+
+- execute `composer format` to run the code sniffer analysis
+- execute `composer format-fix` to attempt to automatically fox some of the found issues
+
+Just in case, check your VSCode's `settings.json` if your  code sniffer is enabled:
+
+```json
+"phpcs.enable": true,
+```
+
+---
+
 ## Testing
 
 > Notice: I have made a mistake while testing the custom authentication, some tests have duplicate asserts, some don't make sense, but I wanted to make sure that everything is covered in different ways. Some tests are still missing.
@@ -217,9 +263,9 @@ Start the server with the following command: - ```composer start```
 
 ### Browser Tests
 
-Refer to [Laravel/Dusk](https://laravel.com/docs/8.x/dusk) when creating new test.
+Refer to [Laravel/Dusk](https://laravel.com/docs/9.x/dusk) when creating new test.
 
-Also refer to [Chrome-Driver version](https://laravel.com/docs/8.x/dusk#managing-chromedriver-installations) - in case your environment depends on a different driver version. The `composer install` should automatically resolve this.
+Also refer to [Chrome-Driver version](https://laravel.com/docs/9.x/dusk#managing-chromedriver-installations) - in case your environment depends on a different driver version. The `composer install` should automatically resolve this.
 
 **Before running the tests**:
 
@@ -267,7 +313,7 @@ Change paths to your likings in the root ```phpunit.xml```. By default it's:
 
 Laravel provides a bunch of methods for testing Mailables, which does not require you to actually send an email to the user in order to check the rendered content. You should test the mailable content separately if you also need to test if emails can be sent.
 
-Refer to the Docs for [testing mailable content](https://laravel.com/docs/8.x/mail#testing-mailables) or [Faking the Mail Send](https://laravel.com/docs/8.x/mocking#mail-fake).
+Refer to the Docs for [testing mailable content](https://laravel.com/docs/9.x/mail#testing-mailables) or [Faking the Mail Send](https://laravel.com/docs/9.x/mocking#mail-fake).
 
 #### Sending Emails with Gmail SMTP
 

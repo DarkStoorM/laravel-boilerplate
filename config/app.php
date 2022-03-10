@@ -228,8 +228,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        "NamedRoute" => App\Libs\Utils\NamedRoute::class,
-        "Constants" => App\Libs\Constants::class,
+        'NamedRoute' => App\Libs\Utils\NamedRoute::class,
+        'Constants' => App\Libs\Constants::class,
 
     ],
 

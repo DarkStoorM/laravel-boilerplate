@@ -13,7 +13,7 @@ class PasswordResetRouteTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        Throttle::Clear("throttle-password-reset");
+        Throttle::clear('throttle-password-reset');
     }
 
     /**
@@ -21,7 +21,7 @@ class PasswordResetRouteTest extends TestCase
      *
      * Guest middleware is applied to this group, so only for authenticated users it should result in a redirect
      **/
-    public function test_password_reset_is_ok_for_unauthenticated_user(): void
+    public function testPasswordResetIsOkForUnauthenticatedUser(): void
     {
         $this->assertGuest()
             ->get(route(NamedRoute::GET_PASSWORD_RESET_INDEX))
@@ -34,7 +34,7 @@ class PasswordResetRouteTest extends TestCase
      * Since this will result in a redirect for Authenticated users, we have to test if there
      * will be no errors after the redirection happens - this require us to follow redirects
      */
-    public function test_password_reset_is_ok_for_authenticated_user(): void
+    public function testPasswordResetIsOkForAuthenticatedUser(): void
     {
         $this->followingRedirects()
             ->actingAs($this->user)
@@ -44,19 +44,19 @@ class PasswordResetRouteTest extends TestCase
     }
 
     /** Tests if submitting a form will properly redirect back without returning any errors */
-    public function test_password_reset_is_ok_after_submission(): void
+    public function testPasswordResetIsOkAfterSubmission(): void
     {
         $this->assertGuest()
-            ->post(route(NamedRoute::POST_PASSWORD_RESET_STORE), ["email" => $this->user->email])
+            ->post(route(NamedRoute::POST_PASSWORD_RESET_STORE), ['email' => $this->user->email])
             ->assertSessionHasNoErrors();
 
         // Let's also try incorrect data just in case
-        $this->post(route(NamedRoute::POST_PASSWORD_RESET_STORE), ["email" => "asdf"])
+        $this->post(route(NamedRoute::POST_PASSWORD_RESET_STORE), ['email' => 'asdf'])
             ->assertSessionHasErrors();
     }
 
     /** Tests if the "results" page of the password reset does not return any errors */
-    public function test_password_reset_results_route_is_ok(): void
+    public function testPasswordResetResultsRouteIsOk(): void
     {
         $this->assertGuest()
             ->get(route(NamedRoute::GET_PASSWORD_RESET_TOKEN_VALIDATION_RESULT))
@@ -64,7 +64,7 @@ class PasswordResetRouteTest extends TestCase
     }
 
     /** Tests if the authenticated user gets redirected properly while visiting the password reset results page */
-    public function test_password_reset_results_route_is_ok_for_authenticated_users(): void
+    public function testPasswordResetResultsRouteIsOkForAuthenticatedUsers(): void
     {
         $this->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
@@ -73,10 +73,15 @@ class PasswordResetRouteTest extends TestCase
     }
 
     /** Tests if password change route does not error out when the user has a valid token */
-    public function test_password_change_route_is_ok(): void
+    public function testPasswordChangeRouteIsOk(): void
     {
         $token = PasswordReset::GenerateAndInsert($this->user->email);
-        $this->get(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE, ["token" => $token->token, "email" => $token->email]))
+        $this->get(
+            route(
+                NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE,
+                ['token' => $token->token, 'email' => $token->email]
+            )
+        )
             ->assertOk();
     }
 
@@ -87,13 +92,18 @@ class PasswordResetRouteTest extends TestCase
      * is logged in, but also visits the password reset with a valid token, should
      * still get redirected back
      */
-    public function test_password_change_route_is_ok_for_authenticated_user(): void
+    public function testPasswordChangeRouteIsOkForAuthenticatedUser(): void
     {
         $token = PasswordReset::GenerateAndInsert($this->user->email);
         $this->followingRedirects()
             ->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
-            ->get(route(NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE, ["token" => $token->token, "email" => $token->email]))
+            ->get(
+                route(
+                    NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE,
+                    ['token' => $token->token, 'email' => $token->email]
+                )
+            )
             ->assertOk();
     }
 }

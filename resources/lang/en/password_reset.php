@@ -16,12 +16,12 @@ return [
         'throttled'      => 'You have requested a password reset link too many times. Please try again later.',
 
         'password-change' => [
-            "email-invalid"      => "Malformed data - invalid email address",
-            "email-missing"      => "Malformed data - missing email address",
-            "password-confirmed" => "You must confirm your new password",
-            "password-required"  => "Provide a new password",
-            "password-min"       => "Your new password is too short. Minimum characters required: " . Constants::PASSWORD_MIN_LENGTH,
-            "token-missing"      => "Malformed data - missing token",
-        ]
+            'email-invalid'      => 'Malformed data - invalid email address',
+            'email-missing'      => 'Malformed data - missing email address',
+            'password-confirmed' => 'You must confirm your new password',
+            'password-required'  => 'Provide a new password',
+            'password-min'       => 'Your new password is too short. Minimum characters required: ' . Constants::PASSWORD_MIN_LENGTH,
+            'token-missing'      => 'Malformed data - missing token',
+        ],
     ],
 ];
