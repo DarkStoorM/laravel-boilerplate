@@ -22,6 +22,7 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
   - [Installation](#installation)
     - [Database](#database)
   - [Running](#running)
+  - [PHP Code Sniffer](#php-code-sniffer)
   - [Testing](#testing)
     - [Browser Tests](#browser-tests)
     - [Xdebug](#xdebug)
@@ -45,6 +46,7 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
 - Composer 2.0
 - NodeJS
 - SQLite
+- PHP Code Sniffer (Squizlabs) - `composer global require "squizlabs/php_codesniffer"`
 - Xdebug (for Code Coverage - not really a requirement, but it's good to have for testing)
 
 ### Manual configuration
@@ -220,7 +222,7 @@ If you wish to re-generate .env files at some point, you can run one of the foll
 - ```composer copy-env-testing```
 - ```composer copy-env-dusk```
 
-**These commands will replace the existing .env files** or create new ones. Use this only if you need a fresh copy!
+**These commands will replace the existing .env files** or create new ones. Use this only if you need a fresh copy! Remember to regenerate the application key with `php artisan key:generate`
 
 ### Database
 
@@ -235,6 +237,21 @@ For a quick database, create a new file under ```/database/db.sqlite``` director
 Start the server with the following command: - ```composer start```
 
 **It is important to configure the environment files as well as ```phpunit.xml|phpunit.dusk.xml``` files, since different machines require different configuration!** - the default configuration should be enough to allow a quick start.
+
+---
+
+## PHP Code Sniffer
+
+This template uses `squizlabs/php_codesniffer` along with `slevomat/coding-standard`. Head over to `/phpcs.xml` to adjust the Code Sniffer rules.
+
+- execute `composer format` to run the code sniffer analysis
+- execute `composer format-fix` to attempt to automatically fox some of the found issues
+
+Just in case, check your VSCode's `settings.json` if your  code sniffer is enabled:
+
+```json
+"phpcs.enable": true,
+```
 
 ---
 
