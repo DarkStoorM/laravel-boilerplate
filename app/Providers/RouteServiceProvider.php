@@ -12,9 +12,9 @@ class RouteServiceProvider extends ServiceProvider
 {
     /**
      * NOTICE: THIS IS NOT A PATH - THIS IS USED AS ROUTE NAME!
-     * 
+     *
      * 'index' is assumed by default, refer to defined Routes for the path
-     * 
+     *
      * This route is used to redirect users after authentication.
      *
      * Modify this route if your application redirects authenticated users to

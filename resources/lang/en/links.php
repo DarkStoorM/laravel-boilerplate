@@ -19,11 +19,11 @@ return [
         'dashboard' => 'Dashboard',
         'login'     => 'Sign In',
         'logout'    => 'Logout',
-        'signup'    => "Sign Up",
+        'signup'    => 'Sign Up',
     ],
 
     'login' => [
         'forgot-password' => 'Forgot your password?',
-        'sign-up' => 'Need an account? <a href=' . route(NamedRoute::GET_ACCOUNT_CREATION_INDEX) . '>Sign Up</a>.'
+        'sign-up' => 'Need an account? <a href=' . route(NamedRoute::GET_ACCOUNT_CREATION_INDEX) . '>Sign Up</a>.',
     ],
 ];

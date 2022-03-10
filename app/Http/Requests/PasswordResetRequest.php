@@ -27,24 +27,24 @@ class PasswordResetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "email" => [
-                "required",
-                "email",
+            'email' => [
+                'required',
+                'email',
                 new Throttle(
-                    "throttle-password-reset",
+                    'throttle-password-reset',
                     Constants::PASSWORD_RESET_MAX_REQUEST_ATTEMPTS,
                     Constants::PASSWORD_RESET_THROTTLE_TIMEOUT,
-                    trans("password_reset.validation.throttled")
-                )
-            ]
+                    trans('password_reset.validation.throttled')
+                ),
+            ],
         ];
     }
 
     public function messages(): array
     {
         return [
-            "email.required" => trans("password_reset.validation.email-required"),
-            "email.email" => trans("password_reset.validation.email-invalid"),
+            'email.required' => trans('password_reset.validation.email-required'),
+            'email.email' => trans('password_reset.validation.email-invalid'),
         ];
     }
 

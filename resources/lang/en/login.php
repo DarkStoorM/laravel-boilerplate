@@ -11,17 +11,17 @@ return [
     |
     */
 
-    "failed"     => "Incorrect email address or password.",
-    "unverified" => "You need to verify your email address first.",
+    'failed'     => 'Incorrect email address or password.',
+    'unverified' => 'You need to verify your email address first.',
 
     /**
      * VALIDATION
      */
 
-    "validation" => [
+    'validation' => [
         'email-invalid'     => 'Please provide a valid email address.',
         'email-required'    => 'Email address is required.',
         'password-required' => 'Password is required.',
         'throttled'         => 'Too many login attempts, please try again later.',
-    ]
+    ],
 ];

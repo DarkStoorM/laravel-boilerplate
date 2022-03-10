@@ -4,37 +4,37 @@ namespace Tests\Browser;
 
 use App\Libs\Utils\NamedRoute;
 use App\Providers\RouteServiceProvider;
-use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
 
 class IndexBrowserTest extends DuskTestCase
 {
     /**
      * Tests if the user visiting index page doesn't see any errors
-     * 
+     *
      * @group index
      */
-    public function test_user_can_visit_index_as_unauthenticated(): void
+    public function testUserCanVisitIndexAsUnauthenticated(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->assertGuest()
                 ->visit(route(NamedRoute::GET_INDEX))
-                ->assertPresent("@link-login");
+                ->assertPresent('@link-login');
         });
     }
 
     /**
      * Tests if authenticated user visiting the index page doesn't see any errors
-     * 
+     *
      * @group index
      */
-    public function test_user_can_visit_index_as_authenticated(): void
+    public function testUserCanVisitIndexAsAuthenticated(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
                 ->assertAuthenticated()
                 ->visit(route(NamedRoute::GET_INDEX))
-                ->assertSeeLink(trans("links.index.logout"));
+                ->assertSeeLink(trans('links.index.logout'));
         });
     }
 
@@ -47,12 +47,12 @@ class IndexBrowserTest extends DuskTestCase
      *
      * @group index
      */
-    public function test_unauthenticated_user_can_see_guest_panel(): void
+    public function testUnauthenticatedUserCanSeeGuestPanel(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->assertGuest()
                 ->visit(route(RouteServiceProvider::HOME))
-                ->assertPresent("@link-login");
+                ->assertPresent('@link-login');
         });
     }
 
@@ -60,16 +60,16 @@ class IndexBrowserTest extends DuskTestCase
      * Tests if authenticated users can see a different panel when they are logged in.
      *
      * Refer to the presence check / only the logout link has to be checked.
-     * 
+     *
      * @group index
      */
-    public function test_authenticated_user_can_see_auth_panel(): void
+    public function testAuthenticatedUserCanSeeAuthPanel(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs($this->user)
                 ->assertAuthenticatedAs($this->user)
                 ->visit(route(RouteServiceProvider::HOME))
-                ->assertPresent("@link-logout");
+                ->assertPresent('@link-logout');
         });
     }
 }

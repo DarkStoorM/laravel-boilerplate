@@ -18,16 +18,16 @@ class MailablePasswordReset extends Mailable implements ShouldQueue
     public function __construct(PasswordReset $token)
     {
         $this->parameters = [
-            "user" => $token->user,
-            "token" => $token
+            'user' => $token->user,
+            'token' => $token,
         ];
     }
 
     public function build()
     {
         // Consider injecting user's locale in the future(?)
-        return $this->to($this->parameters["user"]->email)
-            ->subject(trans("mailable.password-reset.subject"))
-            ->markdown("emails.account.password-reset", $this->parameters);
+        return $this->to($this->parameters['user']->email)
+            ->subject(trans('mailable.password-reset.subject'))
+            ->markdown('emails.account.password-reset', $this->parameters);
     }
 }

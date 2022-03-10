@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Libs\Constants;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PasswordReset extends Model
@@ -13,7 +13,7 @@ class PasswordReset extends Model
     use HasFactory;
 
     protected $fillable = [
-        "email", "token", "expires_at"
+        'email', 'token', 'expires_at',
     ];
 
     protected $casts = [
@@ -25,7 +25,7 @@ class PasswordReset extends Model
     {
         return $this->hasOne(User::class, 'email', 'email');
     }
-    
+
     /*
     |--------------------------------------------------------------------------
     | Custom Accessors
@@ -49,17 +49,17 @@ class PasswordReset extends Model
      *
      * This will only create a new token if the user exists with provided email address
      */
-    public static function GenerateAndInsert(string $email): self|null
+    public static function generateAndInsert(string $email): self|null
     {
         // We don't want to create a password reset token for non-existing users
-        if (User::Exists($email) === false) {
+        if (User::exists($email) === false) {
             return null;
         }
 
         return static::create([
-            "email" => $email,
-            "token" => generate_random_token(),
-            "expires_at" => date_create_expiration_timestamp(Constants::PASSWORD_RESET_EXPIRE_TIME)
+            'email' => $email,
+            'token' => generate_random_token(),
+            'expires_at' => date_create_expiration_timestamp(Constants::PASSWORD_RESET_EXPIRE_TIME),
         ]);
     }
 
@@ -69,43 +69,43 @@ class PasswordReset extends Model
      * @param   string  $token   PasswordReset token (code generated for the user)
      * @param   string  $email   Email address associated with the searched token
      */
-    public static function GetToken(string $token, string $email): self|null
+    private static function getToken(string $token, string $email): self|null
     {
-        return static::where("token", $token)
-            ->where("email", $email)
+        return static::where('token', $token)
+            ->where('email', $email)
             ->get()
             ->first();
     }
 
     /**
      * Checks if the Password Reset Token is valid (exists and is not expired)
-     * 
+     *
      * @param   string  $token      Password Reset identification code
      * @param   string  $email      Email address associated with the given code
      */
-    public static function IsValid(string $token, string $email): bool
+    public static function isValid(string $token, string $email): bool
     {
         // The given code (token) has to be associated with the provided email
-        // We will check both in case users try to "bruteforce" the password resets
-        $token = static::GetToken($token, $email);
+        // We will check both in case users try to "brute-force" the password resets
+        $token = static::getToken($token, $email);
 
         // If there was no token, we have to flash an error message and abort further checks
         if ($token === null) {
-            return static::InvalidToken();
+            return static::invalidToken();
         }
 
         // We have the token, so now we have to check if it's expired
         if ($token->isExpired === true) {
-            return static::InvalidToken();
+            return static::invalidToken();
         }
 
         return true;
     }
 
     /** Shorthand for returning the information back about invalid Password Reset Token. */
-    private static function InvalidToken(): bool
+    private static function invalidToken(): bool
     {
-        flash_error(trans("password_reset.invalid-token"));
+        flash_error(trans('password_reset.invalid-token'));
         return false;
     }
 
@@ -113,11 +113,11 @@ class PasswordReset extends Model
      * Deletes the Password Reset token after successful password change
      *
      * We don't care about the delete status in this case.
-     * 
+     *
      * @see GetToken scope for parameters
      */
-    public static function DeleteToken(string $token, string $email): void
+    public static function deleteToken(string $token, string $email): void
     {
-        static::GetToken($token, $email)->delete();
+        static::getToken($token, $email)->delete();
     }
 }

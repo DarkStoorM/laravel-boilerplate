@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-use App\Libs\Utils\NamedRoute;
 use App\Http\Controllers\PasswordResetsController;
+use App\Libs\Utils\NamedRoute;
+use Illuminate\Support\Facades\Route;
 
 // Shows the Password Reset Form view
 Route::get('/', [PasswordResetsController::class, 'index'])->name(NamedRoute::GET_PASSWORD_RESET_INDEX);

@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
+use App\Http\Requests\LoginRequest;
+use App\Libs\Utils\NamedRoute;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
-
-use App\Libs\Utils\NamedRoute;
-use App\Http\Requests\LoginRequest;
-use App\Providers\RouteServiceProvider;
+use Illuminate\View\View;
 
 class SessionsController extends Controller
 {
     /** Displays the Login index - shows the Login form */
     public function index(): View
     {
-        return view("account.session-create");
+        return view('account.session-create');
     }
 
     /** Authenticates the user and redirects back to the Dashboard Index */
@@ -37,14 +36,14 @@ class SessionsController extends Controller
             if (Auth::user()->is_verified === false) {
                 $this->logout($request);
 
-                flash_error(trans("login.unverified"));
+                flash_error(trans('login.unverified'));
                 return redirect(route(NamedRoute::GET_SESSION_INDEX));
             }
 
             // We have to redirect to the index
             return redirect(route(RouteServiceProvider::HOME));
         } else {
-            flash_error(trans("login.failed"));
+            flash_error(trans('login.failed'));
             return redirect(route(NamedRoute::GET_SESSION_INDEX));
         }
     }

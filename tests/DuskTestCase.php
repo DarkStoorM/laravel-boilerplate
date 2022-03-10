@@ -3,17 +3,19 @@
 namespace Tests;
 
 use App\Models\User;
-use Laravel\Dusk\Browser;
-use Laravel\Dusk\TestCase as BaseTestCase;
 use Facebook\WebDriver\Chrome\ChromeOptions;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Dusk\Browser;
+use Laravel\Dusk\TestCase as BaseTestCase;
 
 abstract class DuskTestCase extends BaseTestCase
 {
-    use CreatesApplication, DatabaseMigrations, WithFaker;
+    use CreatesApplication;
+    use DatabaseMigrations;
+    use WithFaker;
 
     /**
      * Prepare for Dusk test execution.
@@ -48,7 +50,7 @@ abstract class DuskTestCase extends BaseTestCase
     /** Create the RemoteWebDriver instance. */
     protected function driver(): RemoteWebDriver
     {
-        $options = (new ChromeOptions)->addArguments(collect([
+        $options = (new ChromeOptions())->addArguments(collect([
             '--window-size=1920,1080',
         ])->unless($this->hasHeadlessDisabled(), function ($items) {
             return $items->merge([

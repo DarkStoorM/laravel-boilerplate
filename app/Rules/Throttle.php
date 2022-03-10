@@ -3,24 +3,32 @@
 namespace App\Rules;
 
 use App\Libs\Constants;
-use Illuminate\Http\Request;
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class Throttle implements Rule
 {
-    /** The throttle key */
+    /**
+     * The throttle key
+     */
     protected string $key = 'validation';
 
-    /** The maximum number of attempts a user can perform */
+    /**
+     * The maximum number of attempts a user can perform
+     */
     protected int $maxAttempts = 5;
 
-    /** The amount of minutes to restrict the requests by */
+    /**
+     * The amount of minutes to restrict the requests by
+     */
     protected int $decayInSeconds = 10;
 
-    /** Message the user will see in return when too many attempts were made in a short period of time */
-    protected string $message = "";
+    /**
+     * Message the user will see in return when too many attempts were made in a short period of time
+     */
+    protected string $message = '';
 
     /**
      * Create a new rule instance.
@@ -32,7 +40,7 @@ class Throttle implements Rule
      *
      * @return void
      */
-    public function __construct($key = 'validation', $maxAttempts = Constants::THROTTLE_DEFAULT_MAX_ATTEMPTS, $decayInSeconds = Constants::THROTTLE_DEFAULT_TTL, string $message = "")
+    public function __construct($key = 'validation', $maxAttempts = Constants::THROTTLE_DEFAULT_MAX_ATTEMPTS, $decayInSeconds = Constants::THROTTLE_DEFAULT_TTL, string $message = '')
     {
         $this->key = $key;
         $this->maxAttempts = $maxAttempts;
@@ -40,7 +48,7 @@ class Throttle implements Rule
 
         // We will use a default throttle message if no $message parameter was provided
         $this->message = empty($message) === true
-            ? trans("generic.throttled")
+            ? trans('generic.throttled')
             : $message;
     }
 
@@ -108,8 +116,8 @@ class Throttle implements Rule
      *
      * @param   string  $key  Throttle key
      */
-    public static function Clear(string $key): void
+    public static function clear(string $key): void
     {
-        Cache::forget($key . "|" . request()->ip());
+        Cache::forget($key . '|' . request()->ip());
     }
 }

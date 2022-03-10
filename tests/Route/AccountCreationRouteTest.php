@@ -9,12 +9,12 @@ use Tests\TestCase;
 class AccountCreationRouteTest extends TestCase
 {
     /** Test if account_creation route returns any errors for unauthenticated users */
-    public function test_account_creation_is_ok_for_unauthenticated_user(): void
+    public function testAccountCreationIsOkForUnauthenticatedUser(): void
     {
         $this->assertGuest()
             ->get(route(NamedRoute::GET_ACCOUNT_CREATION_INDEX))
             ->assertOk()
-            ->assertSee(trans("links.index.login"));
+            ->assertSee(trans('links.index.login'));
     }
 
     /**
@@ -22,14 +22,14 @@ class AccountCreationRouteTest extends TestCase
      *
      * This checks if the @auth directive works as intended
      */
-    public function test_account_creation_is_ok_for_authenticated_user(): void
+    public function testAccountCreationIsOkForAuthenticatedUser(): void
     {
         $this->followingRedirects()
             ->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
             ->get(route(NamedRoute::GET_ACCOUNT_CREATION_INDEX))
             ->assertOk()
-            ->assertSee(trans("links.index.logout"));
+            ->assertSee(trans('links.index.logout'));
     }
 
     /**
@@ -37,23 +37,23 @@ class AccountCreationRouteTest extends TestCase
      *
      * Note: only the status is important, we don't care about eventual validation errors
      */
-    public function test_requesting_new_account_is_available(): void
+    public function testRequestingNewAccountIsAvailable(): void
     {
         $this->followingRedirects()
             ->post(
                 route(NamedRoute::POST_ACCOUNT_CREATION_STORE),
                 [
-                    "email" => $this->fakeEmail,
-                    "email_confirmation" => $this->fakeEmail,
-                    "password" => "SomePassword1!",
-                    "password_confirmation" => "SomePassword1!",
+                    'email' => $this->fakeEmail,
+                    'email_confirmation' => $this->fakeEmail,
+                    'password' => 'SomePassword1!',
+                    'password_confirmation' => 'SomePassword1!',
                 ]
             )
             ->assertOk();
     }
 
     /** Tests if the "status" page does not result in an error for unauthenticated users */
-    public function test_account_creation_results_page_is_ok_for_unauthenticated_user(): void
+    public function testAccountCreationResultsPageIsOkForUnauthenticatedUser(): void
     {
         $this->assertGuest()
             ->get(route(NamedRoute::GET_ACCOUNT_CREATION_STATUS))
@@ -68,7 +68,7 @@ class AccountCreationRouteTest extends TestCase
      *
      * Authenticated users should not be visiting this page anyway
      */
-    public function test_account_creation_results_page_is_ok_for_authenticated_user(): void
+    public function testAccountCreationResultsPageIsOkForAuthenticatedUser(): void
     {
         $this->followingRedirects()
             ->actingAs($this->user)
@@ -80,26 +80,28 @@ class AccountCreationRouteTest extends TestCase
     /**
      * Tests if the Account Verification route does not result in an error with correct data
      */
-    public function test_account_verification_page_is_ok(): void
+    public function testAccountVerificationPageIsOk(): void
     {
-        $token = VerificationToken::GenerateAndInsert($this->user->email);
+        $token = VerificationToken::generateAndInsert($this->user->email);
 
         $this->followingRedirects()
             ->assertGuest()
-            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $token->email]))
+            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_VERIFY, ['token' => $token->token, 'email' => $token->email]))
             ->assertOk();
     }
 
     /**
      * Tests if the Account Verification route does not result in an error when incorrect data is passed
      */
-    public function test_account_verification_page_is_ok_with_invalid_data(): void
+    public function testAccountVerificationPageIsOkWithInvalidData(): void
     {
-        $token = VerificationToken::GenerateAndInsert($this->user->email);
+        $token = VerificationToken::generateAndInsert($this->user->email);
 
         $this->followingRedirects()
             ->assertGuest()
-            ->get(route(NamedRoute::GET_ACCOUNT_CREATION_VERIFY, ["token" => $token->token, "email" => $this->fakeEmail]))
+            ->get(
+                route(NamedRoute::GET_ACCOUNT_CREATION_VERIFY, ['token' => $token->token, 'email' => $this->fakeEmail])
+            )
             ->assertOk();
     }
 }

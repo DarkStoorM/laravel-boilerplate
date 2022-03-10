@@ -9,7 +9,7 @@ use Tests\TestCase;
 class LogoutFeatureTest extends TestCase
 {
     /** Tests if the session gets destroyed properly and the user gets logged out of the application */
-    public function test_can_log_user_out(): void
+    public function testCanLogUserOut(): void
     {
         $this->actingAs($this->user)
             ->assertAuthenticatedAs($this->user)
@@ -17,6 +17,6 @@ class LogoutFeatureTest extends TestCase
 
         $this->assertGuest()
             ->get(route(RouteServiceProvider::HOME))
-            ->assertSessionMissing("password_hash_web"); // Session got destroyed
+            ->assertSessionMissing('password_hash_web'); // Session got destroyed
     }
 }
