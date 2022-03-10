@@ -1,4 +1,6 @@
-# Laravel - Boilerplate ![img](https://img.shields.io/badge/-WIP-red)
+# Laravel - Boilerplate
+
+![img](https://img.shields.io/badge/-WIP-red)
 
 Simple, a bit pre-configured boilerplate with a purpose of Learning - do **not** rely on this code for your own purposes, as this README is a bit messy and the explanation probably won't cover everything. Feel free to review and fix this repo :)
 
@@ -6,7 +8,7 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
 
 ---
 
-- [Laravel - Boilerplate !img](#laravel---boilerplate-)
+- [Laravel - Boilerplate](#laravel---boilerplate)
   - [Requirements](#requirements)
     - [Manual configuration](#manual-configuration)
   - [Differences between a fresh Laravel install and this repo](#differences-between-a-fresh-laravel-install-and-this-repo)
