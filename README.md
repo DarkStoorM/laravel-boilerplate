@@ -6,7 +6,7 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
 
 ---
 
-- [Laravel - Boilerplate](#laravel---boilerplate)
+- [Laravel - Boilerplate !img](#laravel---boilerplate-)
   - [Requirements](#requirements)
     - [Manual configuration](#manual-configuration)
   - [Differences between a fresh Laravel install and this repo](#differences-between-a-fresh-laravel-install-and-this-repo)
@@ -17,7 +17,7 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
       - [Constants](#constants)
       - [Route Naming](#route-naming)
     - [Route Separation](#route-separation)
-    - [Hidden Login Route](#hidden-login-route)
+    - [Hidden Login/Dashboard Route](#hidden-logindashboard-route)
     - [Mailing](#mailing)
   - [Installation](#installation)
     - [Database](#database)
@@ -84,7 +84,7 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 - include ```sass``` boilerplate (explained at the end of this README)
 - include custom and fully tested authentication
 
-`View Composers` can not be pre-configured, but refer to [the docs here](https://laravel.com/docs/8.x/views#view-composers) if you need them.
+`View Composers` can not be pre-configured, but refer to [the docs here](https://laravel.com/docs/9.x/views#view-composers) if you need them.
 
 ### Additional Packages
 
@@ -192,7 +192,7 @@ You can use Markdown emails - appending a `--markdown=path.to.view` argument cre
 
 The `php artisan make:mail` command will create a new Mailable class under `/app/Mail`.
 
-For more information about Mailables, please refer to the [Laravel 8.x/mail docs](https://laravel.com/docs/8.x/mail).
+For more information about Mailables, please refer to the [Laravel 9.x/mail docs](https://laravel.com/docs/9.x/mail).
 
 By default, mails will be Logged to file. Configure your `/app/logging.php` to change where your logged emails go. They will appear under `/storage/logs/laravel.log` - the emails will be rendered as they would be sent to the user.
 
@@ -246,9 +246,9 @@ Start the server with the following command: - ```composer start```
 
 ### Browser Tests
 
-Refer to [Laravel/Dusk](https://laravel.com/docs/8.x/dusk) when creating new test.
+Refer to [Laravel/Dusk](https://laravel.com/docs/9.x/dusk) when creating new test.
 
-Also refer to [Chrome-Driver version](https://laravel.com/docs/8.x/dusk#managing-chromedriver-installations) - in case your environment depends on a different driver version. The `composer install` should automatically resolve this.
+Also refer to [Chrome-Driver version](https://laravel.com/docs/9.x/dusk#managing-chromedriver-installations) - in case your environment depends on a different driver version. The `composer install` should automatically resolve this.
 
 **Before running the tests**:
 
@@ -296,7 +296,7 @@ Change paths to your likings in the root ```phpunit.xml```. By default it's:
 
 Laravel provides a bunch of methods for testing Mailables, which does not require you to actually send an email to the user in order to check the rendered content. You should test the mailable content separately if you also need to test if emails can be sent.
 
-Refer to the Docs for [testing mailable content](https://laravel.com/docs/8.x/mail#testing-mailables) or [Faking the Mail Send](https://laravel.com/docs/8.x/mocking#mail-fake).
+Refer to the Docs for [testing mailable content](https://laravel.com/docs/9.x/mail#testing-mailables) or [Faking the Mail Send](https://laravel.com/docs/9.x/mocking#mail-fake).
 
 #### Sending Emails with Gmail SMTP
 
