@@ -3,9 +3,9 @@
 use App\Libs\Constants;
 
 return [
-    'invalid-token'    => 'This password reset token is either invalid or expired. Please request a new password reset link.',
+    'invalid-token'    => 'This password reset token is either invalid or expired. Please request a new password reset link.',     /* phpcs:ignore */
     'password-changed' => 'Your password has been changed, you can now log into your account.',
-    'reset-sent'       => 'If there was an account associated with this email address, a new password reset link will be sent.',
+    'reset-sent'       => 'If there was an account associated with this email address, a new password reset link will be sent.',   /* phpcs:ignore */
 
     /**
      * VALIDATION RULES
@@ -20,7 +20,7 @@ return [
             'email-missing'      => 'Malformed data - missing email address',
             'password-confirmed' => 'You must confirm your new password',
             'password-required'  => 'Provide a new password',
-            'password-min'       => 'Your new password is too short. Minimum characters required: ' . Constants::PASSWORD_MIN_LENGTH,
+            'password-min'       => 'Your new password is too short. Minimum characters required: ' . Constants::PASSWORD_MIN_LENGTH,   /* phpcs:ignore */
             'token-missing'      => 'Malformed data - missing token',
         ],
     ],

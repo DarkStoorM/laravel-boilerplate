@@ -62,7 +62,10 @@ class PasswordResetFeatureTest extends TestCase
         //Throttle::Clear("throttle-password-reset");
     }
 
-    /** Tests if the user can see a password change form when he visits a valid link (the token is still available to use) */
+    /**
+     * Tests if the user can see a password change form when he visits a valid link
+     * (the token is still available to use)
+     */
     public function testUserGetsToChangePasswordWithValidToken(): void
     {
         // We have to create a valid token for this user to test if the password change form will show up
