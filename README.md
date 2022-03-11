@@ -14,6 +14,8 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
   - [Differences between a fresh Laravel install and this repo](#differences-between-a-fresh-laravel-install-and-this-repo)
     - [Pre-configuration](#pre-configuration)
     - [Additional Packages](#additional-packages)
+      - [Composer](#composer)
+      - [Node](#node)
     - [Additional Libraries](#additional-libraries)
       - [Code Execution Time Measurement](#code-execution-time-measurement)
       - [Constants](#constants)
@@ -32,6 +34,7 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
     - [Test paths](#test-paths)
     - [Testing Mailables](#testing-mailables)
       - [Sending Emails with Gmail SMTP](#sending-emails-with-gmail-smtp)
+    - [Jest Testing](#jest-testing)
   - [Development](#development)
     - [Localization](#localization)
       - [Validation messages](#validation-messages)
@@ -62,12 +65,17 @@ Some files require **manual** configuration depending on your environment. Altho
 - .env.dusk.local
 - phpunit.xml
 - phpunit.dusk.xml
+- tsconfig.json
+  
+There is no TypeScript rule configuration, because all projects are different.
 
 ---
 
 ## Differences between a fresh Laravel install and this repo
 
 **This is (obviously) not a professionally prepared repository** for all Laravel applications, but rather a quick pseudo-pre-configuration. Most of the *manual* tasks are not even needed, like installing Xdebug for Code Coverage, but since Laravel is perfect for TDD, having Code Coverage available is always nice.
+
+**Supports TypeScript and Jest testing**.
 
 > The existing template is fully localized with `@lang`. Since there is no user input, there is nothing that needs to be escaped.
 
@@ -88,11 +96,13 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
     - Messages (exceptions, etc.)
     - Utils (I use these in my projects for various "smaller" classes)
 - include ```sass``` boilerplate (explained at the end of this README)
-- include custom and fully tested authentication
+- include custom and fully tested authentication (*I think*)
 
 `View Composers` can not be pre-configured, but refer to [the docs here](https://laravel.com/docs/9.x/views#view-composers) if you need them.
 
 ### Additional Packages
+
+#### Composer
 
 - "graham-campbell/markdown" - not really needed, but I use Markdown frequently, so I included this one (blogs / mails / etc.)
 - "spatie/laravel-sluggable" - useful for blogs, etc
@@ -103,6 +113,10 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 - (DEV) "slevomat/coding-standard"
 - (DEV) "squizlabs/php_codesniffer"
 
+#### Node
+
+- (DEV) "ts-node" - TypeScript environment. Run `npx ts-node` to create a TypeScript *playground*
+- (DEV) "ts-jest" - Allows writing TypeScript Jest tests
 
 ### Additional Libraries
 
@@ -302,6 +316,8 @@ After installing Xdebug, the ```Code Coverage``` can viewed through Composer (**
 - Firefox: ```composer coverage-ff```
 - Chrome: ```composer coverage-chrome```
 
+> Both commands are also available for NPM to open the jest code coverage reports - use ```npm run coverage-ff``` or ```npm run coverage-chrome```
+
 This is not required, **use this command if you are viewing the reports for the first time**.
 
 By default, Code Coverage will generate reports for the entire ```./app```. Customize the paths under ```phpunit.xml```, since most of the source is automatically covered under the hood (Middleware/Services/etc.)
@@ -314,7 +330,7 @@ Change paths to your likings in the root ```phpunit.xml```. By default it's:
 - ```[./tests/Feature]``` Testsuite: Feature
 - ```[./tests/Routes]``` Testsuite: Routes
 
-> Small note on Test Naming - I use snake_case, it was more readable for me. The test files also have the Testsuite in their name, e.g. `AccountCreationFeatureTest.php` - which is just `<Feature><Testsuite>Test.php`
+Test names are now camelCase, in the previous release snake_case was used.
 
 ### Testing Mailables
 
@@ -351,6 +367,16 @@ I usually run all test at once, for that I added ```composer test``` command. Be
 - Run **all tests** with ```composer test``` - **this will generate Code Coverage**
 
 If there is an argument to include to `php artisan test`, which also generates CodeCoverage, please let me know.
+
+---
+
+### Jest Testing
+
+TS-Jest package is included with some basic configuration and code coverage.
+
+Code coverage will reside under `tests/reports-node`.
+
+TypeScript tests reside under `tests/Node`.
 
 ---
 

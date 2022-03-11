@@ -51,3 +51,6 @@ jobs:
 
       - name: Run Dusk Tests
         run: php artisan dusk
+
+      - name: Run Node Tests
+        run: npm test
