@@ -7,15 +7,21 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "test": "jest --forceExit --coverage --verbose --run-in-band"
     },
     "devDependencies": {
-        "laravel-mix": "^6.0.43",
+        "@types/jest": "^27.4.1",
         "axios": "^0.26.1",
+        "laravel-mix": "^6.0.43",
         "lodash": "^4.17.21",
         "node-forge": "^1.2.1",
         "postcss": "^8.4.8",
         "sass": "^1.49.9",
-        "sass-loader": "^12.6.0"
+        "sass-loader": "^12.6.0",
+        "ts-loader": "^9.2.8",
+        "ts-node": "^10.7.0",
+        "typescript": "^4.6.2",
+        "ts-jest": "^27.1.3"
     }
 }
