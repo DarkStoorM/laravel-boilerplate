@@ -2,7 +2,7 @@
     "compilerOptions": {
         "baseUrl": "./",
         "esModuleInterop": true,
-        "module": "es2020",
+        "module": "commonjs",
         "moduleResolution": "node",
         "target": "es5",
         "strict": true,
