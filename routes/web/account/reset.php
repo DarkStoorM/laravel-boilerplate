@@ -45,7 +45,6 @@ Route::group(['prefix' => 'activate'], function () {
         )->name(NamedRoute::GET_PASSWORD_RESET_CHANGE_CREATE);
 
         // This route will validate the password change request, then redirect to the results
-        // TODO
         Route::post(
             '/{token}/{email}',
             [PasswordResetsController::class, 'update']
