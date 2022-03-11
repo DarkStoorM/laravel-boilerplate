@@ -1,6 +1,11 @@
+import { Example } from "../../resources/js/Example";
+
 describe("Example Jest Test", () => {
     // Example test just to force Jest output
     it("Does nothing", () => {
-        expect(1).toBe(1);
+        const test = new Example();
+        test.something();
+
+        expect(test.str).toBe("something new");
     });
 });
