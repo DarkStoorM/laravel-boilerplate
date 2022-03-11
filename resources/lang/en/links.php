@@ -24,6 +24,6 @@ return [
 
     'login' => [
         'forgot-password' => 'Forgot your password?',
-        'sign-up' => 'Need an account? <a href=' . route(NamedRoute::GET_ACCOUNT_CREATION_INDEX) . '>Sign Up</a>.',
+        'sign-up'         => 'Need an account? <a href=' . route(NamedRoute::GET_ACCOUNT_CREATION_INDEX) . '>Sign Up</a>.', /* phpcs:ignore */
     ],
 ];

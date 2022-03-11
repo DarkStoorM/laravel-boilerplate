@@ -40,8 +40,12 @@ class Throttle implements Rule
      *
      * @return void
      */
-    public function __construct($key = 'validation', $maxAttempts = Constants::THROTTLE_DEFAULT_MAX_ATTEMPTS, $decayInSeconds = Constants::THROTTLE_DEFAULT_TTL, string $message = '')
-    {
+    public function __construct(
+        $key = 'validation',
+        $maxAttempts = Constants::THROTTLE_DEFAULT_MAX_ATTEMPTS,
+        $decayInSeconds = Constants::THROTTLE_DEFAULT_TTL,
+        string $message = ''
+    ) {
         $this->key = $key;
         $this->maxAttempts = $maxAttempts;
         $this->decayInSeconds = $decayInSeconds;

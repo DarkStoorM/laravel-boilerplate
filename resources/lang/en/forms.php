@@ -6,7 +6,8 @@ return [
     /** Password Change Form */
     'password-reset' => [
         'form-header'      => 'Reset your password',
-        'form-description' => 'Forgot your password? Request a password reset link by providing your email address below.',
+        'form-description' =>
+        'Forgot your password? Request a password reset link by providing your email address below.',
         'request-email'    => 'Account email',
         'request-button'   => 'Request password reset',
 
@@ -27,7 +28,7 @@ return [
         'email'                 => 'Email address',
         'email-confirmation'    => 'Confirm your email address',
         'form-header'           => 'Sign Up',
-        'form-footer'           => "Got an account? <a href='" . route(NamedRoute::GET_SESSION_INDEX) . "'>Sign In</a>.",
+        'form-footer'           => "Got an account? <a href='" . route(NamedRoute::GET_SESSION_INDEX) . "'>Sign In</a>.", /* phpcs:ignore */
         'password'              => 'Password',
         'password-confirmation' => 'Confirm your password',
         'submit-button'         => 'Submit',

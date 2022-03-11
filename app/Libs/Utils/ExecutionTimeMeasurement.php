@@ -62,9 +62,12 @@ class ExecutionTimeMeasurement
     private bool $hasStarted = false;
 
     /**
-     * @param   string|null     $message            Optional message to prepend to the execution time result. Both Empty of Null are valid when no message is provided
-     * @param   bool            $startImmediately   If true, the initial timestamp will be added without needing to start manually. NOTICE: this parameter is ignored if Callback is tested
-     * @param   callable        $callback           Callback used for execution time calculation. Tested Callback will immediately build the result
+     * @param   string|null     $message            Optional message to prepend to the execution time result.
+     * Both Empty of Null are valid when no message is provided
+     * @param   bool            $startImmediately   If true, the initial timestamp will be added without needing to
+     * start manually. NOTICE: this parameter is ignored if Callback is tested
+     * @param   callable        $callback           Callback used for execution time calculation. Tested Callback will
+     * immediately build the result
      */
     public function __construct(string $message = null, bool $startImmediately = false, ?Closure $callback = null)
     {
@@ -150,7 +153,8 @@ class ExecutionTimeMeasurement
         // we have to throw an exception, because this will yield incorrect results (no startTime initialized)
         if ($this->hasStarted === false) {
             // Append the timer message to the thrown exception, if any
-            $message = ExecutionTimeExceptions::$FINISHED_BEFORE_STARTING . ($this->message !== null ? " ({$this->message})" : '');
+            $message = ExecutionTimeExceptions::$FINISHED_BEFORE_STARTING .
+                ($this->message !== null ? " ({$this->message})" : '');
 
             throw new Exception($message);
         }

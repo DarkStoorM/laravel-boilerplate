@@ -43,7 +43,9 @@ class IndexBrowserTest extends DuskTestCase
      *
      * This specifically has to look for Present Element, since not every project can use a __text__ as login element.
      *
-     * By checking for a dusk selector presence, we can make sure that any type of login element can be tested: text/image.
+     * By checking for a dusk selector presence, we can make sure that any type of login element can be tested:
+     *
+     * - text/image.
      *
      * @group index
      */
