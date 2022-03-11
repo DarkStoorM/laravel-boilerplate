@@ -11,6 +11,7 @@ app/storage/
 public/storage
 public/hot
 tests/reports
+tests/reports-node
 storage/*.key
 .env
 Homestead.yaml
