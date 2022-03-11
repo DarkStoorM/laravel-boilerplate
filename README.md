@@ -14,6 +14,8 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
   - [Differences between a fresh Laravel install and this repo](#differences-between-a-fresh-laravel-install-and-this-repo)
     - [Pre-configuration](#pre-configuration)
     - [Additional Packages](#additional-packages)
+      - [Composer](#composer)
+      - [Node](#node)
     - [Additional Libraries](#additional-libraries)
       - [Code Execution Time Measurement](#code-execution-time-measurement)
       - [Constants](#constants)
@@ -314,6 +316,8 @@ After installing Xdebug, the ```Code Coverage``` can viewed through Composer (**
 - Firefox: ```composer coverage-ff```
 - Chrome: ```composer coverage-chrome```
 
+> Both commands are also available for NPM to open the jest code coverage reports - use ```npm run coverage-ff``` or ```npm run coverage-chrome```
+
 This is not required, **use this command if you are viewing the reports for the first time**.
 
 By default, Code Coverage will generate reports for the entire ```./app```. Customize the paths under ```phpunit.xml```, since most of the source is automatically covered under the hood (Middleware/Services/etc.)
@@ -326,7 +330,7 @@ Change paths to your likings in the root ```phpunit.xml```. By default it's:
 - ```[./tests/Feature]``` Testsuite: Feature
 - ```[./tests/Routes]``` Testsuite: Routes
 
-> Small note on Test Naming - I use snake_case, it was more readable for me. The test files also have the Testsuite in their name, e.g. `AccountCreationFeatureTest.php` - which is just `<Feature><Testsuite>Test.php`
+Test names are now camelCase, in the previous release snake_case was used.
 
 ### Testing Mailables
 
