@@ -27,6 +27,7 @@
     "phpunit/php-code-coverage": "*",
     "phpunit/phpunit": "*",
     "slevomat/coding-standard": "*",
+    "spatie/laravel-ignition": "*",
     "squizlabs/php_codesniffer": "*"
   },
   "autoload": {
