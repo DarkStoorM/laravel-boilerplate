@@ -51,6 +51,8 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
 - PHP Code Sniffer (Squizlabs) - `composer global require "squizlabs/php_codesniffer"`
 - Xdebug (for Code Coverage - not really a requirement, but it's good to have for testing)
 
+For VSCode, install **Ioannis-kappas/phpcs**.
+
 ### Manual configuration
 
 Some files require **manual** configuration depending on your environment. Although, the default config in this project should be enough, some projects might have different preferences. Files to review (if you need to):
@@ -94,10 +96,13 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 
 - "graham-campbell/markdown" - not really needed, but I use Markdown frequently, so I included this one (blogs / mails / etc.)
 - "spatie/laravel-sluggable" - useful for blogs, etc
-- (DEV) "filp/whoops" - better than CodeIgniter error reporting...
+- (DEV) "spatie/laravel-ignition" - reverted from "filp/whoops"
 - (DEV) "laravel/dusk"
 - (DEV) "phpunit/php-code-coverage"
 - (DEV) "phpunit/phpunit"
+- (DEV) "slevomat/coding-standard"
+- (DEV) "squizlabs/php_codesniffer"
+
 
 ### Additional Libraries
 
