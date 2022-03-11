@@ -1,6 +1,8 @@
 {
     "private": true,
     "scripts": {
+        "coverage-ff": "start firefox \"%cd%\\tests\\reports-node\\lcov-report\\index.html\"",
+        "coverage-chrome": "start chrome \"%cd%\\tests\\reports-node\\lcov-report\\index.html\"",
         "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",
