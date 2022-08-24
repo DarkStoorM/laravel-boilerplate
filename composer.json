@@ -19,7 +19,7 @@
     "barryvdh/laravel-debugbar": "^3.6",
     "fakerphp/faker": "^1.19",
     "filp/whoops": "^2.14",
-    "laravel/dusk": "^6.22",
+    "laravel/dusk": "^7.0",
     "laravel/sail": "^1.13",
     "laravel/tinker": "^2.7",
     "mockery/mockery": "^1.5",
