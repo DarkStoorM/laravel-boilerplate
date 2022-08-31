@@ -13,7 +13,7 @@
         "test": "jest --forceExit --coverage --verbose --run-in-band"
     },
     "devDependencies": {
-        "@types/jest": "^28.1.8",
+        "@types/jest": "^29.0.0",
         "axios": "^0.27.2",
         "laravel-mix": "^6.0.49",
         "lodash": "^4.17.21",
