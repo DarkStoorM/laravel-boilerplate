@@ -421,10 +421,6 @@ sass
 
 ### Localization
 
-The included template for custom Authentication has been fully localized and the localization has been "somewhat" structured to separate the translation keys by *Section*:
-
-- translation keys that belong to the Login Page **only**, excluding forms and their elements - those belong in separate files, e.g. everything form-related belongs in the `forms.php`, Login Page localization belongs in the `login.php`.
-
 #### Validation messages
 
 I like having custom validation messages and I always group all the translation keys with the page localization for example: `login.php` translation file contains all the text that should be visible on the `Login Page`, including `validation error messages`.
