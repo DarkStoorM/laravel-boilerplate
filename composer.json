@@ -32,7 +32,6 @@
   },
   "autoload": {
     "files": [
-      "app/Helpers/Dates.php",
       "app/Helpers/Flashers.php"
     ],
     "psr-4": {
