@@ -289,10 +289,6 @@ Just in case, check your VSCode's `settings.json` if your  code sniffer is enabl
 
 ## Testing
 
-> Notice: I have made a mistake while testing the custom authentication, some tests have duplicate asserts, some don't make sense, but I wanted to make sure that everything is covered in different ways. Some tests are still missing.
->
-> **Why are there so many Browser Tests** - Just making sure that everything is visible/reachable from the User's point of view.
-
 ### Browser Tests
 
 Refer to [Laravel/Dusk](https://laravel.com/docs/9.x/dusk) when creating new test.
@@ -301,7 +297,7 @@ Also refer to [Chrome-Driver version](https://laravel.com/docs/9.x/dusk#managing
 
 **Before running the tests**:
 
-- **make sure the server is running** either via built-in PHP development server or ```composer start```
+- **make sure the server is running** either via built-in PHP development server or ```composer start``` (Dusk only)
 - make sure you have **Xdebug** installed
 
 ### Xdebug
