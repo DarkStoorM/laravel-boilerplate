@@ -210,11 +210,19 @@ Both Login and Dashboard uses a prefix on purpose - in case someone hits a `/das
 
 ### Mailing
 
-Laravel makes it really easy to send emails. I've included some Mailables since this repo has a custom Authentication which requires sending Emails.
+Laravel makes it really easy to send emails, even Markdown emails are supported. For a new `Mailable` use the following command:
 
-For new Mailable use the following command `php artisan make:mail Mailable<Something>` - where *Something* is your Mailable name, like MailableNotification.
+```plaintext
+php artisan make:mail Mailable<Something>
 
-You can use Markdown emails - appending a `--markdown=path.to.view` argument creates a template for Markdown Email under `/resources/views`. The `path.to.view` is usually `/emails/section/final-view`, for example: `--markdown=emails.account.verification`
+// Where <Something> is your Mailable name, like MailableNotification.
+```
+
+To use Markdown emails - appending a `--markdown=path.to.view` argument creates a template for Markdown Email under `/resources/views`. The `path.to.view` can evaluate to `/emails/section/final-view`, for example:
+
+```plaintext
+php artisan make:mail MailableVerification --markdown=emails.account.verification
+```
 
 The `php artisan make:mail` command will create a new Mailable class under `/app/Mail`.
 
