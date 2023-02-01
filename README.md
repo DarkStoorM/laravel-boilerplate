@@ -89,14 +89,17 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 - generate APP_KEY for regular and Dusk `.env` files
 - require Dusk for --dev
 - use SQLite by default (set by ```.env```)
-- use ```log``` Mail Driver - mailables are included with custom authentication as an example - Note, that `MAIL_DRIVER` has been changed to `MAIL_MAILER` since Laravel 7
-- prepare the following directories:
+- use ```log``` Mail Driver - note, that `MAIL_DRIVER` **has been changed to `MAIL_MAILER` since Laravel 7**
+- prepare the following directories (1):
   - app/Helpers/
   - app/Libs/
-    - Messages (exceptions, etc.)
+    - Messages (exceptions, etc.) (2)
     - Utils (I use these in my projects for various "smaller" classes)
 - include ```sass``` boilerplate (explained at the end of this README)
-- include custom and fully tested authentication (*I think*)
+
+> (1) as custom authentication has been removed, old Helpers have also been removed (token generation/date helpers)
+>
+> (2) I always extract system messages into separate class static strings, except where the messages have to be shown to the user - those go into the localization
 
 `View Composers` can not be pre-configured, but refer to [the docs here](https://laravel.com/docs/9.x/views#view-composers) if you need them.
 
@@ -494,4 +497,4 @@ Note on PHP Parameter Hint: install this only if you like the parameter labels. 
 
 ---
 
-No Vue/etc at all, feel free to do whatever you want. Don't actually rely on this ¯\\_(ツ)_/¯
+No Vue/etc at all, feel free to do whatever you want. Don't actually rely on this ¯\\*(ツ)*/¯

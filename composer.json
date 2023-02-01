@@ -33,8 +33,7 @@
   "autoload": {
     "files": [
       "app/Helpers/Dates.php",
-      "app/Helpers/Flashers.php",
-      "app/Helpers/Generators.php"
+      "app/Helpers/Flashers.php"
     ],
     "psr-4": {
       "App\\": "app/",
