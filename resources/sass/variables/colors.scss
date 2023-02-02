@@ -23,16 +23,11 @@ $main-font-color: #d1d8e6;
 /**
  * CONTAINERS
  */
-$color-container-generic: mix($color-base-background, $color-base-dark-accent, 90%);
 
 /**
  * BUTTONS
  */
-$color-button: $color-base-accent;
-$color-button-hover: $color-base-highlight;
 
 /**
  * FLASHES AND NOTIFICATION
  */
-// This should be used if the notification box has a regular, dark color
-$flash-font-color-error: #c2324a;
