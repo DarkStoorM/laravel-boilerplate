@@ -174,6 +174,8 @@ The file resides under `App\Libs\Utils\NamedRoute`. As explained in the file, th
 
 I don't like having all my routes defined under ```/routes/web.php```, so Route Separation usage should be encouraged. This only features Basic Split, though, but can be extended with custom rules or some advanced magic. With this, rather than having everything registered in one file, all Routes can be split into separate files, grouped and prefixed separately. This obviously can be done better, but for my tiny needs it works as intended.
 
+> The template contains Account/Dashboard routes, which don't have the corresponding Controllers, but these routes have been left inside to serve as a template.
+
 I wanted to kind of enforce Route Separation, but since it's a matter of personal preference, read this instead: [Laravel Route Separation experiment](https://gist.github.com/DarkStoorM/fadf4297d4871e3df0d580e0e96cf8bf).
 
 ### Hidden Login/Dashboard Route
