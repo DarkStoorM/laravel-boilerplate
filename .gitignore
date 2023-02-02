@@ -24,3 +24,4 @@ public/css/*
 public/js/*
 .vscode/settings.json
 .env.testing
+.env.backup*
