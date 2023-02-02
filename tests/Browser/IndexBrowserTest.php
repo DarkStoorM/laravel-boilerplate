@@ -12,7 +12,7 @@ class IndexBrowserTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->assertGuest()
                 ->visit('/')
-                ->assertRouteIs('/');
+                ->assertPathIs('/');
         });
     }
 }
