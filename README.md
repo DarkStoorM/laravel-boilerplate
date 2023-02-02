@@ -6,6 +6,8 @@ Simple, a bit pre-configured boilerplate with a purpose of Learning - do **not**
 
 This was supposed to be a blog, but there was too much setup and I'm too lazy to prepare each new Laravel project. Some steps require manual work, since they depend on the environment configuration.
 
+> Update on 02.02.2023 - I made a custom authentication just for practice purposes, but I decided to remove it to not have to clean the project up every time ¯\\\_(ツ)\_/¯ I moved it into a separate branch: [custom-authentication](https://github.com/DarkStoorM/laravel-boilerplate/tree/custom-authentication)
+
 ---
 
 - [Laravel - Boilerplate](#laravel---boilerplate)
