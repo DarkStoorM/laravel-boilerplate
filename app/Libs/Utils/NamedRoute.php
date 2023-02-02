@@ -77,7 +77,7 @@ class NamedRoute
      */
     public const GET_PASSWORD_RESET_CHANGE_CREATE = 'account-password-reset-change-create';
     /**
-     * Route accessed during password change form submission - note: this falls under Password Reset grou
+     * Route accessed during password change form submission - note: this falls under Password Reset group
      */
     public const POST_PASSWORD_RESET_CHANGE_STORE = 'account-password-reset-change-store';
     /**

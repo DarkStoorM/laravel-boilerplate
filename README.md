@@ -89,14 +89,17 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 - generate APP_KEY for regular and Dusk `.env` files
 - require Dusk for --dev
 - use SQLite by default (set by ```.env```)
-- use ```log``` Mail Driver - mailables are included with custom authentication as an example - Note, that `MAIL_DRIVER` has been changed to `MAIL_MAILER` since Laravel 7
-- prepare the following directories:
+- use ```log``` Mail Driver - note, that `MAIL_DRIVER` **has been changed to `MAIL_MAILER` since Laravel 7**
+- prepare the following directories (1):
   - app/Helpers/
   - app/Libs/
-    - Messages (exceptions, etc.)
+    - Messages (exceptions, etc.) (2)
     - Utils (I use these in my projects for various "smaller" classes)
 - include ```sass``` boilerplate (explained at the end of this README)
-- include custom and fully tested authentication (*I think*)
+
+> (1) as custom authentication has been removed, old Helpers have also been removed (token generation/date helpers)
+>
+> (2) I always extract system messages into separate class static strings, except where the messages have to be shown to the user - those go into the localization
 
 `View Composers` can not be pre-configured, but refer to [the docs here](https://laravel.com/docs/9.x/views#view-composers) if you need them.
 
@@ -207,11 +210,19 @@ Both Login and Dashboard uses a prefix on purpose - in case someone hits a `/das
 
 ### Mailing
 
-Laravel makes it really easy to send emails. I've included some Mailables since this repo has a custom Authentication which requires sending Emails.
+Laravel makes it really easy to send emails, even Markdown emails are supported. For a new `Mailable` use the following command:
 
-For new Mailable use the following command `php artisan make:mail Mailable<Something>` - where *Something* is your Mailable name, like MailableNotification.
+```plaintext
+php artisan make:mail Mailable<Something>
 
-You can use Markdown emails - appending a `--markdown=path.to.view` argument creates a template for Markdown Email under `/resources/views`. The `path.to.view` is usually `/emails/section/final-view`, for example: `--markdown=emails.account.verification`
+// Where <Something> is your Mailable name, like MailableNotification.
+```
+
+To use Markdown emails - appending a `--markdown=path.to.view` argument creates a template for Markdown Email under `/resources/views`. The `path.to.view` can evaluate to `/emails/section/final-view`, for example:
+
+```plaintext
+php artisan make:mail MailableVerification --markdown=emails.account.verification
+```
 
 The `php artisan make:mail` command will create a new Mailable class under `/app/Mail`.
 
@@ -278,10 +289,6 @@ Just in case, check your VSCode's `settings.json` if your  code sniffer is enabl
 
 ## Testing
 
-> Notice: I have made a mistake while testing the custom authentication, some tests have duplicate asserts, some don't make sense, but I wanted to make sure that everything is covered in different ways. Some tests are still missing.
->
-> **Why are there so many Browser Tests** - Just making sure that everything is visible/reachable from the User's point of view.
-
 ### Browser Tests
 
 Refer to [Laravel/Dusk](https://laravel.com/docs/9.x/dusk) when creating new test.
@@ -290,7 +297,7 @@ Also refer to [Chrome-Driver version](https://laravel.com/docs/9.x/dusk#managing
 
 **Before running the tests**:
 
-- **make sure the server is running** either via built-in PHP development server or ```composer start```
+- **make sure the server is running** either via built-in PHP development server or ```composer start``` (Dusk only)
 - make sure you have **Xdebug** installed
 
 ### Xdebug
@@ -414,10 +421,6 @@ sass
 
 ### Localization
 
-The included template for custom Authentication has been fully localized and the localization has been "somewhat" structured to separate the translation keys by *Section*:
-
-- translation keys that belong to the Login Page **only**, excluding forms and their elements - those belong in separate files, e.g. everything form-related belongs in the `forms.php`, Login Page localization belongs in the `login.php`.
-
 #### Validation messages
 
 I like having custom validation messages and I always group all the translation keys with the page localization for example: `login.php` translation file contains all the text that should be visible on the `Login Page`, including `validation error messages`.
@@ -494,4 +497,4 @@ Note on PHP Parameter Hint: install this only if you like the parameter labels. 
 
 ---
 
-No Vue/etc at all, feel free to do whatever you want. Don't actually rely on this ¯\\_(ツ)_/¯
+No Vue/etc at all, feel free to do whatever you want. Don't actually rely on this ¯\\*(ツ)*/¯

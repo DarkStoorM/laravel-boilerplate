@@ -11,10 +11,7 @@
 </head>
 
 <body>
-    <div>
-        @include('partials.layout.account-panel')
-        @yield('content')
-    </div>
+    <h1>Welcome</h1>
 </body>
 
 </html>
