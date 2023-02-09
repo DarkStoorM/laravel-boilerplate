@@ -11,6 +11,8 @@
 </head>
 
 <body>
+    <a href="{{ route(NamedRoute::GET_INDEX) }}">Home</a>
+
     <h1>Welcome</h1>
 </body>
 
