@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Libs\Utils\NamedRoute;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -11,7 +12,7 @@ class IndexBrowserTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->assertGuest()
-                ->visit('/')
+                ->visit(route(NamedRoute::GET_INDEX))
                 ->assertPathIs('/');
         });
     }
