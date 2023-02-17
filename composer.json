@@ -63,7 +63,7 @@
     ],
     "post-install-cmd": [
       "npm i",
-      "npm run dev",
+      "npm run build",
       "@php -r \"copy('.env.example', '.env');\"",
       "@php -r \"copy('.env.dusk.local.example', '.env.dusk.local');\"",
       "@php -r \"copy('.env.testing.example', '.env.testing');\"",
