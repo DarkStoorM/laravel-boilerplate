@@ -20,7 +20,6 @@ Homestead.json
 .env.dusk.local
 .phpunit.result.cache
 
-public/css/*
-public/js/*
+public/build/*
 .env.testing
 .env.backup*
