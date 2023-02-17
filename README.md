@@ -36,7 +36,7 @@ This was supposed to be a blog, but there was too much setup and I'm too lazy to
     - [Test paths](#test-paths)
     - [Testing Mailables](#testing-mailables)
       - [Sending Emails with Gmail SMTP](#sending-emails-with-gmail-smtp)
-    - [Jest Testing](#jest-testing)
+    - [Vitest](#vitest)
   - [Development](#development)
     - [Localization](#localization)
       - [Validation messages](#validation-messages)
@@ -77,7 +77,7 @@ There is no TypeScript rule configuration, because all projects are different.
 
 **This is (obviously) not a professionally prepared repository** for all Laravel applications, but rather a quick pseudo-pre-configuration. Most of the *manual* tasks are not even needed, like installing Xdebug for Code Coverage, but since Laravel is perfect for TDD, having Code Coverage available is always nice.
 
-**Supports TypeScript and Jest testing**.
+**Supports TypeScript and Vite/Vitest**.
 
 > The existing template is fully localized with `@lang`. Since there is no user input, there is nothing that needs to be escaped.
 
@@ -120,8 +120,9 @@ What actually is this "pre-configuration"? They are some simple steps **for basi
 
 #### Node
 
-- (DEV) "ts-node" - TypeScript environment. Run `npx ts-node` to create a TypeScript *playground*
-- (DEV) "ts-jest" - Allows writing TypeScript Jest tests
+- (DEV) `ts-node` - TypeScript environment. Run `npx ts-node` to create a TypeScript *playground*
+- (DEV) `vitest` - switched from TS Jest
+- (DEV) `vite` - for SCSS/TS code builds
 
 ### Additional Libraries
 
@@ -327,7 +328,7 @@ After installing Xdebug, the ```Code Coverage``` can viewed through Composer (**
 - Firefox: ```composer coverage-ff```
 - Chrome: ```composer coverage-chrome```
 
-> Both commands are also available for NPM to open the jest code coverage reports - use ```npm run coverage-ff``` or ```npm run coverage-chrome```
+> Both commands are also available for NPM to open the Vitest code coverage reports - use ```npm run coverage-ff``` or ```npm run coverage-chrome```
 
 This is not required, **use this command if you are viewing the reports for the first time**.
 
@@ -381,11 +382,21 @@ If there is an argument to include to `php artisan test`, which also generates C
 
 ---
 
-### Jest Testing
+### Vitest
 
-TS-Jest package is included with some basic configuration and code coverage.
+> Previously, this project was depending on `Jest` for testing, but since Laravel 9.5~, Vite is the default instead of Laravel Mix, so switching to Vitest was a good idea. It's faster both for code builds and tests anyway.
 
-Code coverage will reside under `tests/reports-node`.
+Vitest is included with some basic configuration and code coverage.
+
+Run tests with Code Coverage with the following command
+
+```plaintext
+npm run test-dev
+```
+
+Omitting `-dev` prefix skips generating the code coverage report.
+
+Code coverage will reside under `tests/reports`.
 
 TypeScript tests reside under `tests/Node`.
 
@@ -485,15 +496,15 @@ This will perform a replace in your routes files:
 
 **Not really needed**, but for VSCode you can install the following extensions:
 
-- Laravel Blade Formatter [**shufo.vscode-blade-formatter**]
-- Laravel Blade Snippets [**onecentlin.laravel-blade**]
-- Laravel Blade Spacer [**austenc.laravel-blade-spacer**] Automatically inserts spaces between curly braces in Blade
-- Laravel Extra Intellisense [**amiralizadeh9480.laravel-extra-intellisense**]
-- Laravel goto view - [**codingyu.laravel-goto-view**] ctrl+click a **valid** view to navigate to the file. If the path is correct, the view name will be underlined
-- Laravel Snippets [**onecentlin.laravel5-snippets**]
-- PHP Parameter Hint [**robertgr991.php-parameter-hint**]
-- VS DocBlockr [**jeremyljackson.vs-docblock**] (for most languages) or use [**neilbrayfield.php-docblocker**] for PHP - or both, but switch them in settings.json
-- PHP Namespace Resolver [**mehedidracula.php-namespace-resolver**] - allows to auto-import missing classes
+- Laravel Blade Formatter `shufo.vscode-blade-formatter`
+- Laravel Blade Snippets `onecentlin.laravel-blade`
+- Laravel Blade Spacer `austenc.laravel-blade-spacer` Automatically inserts spaces between curly braces in Blade
+- Laravel Extra Intellisense `amiralizadeh9480.laravel-extra-intellisense`
+- Laravel goto view - `codingyu.laravel-goto-view` ctrl+click a **valid** view to navigate to the file. If the path is correct, the view name will be underlined
+- Laravel Snippets `onecentlin.laravel5-snippets`
+- PHP Parameter Hint `robertgr991.php-parameter-hint`
+- VS DocBlockr `jeremyljackson.vs-docblock` (for most languages) or use `neilbrayfield.php-docblocker` for PHP - or both, but switch them in settings.json
+- PHP Namespace Resolver `mehedidracula.php-namespace-resolver` - allows to auto-import missing classes
 
 Note on PHP Parameter Hint: install this only if you like the parameter labels. It tends to be buggy (not removing the hints while deleting lines of code, requires switching tabs)
 
