@@ -8,9 +8,9 @@ import axios, { AxiosStatic } from "axios";
 
 // Make TypeScript happy :)
 declare const window: Window &
-    typeof globalThis & {
-        axios: AxiosStatic;
-    };
+  typeof globalThis & {
+    axios: AxiosStatic;
+  };
 
 window.axios = axios;
 
