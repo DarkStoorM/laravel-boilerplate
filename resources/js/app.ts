@@ -1,3 +1,3 @@
-require("./bootstrap");
+import "./bootstrap";
 
 // -- TypeScript includes

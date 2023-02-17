@@ -3,8 +3,8 @@ import { Example } from "../../resources/js/Example";
 
 // Example test just to force Vitest output
 test("Does nothing", () => {
-    const test = new Example();
-    test.something();
+  const test = new Example();
+  test.something();
 
-    expect(test.str).toBe("something new");
+  expect(test.str).toBe("something new");
 });
