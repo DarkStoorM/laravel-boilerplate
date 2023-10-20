@@ -1,123 +1,123 @@
 {
-  "name": "laravel/laravel",
-  "type": "project",
-  "description": "The Laravel Framework.",
-  "keywords": [
-    "framework",
-    "laravel"
-  ],
-  "license": "MIT",
-  "require": {
-    "php": "^8.1",
-    "fruitcake/laravel-cors": "^3.0",
-    "graham-campbell/markdown": "^14.0",
-    "guzzlehttp/guzzle": "^7.5",
-    "laravel/framework": "^9.5",
-    "laravel/sanctum": "^3.0",
-    "spatie/laravel-sluggable": "^3.3"
-  },
-  "require-dev": {
-    "barryvdh/laravel-debugbar": "^3.6",
-    "fakerphp/faker": "^1.19",
-    "filp/whoops": "^2.14",
-    "laravel/dusk": "^7.0",
-    "laravel/sail": "^1.13",
-    "laravel/tinker": "^2.7",
-    "mockery/mockery": "^1.5",
-    "nunomaduro/collision": "^6.1",
-    "phpunit/php-code-coverage": "^9.2",
-    "phpunit/phpunit": "^9.5",
-    "slevomat/coding-standard": "^8.0",
-    "spatie/laravel-ignition": "^1.0.7",
-    "squizlabs/php_codesniffer": "^3.6"
-  },
-  "autoload": {
-    "files": [
-      "app/Helpers/Flashers.php"
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The Laravel Framework.",
+    "keywords": [
+        "framework",
+        "laravel"
     ],
-    "psr-4": {
-      "App\\": "app/",
-      "Libs\\": "app/Libs/",
-      "Database\\Factories\\": "database/factories/",
-      "Database\\Seeders\\": "database/seeders/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests/"
-    }
-  },
-  "scripts": {
-    "post-autoload-dump": [
-      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-      "@php artisan package:discover --ansi"
-    ],
-    "copy-env": [
-      "@php -r \"copy('.env.example', '.env');\""
-    ],
-    "copy-env-testing": [
-      "@php -r \"copy('.env.testing.example', '.env.testing');\""
-    ],
-    "copy-env-dusk": [
-      "@php -r \"copy('.env.dusk.local.example', '.env.dusk.local');\""
-    ],
-    "post-install-cmd": [
-      "npm i",
-      "npm run build",
-      "@php -r \"copy('.env.example', '.env');\"",
-      "@php -r \"copy('.env.dusk.local.example', '.env.dusk.local');\"",
-      "@php -r \"copy('.env.testing.example', '.env.testing');\"",
-      "@php -r \"file_put_contents('database/db.sqlite', '');\"",
-      "@php -r \"file_put_contents('database/dusk.sqlite', '');\"",
-      "@php -r \"file_put_contents('database/testing.sqlite', '');\"",
-      "@php artisan key:generate --ansi",
-      "@php artisan key:generate --env=testing --ansi",
-      "@php artisan key:generate --env=dusk.local --ansi",
-      "@php artisan dusk:chrome-driver --detect",
-      "@php artisan migrate",
-      "@php artisan migrate --env=testing",
-      "@php artisan migrate --env=dusk.local",
-      "@php artisan db:seed"
-    ],
-    "test": [
-      "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml --testdox"
-    ],
-    "test-workflow": [
-      "vendor/bin/phpunit --configuration phpunit.xml"
-    ],
-    "format": [
-      "vendor/bin/phpcs"
-    ],
-    "format-fix": [
-      "vendor/bin/phpcbf"
-    ],
-    "start": [
-      "Composer\\Config::disableProcessTimeout",
-      "@php artisan serve --port=8000"
-    ],
-    "coverage-ff": [
-      "start firefox \"%cd%\\tests\\reports\\index.html\""
-    ],
-    "coverage-chrome": [
-      "start chrome \"%cd%\\tests\\reports\\index.html\""
-    ]
-  },
-  "extra": {
-    "laravel": {
-      "dont-discover": []
-    }
-  },
-  "config": {
-    "optimize-autoloader": true,
-    "preferred-install": "dist",
-    "sort-packages": true,
-    "platform": {
-      "php": "8.1.3"
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "fruitcake/laravel-cors": "^3.0",
+        "graham-campbell/markdown": "^14.0",
+        "guzzlehttp/guzzle": "^7.5",
+        "laravel/framework": "^9.5",
+        "laravel/sanctum": "^3.0",
+        "spatie/laravel-sluggable": "^3.3"
     },
-    "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
+        "fakerphp/faker": "^1.19",
+        "filp/whoops": "^2.14",
+        "laravel/dusk": "^7.11",
+        "laravel/sail": "^1.13",
+        "laravel/tinker": "^2.7",
+        "mockery/mockery": "^1.5",
+        "nunomaduro/collision": "^6.1",
+        "phpunit/php-code-coverage": "^9.2",
+        "phpunit/phpunit": "^9.5",
+        "slevomat/coding-standard": "^8.0",
+        "spatie/laravel-ignition": "^1.0.7",
+        "squizlabs/php_codesniffer": "^3.6"
+    },
+    "autoload": {
+        "files": [
+            "app/Helpers/Flashers.php"
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "Libs\\": "app/Libs/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "copy-env": [
+            "@php -r \"copy('.env.example', '.env');\""
+        ],
+        "copy-env-testing": [
+            "@php -r \"copy('.env.testing.example', '.env.testing');\""
+        ],
+        "copy-env-dusk": [
+            "@php -r \"copy('.env.dusk.local.example', '.env.dusk.local');\""
+        ],
+        "post-install-cmd": [
+            "npm i",
+            "npm run build",
+            "@php -r \"copy('.env.example', '.env');\"",
+            "@php -r \"copy('.env.dusk.local.example', '.env.dusk.local');\"",
+            "@php -r \"copy('.env.testing.example', '.env.testing');\"",
+            "@php -r \"file_put_contents('database/db.sqlite', '');\"",
+            "@php -r \"file_put_contents('database/dusk.sqlite', '');\"",
+            "@php -r \"file_put_contents('database/testing.sqlite', '');\"",
+            "@php artisan key:generate --ansi",
+            "@php artisan key:generate --env=testing --ansi",
+            "@php artisan key:generate --env=dusk.local --ansi",
+            "@php artisan dusk:chrome-driver --detect",
+            "@php artisan migrate",
+            "@php artisan migrate --env=testing",
+            "@php artisan migrate --env=dusk.local",
+            "@php artisan db:seed"
+        ],
+        "test": [
+            "vendor/bin/phpunit --verbose --coverage-html tests/reports --configuration phpunit.xml --testdox"
+        ],
+        "test-workflow": [
+            "vendor/bin/phpunit --configuration phpunit.xml"
+        ],
+        "format": [
+            "vendor/bin/phpcs"
+        ],
+        "format-fix": [
+            "vendor/bin/phpcbf"
+        ],
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php artisan serve --port=8000"
+        ],
+        "coverage-ff": [
+            "start firefox \"%cd%\\tests\\reports\\index.html\""
+        ],
+        "coverage-chrome": [
+            "start chrome \"%cd%\\tests\\reports\\index.html\""
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "platform": {
+            "php": "8.1.3"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
